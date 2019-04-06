@@ -1,0 +1,3 @@
+/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles/Domino.dir
+/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles/edit_cache.dir

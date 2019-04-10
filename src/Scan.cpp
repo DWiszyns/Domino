@@ -37,7 +37,7 @@ Scan::~Scan() {
 }
 
 SymType Scan::nextSymbol() {
-
+    if(src.getTextLine()==1 && src.getTextPos()==0) nextC();
     while(isspace(c) || c=='/')
     { while(isspace(c)) nextC();// skip spaces
         if(c==EOF) return EOFSY;

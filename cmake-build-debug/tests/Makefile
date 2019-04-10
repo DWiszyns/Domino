@@ -171,6 +171,33 @@ basictests/fast:
 	cd /home/dominik/CLionProjects/Domino/cmake-build-debug && $(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/build
 .PHONY : basictests/fast
 
+TestScan.o: TestScan.cpp.o
+
+.PHONY : TestScan.o
+
+# target to build an object file
+TestScan.cpp.o:
+	cd /home/dominik/CLionProjects/Domino/cmake-build-debug && $(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/TestScan.cpp.o
+.PHONY : TestScan.cpp.o
+
+TestScan.i: TestScan.cpp.i
+
+.PHONY : TestScan.i
+
+# target to preprocess a source file
+TestScan.cpp.i:
+	cd /home/dominik/CLionProjects/Domino/cmake-build-debug && $(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/TestScan.cpp.i
+.PHONY : TestScan.cpp.i
+
+TestScan.s: TestScan.cpp.s
+
+.PHONY : TestScan.s
+
+# target to generate assembly for a file
+TestScan.cpp.s:
+	cd /home/dominik/CLionProjects/Domino/cmake-build-debug && $(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/TestScan.cpp.s
+.PHONY : TestScan.cpp.s
+
 TestSource.o: TestSource.cpp.o
 
 .PHONY : TestSource.o
@@ -211,6 +238,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... install/local"
 	@echo "... install"
+	@echo "... TestScan.o"
+	@echo "... TestScan.i"
+	@echo "... TestScan.s"
 	@echo "... TestSource.o"
 	@echo "... TestSource.i"
 	@echo "... TestSource.s"

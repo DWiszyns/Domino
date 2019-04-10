@@ -74,6 +74,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestScan.cpp">
+			<Option target="basictests"/>
+		</Unit>
 		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestSource.cpp">
 			<Option target="basictests"/>
 		</Unit>

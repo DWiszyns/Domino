@@ -5,6 +5,6 @@ include_directories(../lib/googletest-master/googlemock/include)
 include_directories(../src)
 
 
-add_executable(basictests TestSource.cpp)
+add_executable(basictests TestSource.cpp TestScan.cpp)
 
 target_link_libraries(basictests gtest gtest_main DominoLib)

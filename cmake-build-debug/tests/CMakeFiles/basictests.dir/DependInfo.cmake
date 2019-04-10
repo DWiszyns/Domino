@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/dominik/CLionProjects/Domino/tests/TestScan.cpp" "/home/dominik/CLionProjects/Domino/cmake-build-debug/tests/CMakeFiles/basictests.dir/TestScan.cpp.o"
   "/home/dominik/CLionProjects/Domino/tests/TestSource.cpp" "/home/dominik/CLionProjects/Domino/cmake-build-debug/tests/CMakeFiles/basictests.dir/TestSource.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

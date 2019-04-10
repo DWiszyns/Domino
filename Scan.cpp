@@ -7,37 +7,27 @@
 #include <cstring>
 #include "Scan.h"
 
-char *AT[MAXSYM + 1] =    // Atomy tekstowo
-        {
-                "beg", "rd",  "wrt", "if", "whl",
-                "end", "thn", "els", "do", "var",
-                "not", "and", "div", "or", "arr",
-                "of",  "prg", "prc",
-                "id",  "ico", "cco", "*",  "+",  "-",
-                "<",   "<=",  ">",   ">=", "<>", "=",
-                "(",   ")",   "[",   "]",  ";",  ":",
-                ":=",  "..",  ".",   ",",  "???"
-        };
+
 std::unordered_map <std::string, SymType > Scan::KT= {
-// Keyword       Atom         hash(keyword)
+// Keyword       Atom         
 //-------------------------------------------
-        { "rational",   RATIONALSY  },  //  0
-        { "writein",    WRITEIN},  //  1
-        { "writeout",   WRTIEOUT},  //  2
-        { "function",   FUNCSY },  //  3
-        { "int",        INTSY  },  //  4
-        { "string",     STRINGSY  },  //  5
-        { "float",      FLOATSY  },  //  6
-        { "short",      SHORTSY  },  //  7
-        { "char",       CHARSY }, //8
-        { "if",         IFSY   },  //  9
-        { "while",      WHILESY},  //  10
-        { "for",        FORSY },  //  11
-        { "return",     RETURNSY },  //  12
-        { "else",       ELSESY } ,  //  13
-        { "main",       MAINSY} , // 14
-        { "void",       VOIDSY}, // 15
-        { "boolean",     BOOLEANSY} //16
+        { "rational",   RATIONALSY  }, 
+        { "writein",    WRITEIN},  
+        { "writeout",   WRTIEOUT},  
+        { "function",   FUNCSY }, 
+        { "int",        INTSY  }, 
+        { "string",     STRINGSY  }, 
+        { "float",      FLOATSY  },  
+        { "short",      SHORTSY  }, 
+        { "char",       CHARSY }, 
+        { "if",         IFSY   },  
+        { "while",      WHILESY},  
+        { "for",        FORSY },  
+        { "return",     RETURNSY }, 
+        { "else",       ELSESY } , 
+        { "main",       MAINSY} , 
+        { "void",       VOIDSY},
+        { "boolean",     BOOLEANSY} 
 };
 
 Scan::Scan(Source &source): src(source) {
@@ -66,50 +56,60 @@ SymType Scan::nextSymbol() {
     int line=src.getTextLine();
     int pos=src.getTextPos();
 
-// cd1 NextSymbol()
-//---IDENTYFIKATOR LUB S
-    if(isalpha(c))
-    { unsigned int len=0, h;
-        do
-        { if(len<MAXIDLEN) spell[len++]=c;
+//---creating variable
+    if(isalpha(c)){
+        unsigned int len=0, h;
+        while(isalnum(c));
+        { 
+            if(len<MAXIDLEN) spell[len++]=c;
             nextC();
-        } while(isalnum(c));
+        }
         spell[len]='\0';
         if(KT.count(spell)!=0)
             return KT[spell];
         else return IDENTIFIER;
     }
     else
-// cd2 NextSymbol()
-//---STA
+//---INT
     if(isdigit(c))
     { int big; long l=0;
-        do
-        { l   = l*10+(c-'0');
+        while(isdigit(c));
+        { 
+            l = l*10+(c-'0');
             big = l>INT_MAX;
             nextC();
-        } while(isdigit(c));
-        intconstant = (int)l;
-        if(big) scanError(ICONST2BIG);
+        }
+        std::string intconstant = std::to_string(l);
+        if(big) scanError(ICONST2BIG,intconstant);
         return INTCONST;
     }
     else
 
-// cd3 NextSymbol() ---Pozosta
+// cd3 NextSymbol() ---Rest of the signs
     switch(c)
     {
         case '"':
             nextC();
             if(c=='"')
             { nextC();
-                if(c!='"') scanError(CARCONSTWRONG);
+                if(c!='"') scanError(CARCONSTWRONG,"\"\"\"");
             }
             intconstant=c; nextC();
-            if(c!='"') scanError(CARCONSTWRONG);
+            unsigned int len=0;
+            while(c!='"'){
+                while(isalnum(c));
+                { 
+                    if(len<MAXIDLEN) spell[len++]=c;
+                    nextC();
+                }
+                spell[len]='\0';
+            }
+            if(len==0)
+            scanError(CARCONSTWRONG,"\"\"\"");
             else nextC();
             return CHARCONST;
 // cd4 NextSymbol()
-//----Operatory 2 i 1 znakowe
+//---- 2 and 1 sign operators
         case '=': nextC();
             if(c=='=') {nextC(); return EQUALS; }
             else return ASSIGN;
@@ -150,14 +150,12 @@ SymType Scan::nextSymbol() {
     }
 }
 
-void Scan::scanError(ScanErrors error) {
-    static const char *ScnErr[] =
-            { "Przekroczony zakres",    // 0
-              "Bledna stala znakowa"// 1
+void Scan::scanError(int ec, std::string word) {
+    static const char *ScnErr[] ={
+            "Wrong char value",// 0
+            "Out of range"    // 1
             };
-    if(mt) src.Error(ec, atompos, mt, at);
-    else src.Error(FirstLexErr + ec, atompos,ScnErr[ec]);
-
+    src.Error(word, atomLine, atomPos, ScnErr[ec]);
 }
 
 

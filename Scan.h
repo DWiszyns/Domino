@@ -33,7 +33,7 @@ public:
     Scan(Source &source);
     ~Scan();
     SymType nextSymbol();
-    void scanError(ScanErrors error);
+    void scanError(int ec, std::string word);
 
 
 };

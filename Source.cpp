@@ -25,15 +25,13 @@ Source::~Source() {
     we.close();
 }
 
-void Source::Error(std::string word) {
+void Source::Error(std::string word, int atomLine, int atomPos, std::string errorLabel) {
     errorTotal++;
-    std::cout<<"Error in "<<textLine<<':'<<textPos<<"around "<<word;
-   //TODO
-   //you can the fragment in which it is wrong
+    std::cout<<"Error "<<errorLabel<<" in "<<atomLine<<':'<<atomPos<<"around "<<word;
 
 }
 
-int Source::nextChar() {
+char Source::nextChar() {
     int r=1;
     if(textLine==0) r=nextString();  // Pierwszy wiersz
     else if(!word[inWordPos]) r=nextString();

@@ -59,7 +59,7 @@ SymType Scan::nextSymbol() {
 //---creating variable
     if(isalpha(c)){
         unsigned int len=0, h;
-        while(isalnum(c));
+        while(isalnum(c))
         { 
             if(len<MAXIDLEN) spell[len++]=c;
             nextC();
@@ -70,44 +70,61 @@ SymType Scan::nextSymbol() {
         else return IDENTIFIER;
     }
     else
-//---INT
+//---Numeric
     if(isdigit(c))
     { int big; long l=0;
-        while(isdigit(c));
+        while(isdigit(c))
         { 
             l = l*10+(c-'0');
             big = l>INT_MAX;
             nextC();
         }
-        std::string intconstant = std::to_string(l);
-        if(big) scanError(ICONST2BIG,intconstant);
-        return INTCONST;
+        if(c=='.'){
+            int big2; long h=0;
+            nextC();
+            if(!isdigit(c)) {
+                std::string intconstant = std::to_string(l);
+                scanError(WRONGINTVALUE, intconstant);
+            }
+            while(isdigit(c)){
+                h = h*10+(c-'0');
+                big = h>SHRT_MAX;
+                nextC();
+            }
+            if(c=='f') return FLOATCONST;
+            else if (c=='r') return RATIONALCONST;
+
+        }
+        else {
+            std::string intconstant = std::to_string(l);
+            if (big) scanError(ICONST2BIG, intconstant);
+            return INTCONST;
+        }
     }
     else
 
 // cd3 NextSymbol() ---Rest of the signs
     switch(c)
     {
-        case '"':
+        case '"': {
             nextC();
-            if(c=='"')
-            { nextC();
-                if(c!='"') scanError(CARCONSTWRONG,"\"\"\"");
-            }
-            intconstant=c; nextC();
-            unsigned int len=0;
-            while(c!='"'){
-                while(isalnum(c));
-                { 
-                    if(len<MAXIDLEN) spell[len++]=c;
+            unsigned int len = 0;
+            while (c != '"') {
+                if (c!='\'')
+                {
+                    if (len < MAXIDLEN) spell[len++] = c;
                     nextC();
                 }
-                spell[len]='\0';
+                else scanError(CARCONSTWRONG, spell);
             }
-            if(len==0)
-            scanError(CARCONSTWRONG,"\"\"\"");
+            spell[len] = '\0';
+            if (len == 1) {
+                nextC();
+                return CHARCONST;
+            }
             else nextC();
-            return CHARCONST;
+            return STRINGCONST;
+        }
 // cd4 NextSymbol()
 //---- 2 and 1 sign operators
         case '=': nextC();

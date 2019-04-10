@@ -14,9 +14,8 @@ class Source {
     const std::string source;
     int textLine;
     int textPos;
-    int inWordPos;
     int errorTotal;
-    std::string word;
+    char c;
     std::ifstream we; //otwarcie pliku wejsciowego
 
 
@@ -25,7 +24,6 @@ public:
     ~Source();
     void Error(std::string word, int atomLine, int atomPos, std::string errorLabel);
     char nextChar();
-    int nextString();
     int getTextLine();
     int getTextPos();
 

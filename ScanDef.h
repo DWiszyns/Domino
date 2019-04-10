@@ -4,46 +4,63 @@
 
 #ifndef DOMINO_SCANDEF_H
 #define DOMINO_SCANDEF_H
-/*enum SymType    // Atomy leksykalne Mini Pascal'a
-{
-    beginsy,  readsy,  wri,
-    tesy, ifsy,  whilesy,
-    endsy,    thensy,  elsesy,  dosy,  varsy,
-    notop,    andop,
-    divop,   orop,  arraysy,
-    ofsy,     progsy,  funcsy,    // Keywords
-    NKEYS,    MAXKEY=funcsy,
-    ident,    intconst,cha,
-    rconst,times,plus,  minus,
-    ltop,     leop,    gtop,
-    geop, neop,  eqop,
-    lparent,  rparent, lbracket, rbracket,
-    semicolon,colon,   becomes,
-    thru,   period,
-    coma,    others,   MAXSYM=others+1
-};*/
+
  enum SymType
  {
-     FUNCSY, //FUNCTION
-     WRITEIN, WRTIEOUT, WHILESY, FORSY,
-     IFSY, ELSESY, MAINSY, EOFSY,
-     ANDSY, ORSY, RETURNSY, VOIDSY,
-     STRINGSY, FLOATSY, RATIONALSY, INTSY,
-     SHORTSY, CHARSY, BOOLEANSY, COLON,
-     INPUTSTREAM, // >>
-     OUTPUTSTREAM,  // <<
-     ADDSY, SUBTRACTSY, DIVIDESY, MULTIPLYSY,
-     RESTSY, MOREOREQUAL, LESSOREQUAL,
-     DIFFERENT, MORE, LESS, ASSIGN,
-     EQUALS,// ==
-     OTABLEBRACKET,CTABLEBRACKET,
-     OROUNDBRACKET,//= ‘(‘
-     CROUNDBRACKET,//=’)
-     OPENBRACKET, //='}'
-     CLOSEBRACKET, //='}'
-     SEMICOLON, COMA, DOT, EXCLAMATION, OTHERS,
-     INTCONST, CHARCONST, IDENTIFIER
+     FUNCSY, //FUNCTION 0
+     WRITEIN, //1
+     WRTIEOUT, //2
+     WHILESY, //3
+     FORSY, //4
+     IFSY, //5
+     ELSESY, //6
+     MAINSY, //7
+     EOFSY, //8
+     ANDSY, //9
+     ORSY, //10
+     RETURNSY, //11
+     VOIDSY, //12
+     STRINGSY, //13
+     FLOATSY, //14
+     RATIONALSY, //15
+     INTSY, //16
+     SHORTSY, //17
+     CHARSY, //18
+     BOOLEANSY, //19
+     COLON, //20
+     INPUTSTREAM, // >> 21
+     OUTPUTSTREAM,  // << 22
+     ADDSY, //23
+     SUBTRACTSY, //24
+     DIVIDESY, //25
+     MULTIPLYSY, //26
+     RESTSY, //27
+     MOREOREQUAL, //28
+     LESSOREQUAL, //29
+     DIFFERENT, //30
+     MORE, //31
+     LESS, //32
+     ASSIGN, //33
+     EQUALS,// == 34
+     OTABLEBRACKET, //35
+     CTABLEBRACKET, //36
+     OROUNDBRACKET,//= ‘(‘ 37
+     CROUNDBRACKET,//=’) 38
+     OPENBRACKET, //='{'39
+     CLOSEBRACKET, //='}'40
+     SEMICOLON, //41
+     COMA, //42
+     DOT, //43
+     EXCLAMATION, //44
+     OTHERS, //45
+     INTCONST, //46
+     CHARCONST, //47
+     IDENTIFIER, //48
+     RATIONALCONST, //49
+     FLOATCONST, //50
+     STRINGCONST //51
  };
 
-enum ScanErrors{ CARCONSTWRONG, ICONST2BIG };
+enum ScanErrors{ CARCONSTWRONG, ICONST2BIG, WRONGINTVALUE, WRONGRATIONALVALUE, WRONGFLOATVALUE} ;
+
 #endif //DOMINO_SCANDEF_H

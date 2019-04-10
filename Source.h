@@ -12,19 +12,22 @@
 
 class Source {
     const std::string source;
-    int tLine;
-    int tPos;
-    int errorInLine;
+    int textLine;
+    int textPos;
+    int inWordPos;
     int errorTotal;
+    std::string word;
     std::ifstream we; //otwarcie pliku wejsciowego
 
 
 public:
     Source(std::string source);
     ~Source();
-    void Error();
-    int nextChar();
+    void Error(std::string word);
+    char nextChar();
     int nextString();
+    int getTextLine();
+    int getTextPos();
 
 
 };

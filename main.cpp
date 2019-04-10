@@ -11,9 +11,9 @@ int main(int argc, char *argv[]) {
         std::cout<<"Nie wystarczająca ilość argumentów"<<std::endl;
         return 1;
     }
-    std::ifstream we; //otwarcie pliku wejsciowego
+    std::ifstream we; //
     Source source(argv[2]);
-    we.open(argv[2],std::fstream::in);
+    Scan scan(source);
     std::string word;
     while(we>>word){
         edges.push_back(edge);

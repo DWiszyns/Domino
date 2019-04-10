@@ -5,14 +5,14 @@
 #include "Source.h"
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 
 
 Source::Source(std::string source):source(source) {
-    tLine=0;
-    tPos=0;
-    errorInLine=0;
+    textLine=0;
+    textPos=0;
+    inWordPos=0;
     errorTotal=0;
-    std::ifstream we; //otwarcie pliku wejsciowego
     we.open(source,std::fstream::in);
     if(!we.is_open())
     {
@@ -25,13 +25,35 @@ Source::~Source() {
     we.close();
 }
 
-void Source::Error() {
+void Source::Error(std::string word) {
+    errorTotal++;
+    std::cout<<"Error in "<<textLine<<':'<<textPos<<"around "<<word;
+   //TODO
+   //you can the fragment in which it is wrong
+
 }
 
 int Source::nextChar() {
-    return 0;
+    int r=1;
+    if(textLine==0) r=nextString();  // Pierwszy wiersz
+    else if(!word[inWordPos]) r=nextString();
+    if(r) return word[inWordPos++];
+    else return EOF;
 }
 
 int Source::nextString() {
-    return 0;
+    if(we >> std::noskipws >> word) return 0;    // EOF
+    if(word=="\n") {
+        ++textLine;
+        textPos = 0;
+    }
+    return 1;
+}
+
+int Source::getTextLine() {
+    return textLine;
+}
+
+int Source::getTextPos() {
+    return textPos;
 }

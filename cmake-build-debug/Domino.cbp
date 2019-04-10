@@ -90,6 +90,9 @@
 		<Unit filename="/home/dominik/CLionProjects/Domino/Scan.h">
 			<Option target="Domino"/>
 		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/ScanDef.h">
+			<Option target="Domino"/>
+		</Unit>
 		<Unit filename="/home/dominik/CLionProjects/Domino/Source.cpp">
 			<Option target="Domino"/>
 		</Unit>

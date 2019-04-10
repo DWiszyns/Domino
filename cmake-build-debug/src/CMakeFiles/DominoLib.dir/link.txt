@@ -1,0 +1,2 @@
+/usr/bin/ar qc libDominoLib.a  CMakeFiles/DominoLib.dir/Scan.cpp.o CMakeFiles/DominoLib.dir/Source.cpp.o CMakeFiles/DominoLib.dir/main.cpp.o
+/usr/bin/ranlib libDominoLib.a

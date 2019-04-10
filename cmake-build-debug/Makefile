@@ -56,16 +56,51 @@ CMAKE_BINARY_DIR = /home/dominik/CLionProjects/Domino/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
-.PHONY : rebuild_cache/fast
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -77,6 +112,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,6 +157,84 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named basictests
+
+# Build rule for target.
+basictests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 basictests
+.PHONY : basictests
+
+# fast build rule for target.
+basictests/fast:
+	$(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/build
+.PHONY : basictests/fast
+
+#=============================================================================
+# Target rules for targets named DominoLib
+
+# Build rule for target.
+DominoLib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 DominoLib
+.PHONY : DominoLib
+
+# fast build rule for target.
+DominoLib/fast:
+	$(MAKE) -f src/CMakeFiles/DominoLib.dir/build.make src/CMakeFiles/DominoLib.dir/build
+.PHONY : DominoLib/fast
+
+#=============================================================================
 # Target rules for targets named Domino
 
 # Build rule for target.
@@ -120,89 +244,8 @@ Domino: cmake_check_build_system
 
 # fast build rule for target.
 Domino/fast:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/build
+	$(MAKE) -f src/CMakeFiles/Domino.dir/build.make src/CMakeFiles/Domino.dir/build
 .PHONY : Domino/fast
-
-Scan.o: Scan.cpp.o
-
-.PHONY : Scan.o
-
-# target to build an object file
-Scan.cpp.o:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/Scan.cpp.o
-.PHONY : Scan.cpp.o
-
-Scan.i: Scan.cpp.i
-
-.PHONY : Scan.i
-
-# target to preprocess a source file
-Scan.cpp.i:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/Scan.cpp.i
-.PHONY : Scan.cpp.i
-
-Scan.s: Scan.cpp.s
-
-.PHONY : Scan.s
-
-# target to generate assembly for a file
-Scan.cpp.s:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/Scan.cpp.s
-.PHONY : Scan.cpp.s
-
-Source.o: Source.cpp.o
-
-.PHONY : Source.o
-
-# target to build an object file
-Source.cpp.o:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/Source.cpp.o
-.PHONY : Source.cpp.o
-
-Source.i: Source.cpp.i
-
-.PHONY : Source.i
-
-# target to preprocess a source file
-Source.cpp.i:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/Source.cpp.i
-.PHONY : Source.cpp.i
-
-Source.s: Source.cpp.s
-
-.PHONY : Source.s
-
-# target to generate assembly for a file
-Source.cpp.s:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/Source.cpp.s
-.PHONY : Source.cpp.s
-
-main.o: main.cpp.o
-
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/main.cpp.s
-.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -210,18 +253,19 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... Domino"
+	@echo "... install/strip"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... list_install_components"
 	@echo "... edit_cache"
-	@echo "... Scan.o"
-	@echo "... Scan.i"
-	@echo "... Scan.s"
-	@echo "... Source.o"
-	@echo "... Source.i"
-	@echo "... Source.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... rebuild_cache"
+	@echo "... gmock_main"
+	@echo "... gmock"
+	@echo "... gtest_main"
+	@echo "... gtest"
+	@echo "... basictests"
+	@echo "... DominoLib"
+	@echo "... Domino"
 .PHONY : help
 
 

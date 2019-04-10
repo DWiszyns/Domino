@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Domino.dir/main.cpp.o"
-  "CMakeFiles/Domino.dir/Source.cpp.o"
-  "CMakeFiles/Domino.dir/Scan.cpp.o"
+  "CMakeFiles/Domino.dir/src/main.cpp.o"
+  "CMakeFiles/Domino.dir/src/Source.cpp.o"
+  "CMakeFiles/Domino.dir/src/Scan.cpp.o"
   "Domino.pdb"
   "Domino"
 )

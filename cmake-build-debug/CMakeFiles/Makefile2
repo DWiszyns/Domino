@@ -65,39 +65,362 @@ CMAKE_SOURCE_DIR = /home/dominik/CLionProjects/Domino
 CMAKE_BINARY_DIR = /home/dominik/CLionProjects/Domino/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/Domino.dir
+# Directory level rules for directory lib/googletest-master
+
+# Convenience name for "all" pass in the directory.
+lib/googletest-master/all: lib/googletest-master/googlemock/all
+
+.PHONY : lib/googletest-master/all
+
+# Convenience name for "clean" pass in the directory.
+lib/googletest-master/clean: lib/googletest-master/googlemock/clean
+
+.PHONY : lib/googletest-master/clean
+
+# Convenience name for "preinstall" pass in the directory.
+lib/googletest-master/preinstall: lib/googletest-master/googlemock/preinstall
+
+.PHONY : lib/googletest-master/preinstall
+
+#=============================================================================
+# Directory level rules for directory lib/googletest-master/googlemock
+
+# Convenience name for "all" pass in the directory.
+lib/googletest-master/googlemock/all: lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/all
+lib/googletest-master/googlemock/all: lib/googletest-master/googlemock/CMakeFiles/gmock.dir/all
+lib/googletest-master/googlemock/all: lib/googletest-master/googletest/all
+
+.PHONY : lib/googletest-master/googlemock/all
+
+# Convenience name for "clean" pass in the directory.
+lib/googletest-master/googlemock/clean: lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/clean
+lib/googletest-master/googlemock/clean: lib/googletest-master/googlemock/CMakeFiles/gmock.dir/clean
+lib/googletest-master/googlemock/clean: lib/googletest-master/googletest/clean
+
+.PHONY : lib/googletest-master/googlemock/clean
+
+# Convenience name for "preinstall" pass in the directory.
+lib/googletest-master/googlemock/preinstall: lib/googletest-master/googletest/preinstall
+
+.PHONY : lib/googletest-master/googlemock/preinstall
+
+#=============================================================================
+# Target rules for target lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir
 
 # All Build rule for target.
-CMakeFiles/Domino.dir/all:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/depend
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target Domino"
-.PHONY : CMakeFiles/Domino.dir/all
+lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/all: lib/googletest-master/googlemock/CMakeFiles/gmock.dir/all
+lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/all: lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/depend
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=13,14 "Built target gmock_main"
+.PHONY : lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Include target in all.
-all: CMakeFiles/Domino.dir/all
+all: lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Domino.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Domino.dir/all
+lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/Domino.dir/rule
+.PHONY : lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/rule
 
 # Convenience name for target.
-Domino: CMakeFiles/Domino.dir/rule
+gmock_main: lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/rule
+
+.PHONY : gmock_main
+
+# clean rule for target.
+lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/clean:
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/clean
+.PHONY : lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/clean
+
+# clean rule for target.
+clean: lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lib/googletest-master/googlemock/CMakeFiles/gmock.dir
+
+# All Build rule for target.
+lib/googletest-master/googlemock/CMakeFiles/gmock.dir/all: lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock.dir/depend
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target gmock"
+.PHONY : lib/googletest-master/googlemock/CMakeFiles/gmock.dir/all
+
+# Include target in all.
+all: lib/googletest-master/googlemock/CMakeFiles/gmock.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lib/googletest-master/googlemock/CMakeFiles/gmock.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 lib/googletest-master/googlemock/CMakeFiles/gmock.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
+.PHONY : lib/googletest-master/googlemock/CMakeFiles/gmock.dir/rule
+
+# Convenience name for target.
+gmock: lib/googletest-master/googlemock/CMakeFiles/gmock.dir/rule
+
+.PHONY : gmock
+
+# clean rule for target.
+lib/googletest-master/googlemock/CMakeFiles/gmock.dir/clean:
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock.dir/clean
+.PHONY : lib/googletest-master/googlemock/CMakeFiles/gmock.dir/clean
+
+# clean rule for target.
+clean: lib/googletest-master/googlemock/CMakeFiles/gmock.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory lib/googletest-master/googletest
+
+# Convenience name for "all" pass in the directory.
+lib/googletest-master/googletest/all: lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/all
+lib/googletest-master/googletest/all: lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+
+.PHONY : lib/googletest-master/googletest/all
+
+# Convenience name for "clean" pass in the directory.
+lib/googletest-master/googletest/clean: lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean
+lib/googletest-master/googletest/clean: lib/googletest-master/googletest/CMakeFiles/gtest.dir/clean
+
+.PHONY : lib/googletest-master/googletest/clean
+
+# Convenience name for "preinstall" pass in the directory.
+lib/googletest-master/googletest/preinstall:
+
+.PHONY : lib/googletest-master/googletest/preinstall
+
+#=============================================================================
+# Target rules for target lib/googletest-master/googletest/CMakeFiles/gtest_main.dir
+
+# All Build rule for target.
+lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/all: lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/depend
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=17,18 "Built target gtest_main"
+.PHONY : lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/all
+
+# Include target in all.
+all: lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
+.PHONY : lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/rule
+
+# Convenience name for target.
+gtest_main: lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/rule
+
+.PHONY : gtest_main
+
+# clean rule for target.
+lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean:
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean
+.PHONY : lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean
+
+# clean rule for target.
+clean: lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target lib/googletest-master/googletest/CMakeFiles/gtest.dir
+
+# All Build rule for target.
+lib/googletest-master/googletest/CMakeFiles/gtest.dir/all:
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest.dir/depend
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=15,16 "Built target gtest"
+.PHONY : lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+
+# Include target in all.
+all: lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lib/googletest-master/googletest/CMakeFiles/gtest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
+.PHONY : lib/googletest-master/googletest/CMakeFiles/gtest.dir/rule
+
+# Convenience name for target.
+gtest: lib/googletest-master/googletest/CMakeFiles/gtest.dir/rule
+
+.PHONY : gtest
+
+# clean rule for target.
+lib/googletest-master/googletest/CMakeFiles/gtest.dir/clean:
+	$(MAKE) -f lib/googletest-master/googletest/CMakeFiles/gtest.dir/build.make lib/googletest-master/googletest/CMakeFiles/gtest.dir/clean
+.PHONY : lib/googletest-master/googletest/CMakeFiles/gtest.dir/clean
+
+# clean rule for target.
+clean: lib/googletest-master/googletest/CMakeFiles/gtest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory tests
+
+# Convenience name for "all" pass in the directory.
+tests/all: tests/CMakeFiles/basictests.dir/all
+
+.PHONY : tests/all
+
+# Convenience name for "clean" pass in the directory.
+tests/clean: tests/CMakeFiles/basictests.dir/clean
+
+.PHONY : tests/clean
+
+# Convenience name for "preinstall" pass in the directory.
+tests/preinstall:
+
+.PHONY : tests/preinstall
+
+#=============================================================================
+# Target rules for target tests/CMakeFiles/basictests.dir
+
+# All Build rule for target.
+tests/CMakeFiles/basictests.dir/all: lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/all
+tests/CMakeFiles/basictests.dir/all: lib/googletest-master/googletest/CMakeFiles/gtest.dir/all
+tests/CMakeFiles/basictests.dir/all: src/CMakeFiles/DominoLib.dir/all
+	$(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/depend
+	$(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=9,10 "Built target basictests"
+.PHONY : tests/CMakeFiles/basictests.dir/all
+
+# Include target in all.
+all: tests/CMakeFiles/basictests.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+tests/CMakeFiles/basictests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/basictests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
+.PHONY : tests/CMakeFiles/basictests.dir/rule
+
+# Convenience name for target.
+basictests: tests/CMakeFiles/basictests.dir/rule
+
+.PHONY : basictests
+
+# clean rule for target.
+tests/CMakeFiles/basictests.dir/clean:
+	$(MAKE) -f tests/CMakeFiles/basictests.dir/build.make tests/CMakeFiles/basictests.dir/clean
+.PHONY : tests/CMakeFiles/basictests.dir/clean
+
+# clean rule for target.
+clean: tests/CMakeFiles/basictests.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory src
+
+# Convenience name for "all" pass in the directory.
+src/all: src/CMakeFiles/DominoLib.dir/all
+src/all: src/CMakeFiles/Domino.dir/all
+
+.PHONY : src/all
+
+# Convenience name for "clean" pass in the directory.
+src/clean: src/CMakeFiles/DominoLib.dir/clean
+src/clean: src/CMakeFiles/Domino.dir/clean
+
+.PHONY : src/clean
+
+# Convenience name for "preinstall" pass in the directory.
+src/preinstall:
+
+.PHONY : src/preinstall
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/DominoLib.dir
+
+# All Build rule for target.
+src/CMakeFiles/DominoLib.dir/all:
+	$(MAKE) -f src/CMakeFiles/DominoLib.dir/build.make src/CMakeFiles/DominoLib.dir/depend
+	$(MAKE) -f src/CMakeFiles/DominoLib.dir/build.make src/CMakeFiles/DominoLib.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=5,6,7,8 "Built target DominoLib"
+.PHONY : src/CMakeFiles/DominoLib.dir/all
+
+# Include target in all.
+all: src/CMakeFiles/DominoLib.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/DominoLib.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/DominoLib.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
+.PHONY : src/CMakeFiles/DominoLib.dir/rule
+
+# Convenience name for target.
+DominoLib: src/CMakeFiles/DominoLib.dir/rule
+
+.PHONY : DominoLib
+
+# clean rule for target.
+src/CMakeFiles/DominoLib.dir/clean:
+	$(MAKE) -f src/CMakeFiles/DominoLib.dir/build.make src/CMakeFiles/DominoLib.dir/clean
+.PHONY : src/CMakeFiles/DominoLib.dir/clean
+
+# clean rule for target.
+clean: src/CMakeFiles/DominoLib.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/Domino.dir
+
+# All Build rule for target.
+src/CMakeFiles/Domino.dir/all:
+	$(MAKE) -f src/CMakeFiles/Domino.dir/build.make src/CMakeFiles/Domino.dir/depend
+	$(MAKE) -f src/CMakeFiles/Domino.dir/build.make src/CMakeFiles/Domino.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target Domino"
+.PHONY : src/CMakeFiles/Domino.dir/all
+
+# Include target in all.
+all: src/CMakeFiles/Domino.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/Domino.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/Domino.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dominik/CLionProjects/Domino/cmake-build-debug/CMakeFiles 0
+.PHONY : src/CMakeFiles/Domino.dir/rule
+
+# Convenience name for target.
+Domino: src/CMakeFiles/Domino.dir/rule
 
 .PHONY : Domino
 
 # clean rule for target.
-CMakeFiles/Domino.dir/clean:
-	$(MAKE) -f CMakeFiles/Domino.dir/build.make CMakeFiles/Domino.dir/clean
-.PHONY : CMakeFiles/Domino.dir/clean
+src/CMakeFiles/Domino.dir/clean:
+	$(MAKE) -f src/CMakeFiles/Domino.dir/build.make src/CMakeFiles/Domino.dir/clean
+.PHONY : src/CMakeFiles/Domino.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/Domino.dir/clean
+clean: src/CMakeFiles/Domino.dir/clean
 
 .PHONY : clean
 

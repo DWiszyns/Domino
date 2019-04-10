@@ -23,9 +23,7 @@ class Scan {
     void nextC() { c=src.nextChar(); }
     int atomLine;     //Pozycja atomu w tekscie
     int atomPos;
-    int     intconstant; // Ostatnia stala
     char    spell[MAXIDLEN+1];// Ostatni ident
-   // static KeyRec KT[NKEYS];// Keyword Table
     static std::unordered_map <std::string, SymType > KT;
 
 

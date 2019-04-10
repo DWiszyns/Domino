@@ -51,3 +51,35 @@ int Source::getTextLine() {
 int Source::getTextPos() {
     return textPos;
 }
+
+const std::string &Source::getSource() const {
+    return source;
+}
+
+void Source::setTextLine(int textLine) {
+    Source::textLine = textLine;
+}
+
+void Source::setTextPos(int textPos) {
+    Source::textPos = textPos;
+}
+
+int Source::getErrorTotal() const {
+    return errorTotal;
+}
+
+void Source::setErrorTotal(int errorTotal) {
+    Source::errorTotal = errorTotal;
+}
+
+char Source::getC() const {
+    return c;
+}
+
+void Source::setC(char c) {
+    Source::c = c;
+}
+
+bool Source::isOpen() {
+    return we.is_open();
+}

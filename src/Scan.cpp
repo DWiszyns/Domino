@@ -9,9 +9,7 @@
 
 
 std::unordered_map <std::string, SymType > Scan::KT= {
-// Keyword       Atom         
-//-------------------------------------------
-        { "rational",   RATIONALSY  }, 
+        { "rational",   RATIONALSY  },
         { "writein",    WRITEIN},  
         { "writeout",   WRTIEOUT},  
         { "function",   FUNCSY }, 
@@ -43,7 +41,7 @@ SymType Scan::nextSymbol() {
     while(isspace(c) || c=='/')
     { while(isspace(c)) nextC();// skip spaces
         if(c==EOF) return EOFSY;
-        if(c=='/')  // comments
+        if(c=='/')
         {
             nextC();
             if(c=='/'){

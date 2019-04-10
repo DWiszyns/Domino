@@ -16,7 +16,7 @@ class Source {
     int textPos;
     int errorTotal;
     char c;
-    std::ifstream we; //otwarcie pliku wejsciowego
+    std::ifstream we;
 
 
 public:
@@ -26,6 +26,21 @@ public:
     char nextChar();
     int getTextLine();
     int getTextPos();
+    const std::string &getSource() const;
+
+    void setTextLine(int textLine);
+
+    void setTextPos(int textPos);
+
+    int getErrorTotal() const;
+
+    void setErrorTotal(int errorTotal);
+
+    char getC() const;
+
+    void setC(char c);
+
+    bool isOpen();
 
 
 };

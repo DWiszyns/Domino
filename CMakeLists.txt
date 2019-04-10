@@ -3,4 +3,5 @@ project(Domino)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Domino main.cpp Source.cpp Source.h Scan.cpp Scan.h ScanDef.h)
+add_executable(Domino src/main.cpp src/Source.cpp src/Source.h src/Scan.cpp src/Scan.h src/ScanDef.h)
+

@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/basictests.dir/TestSource.cpp.o CMakeFiles/basictests.dir/TestScan.cpp.o  -o basictests ../lib/libgtestd.a ../lib/libgtest_maind.a ../src/libDominoLib.a ../lib/libgtestd.a -lpthread 

@@ -1,4 +1,0 @@
-/home/dominik/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/dominik/CLionProjects/Domino
--- Configuring done
--- Generating done
--- Build files have been written to: /home/dominik/CLionProjects/Domino/cmake-build-debug

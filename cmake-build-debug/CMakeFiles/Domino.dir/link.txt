@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/Domino.dir/src/main.cpp.o CMakeFiles/Domino.dir/src/Source.cpp.o CMakeFiles/Domino.dir/src/Scan.cpp.o  -o Domino 

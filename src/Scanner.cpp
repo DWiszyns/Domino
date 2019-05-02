@@ -5,10 +5,10 @@
 #include <climits>
 #include <unordered_map>
 #include <cstring>
-#include "Scan.h"
+#include "Scanner.h"
 
 
-std::unordered_map <std::string, SymType > Scan::KT= {
+std::unordered_map <std::string, SymbolType > Scanner::KT= {
         { "rational",   RATIONALSY  },
         { "writein",    WRITEIN},  
         { "writeout",   WRTIEOUT},  
@@ -28,25 +28,25 @@ std::unordered_map <std::string, SymType > Scan::KT= {
         { "boolean",     BOOLEANSY} 
 };
 
-Scan::Scan(Source &source): src(source) {
+Scanner::Scanner(Source &source): src(source) {
 
 }
 
-Scan::~Scan() {
+Scanner::~Scanner() {
 
 }
 
-SymType Scan::nextSymbol() {
-    if(src.getTextLine()==1 && src.getTextPos()==0) nextC();
+SymbolType Scanner::nextSymbol() {
+    if(src.getTextLine()==1 && src.getTextPos()==0) nextChar();
     while(isspace(c) || c=='/')
-    { while(isspace(c)) nextC();// skip spaces
+    { while(isspace(c)) nextChar();// skip spaces
         if(c==EOF) return EOFSY;
         if(c=='/')
         {
-            nextC();
+            nextChar();
             if(c=='/'){
                 while(c!='\n')
-                    nextC();
+                    nextChar();
             } else return DIVIDESY;
         }
     }
@@ -60,7 +60,7 @@ SymType Scan::nextSymbol() {
         while(isalnum(c))
         { 
             if(len<MAXIDLEN) spell[len++]=c;
-            nextC();
+            nextChar();
         }
         spell[len]='\0';
         if(KT.count(spell)!=0)
@@ -75,11 +75,11 @@ SymType Scan::nextSymbol() {
         { 
             l = l*10+(c-'0');
             big = l>INT_MAX;
-            nextC();
+            nextChar();
         }
         if(c=='.'){
             int big2; long h=0;
-            nextC();
+            nextChar();
             if(!isdigit(c)) {
                 std::string intconstant = std::to_string(l);
                 scanError(WRONGINTVALUE, intconstant);
@@ -87,7 +87,7 @@ SymType Scan::nextSymbol() {
             while(isdigit(c)){
                 h = h*10+(c-'0');
                 big = h>SHRT_MAX;
-                nextC();
+                nextChar();
             }
             if(c=='f') return FLOATCONST;
             else if (c=='r') return RATIONALCONST;
@@ -105,72 +105,93 @@ SymType Scan::nextSymbol() {
     switch(c)
     {
         case '"': {
-            nextC();
+            nextChar();
             unsigned int len = 0;
             while (c != '"') {
                 if (c!='\'')
                 {
                     if (len < MAXIDLEN) spell[len++] = c;
-                    nextC();
+                    nextChar();
                 }
                 else scanError(CARCONSTWRONG, spell);
             }
             spell[len] = '\0';
             if (len == 1) {
-                nextC();
+                nextChar();
                 return CHARCONST;
             }
-            else nextC();
+            else nextChar();
             return STRINGCONST;
         }
 // cd4 NextSymbol()
 //---- 2 and 1 sign operators
-        case '=': nextC();
-            if(c=='=') {nextC(); return EQUALS; }
+        case '=':
+            nextChar();
+            if(c=='=') { nextChar(); return EQUALS; }
             else return ASSIGN;
-        case '&': nextC();
-            if(c=='&') { nextC(); return ANDSY;}
+        case '&':
+            nextChar();
+            if(c=='&') { nextChar(); return ANDSY;}
             else return OTHERS;
-        case '<': nextC();
-            if(c=='=') { nextC(); return LESSOREQUAL;}
-            else if(c=='>') { nextC(); return DIFFERENT; }
-            else if(c=='<') { nextC(); return OUTPUTSTREAM; }
+        case '<':
+            nextChar();
+            if(c=='=') { nextChar(); return LESSOREQUAL;}
+            else if(c=='>') { nextChar(); return DIFFERENT; }
+            else if(c=='<') { nextChar(); return OUTPUTSTREAM; }
             else return LESS;
-        case '>': nextC();
-            if(c=='=') { nextC(); return MOREOREQUAL; }
-            else if(c=='>') { nextC(); return INPUTSTREAM; }
+        case '>':
+            nextChar();
+            if(c=='=') { nextChar(); return MOREOREQUAL; }
+            else if(c=='>') { nextChar(); return INPUTSTREAM; }
             else return MORE;
-        case '|': nextC();
-            if(c=='|') { nextC(); return ORSY;}
+        case '|':
+            nextChar();
+            if(c=='|') { nextChar(); return ORSY;}
             else return OTHERS;
-        case '!': nextC();
-            if(c=='=') { nextC(); return DIFFERENT; }
+        case '!':
+            nextChar();
+            if(c=='=') { nextChar(); return DIFFERENT; }
             else return EXCLAMATION;
 //----Operatory 1 znakowe
-        case '+': nextC(); return ADDSY;
-        case '-': nextC(); return SUBTRACTSY;
-        case '*': nextC(); return MULTIPLYSY;
-        case '%': nextC(); return RESTSY;
-        case '(': nextC(); return OROUNDBRACKET;
-        case ')': nextC(); return CROUNDBRACKET;
-        case '[': nextC(); return OTABLEBRACKET;
-        case ']': nextC(); return CTABLEBRACKET;
-        case ',': nextC(); return COMA;
-        case ';': nextC(); return SEMICOLON;
-        case ':': nextC(); return COLON;
-        case '.': nextC(); return DOT;
-        case '{': nextC(); return OPENBRACKET;
-        case '}': nextC(); return CLOSEBRACKET;
-        default : nextC(); return OTHERS;
+        case '+':
+            nextChar(); return ADDSY;
+        case '-':
+            nextChar(); return SUBTRACTSY;
+        case '*':
+            nextChar(); return MULTIPLYSY;
+        case '%':
+            nextChar(); return RESTSY;
+        case '(':
+            nextChar(); return OROUNDBRACKET;
+        case ')':
+            nextChar(); return CROUNDBRACKET;
+        case '[':
+            nextChar(); return OTABLEBRACKET;
+        case ']':
+            nextChar(); return CTABLEBRACKET;
+        case ',':
+            nextChar(); return COMA;
+        case ';':
+            nextChar(); return SEMICOLON;
+        case ':':
+            nextChar(); return COLON;
+        case '.':
+            nextChar(); return DOT;
+        case '{':
+            nextChar(); return OPENBRACKET;
+        case '}':
+            nextChar(); return CLOSEBRACKET;
+        default :
+            nextChar(); return OTHERS;
     }
 }
 
-void Scan::scanError(int ec, std::string word) {
+void Scanner::scanError(int ec, std::string word) {
     static const char *ScnErr[] ={
             "Wrong char value",// 0
             "Out of range"    // 1
             };
-    src.Error(word, atomLine, atomPos, ScnErr[ec]);
+    src.error(word, atomLine, atomPos, ScnErr[ec]);
 }
 
 

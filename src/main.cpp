@@ -4,7 +4,7 @@
 #include <queue>
 #include <stack>
 #include "Source.h"
-#include "Scan.h"
+#include "Scanner.h"
 
 int main(int argc, char *argv[]) {
     float arg = 1.5f;
@@ -14,9 +14,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     Source source(argv[2]);
-    Scan scan(source);
-    SymType retvalue;
-    while((retvalue =scan.nextSymbol())!=EOFSY){
+    Scanner scan(source);
+    SymbolType retvalue;
+    while((retvalue =scan.nextSymbol())!=EOF){
         std::cout<<retvalue<<std::endl;
     }
+
+
 }

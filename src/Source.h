@@ -22,7 +22,7 @@ class Source {
 public:
     Source(std::string source);
     ~Source();
-    void Error(std::string word, int atomLine, int atomPos, std::string errorLabel);
+    void error(std::string word, int atomLine, int atomPos, std::string errorLabel);
     char nextChar();
     int getTextLine();
     int getTextPos();

@@ -24,7 +24,7 @@ Source::~Source() {
     we.close();
 }
 
-void Source::Error(std::string word, int atomLine, int atomPos, std::string errorLabel) {
+void Source::error(std::string word, int atomLine, int atomPos, std::string errorLabel) {
     errorTotal++;
     std::cout<<"Error "<<errorLabel<<" in "<<atomLine<<':'<<atomPos<<"around "<<word;
 

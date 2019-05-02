@@ -12,25 +12,21 @@
 #include "Source.h"
 #include "ScanDef.h"
 
-class Scan {
+class Scanner
+        {
     Source &src;
     char c;
-    struct KeyRec    // Deskryptor
-    {
-        char *kw;      // keyword
-        SymType atom;  // Odpowiadający mu atom
-    };
-    void nextC() { c=src.nextChar(); }
-    int atomLine;     //Pozycja atomu w tekscie
+    void nextChar() { c=src.nextChar(); }
+    int atomLine;     //mozna by
     int atomPos;
     char    spell[MAXIDLEN+1];// Ostatni ident
-    static std::unordered_map <std::string, SymType > KT;
+    static std::unordered_map <std::string, SymbolType > KT;
 
 
 public:
-    Scan(Source &source);
-    ~Scan();
-    SymType nextSymbol();
+    Scanner(Source &source);
+    ~Scanner();
+    SymbolType nextSymbol();
     void scanError(int ec, std::string word);
 
 

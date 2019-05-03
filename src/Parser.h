@@ -11,7 +11,7 @@
 
 //std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
 
-char *AT[MAXSYM + 1] =    // Atomy tekstowo
+/*char *AT[MAXSYM + 1] =    // Atomy tekstowo
         {
                 "beg", "rd", "wrt", "if", "whl",
                 "end", "thn", "els", "do", "var",
@@ -21,7 +21,7 @@ char *AT[MAXSYM + 1] =    // Atomy tekstowo
                 "<", "<=", ">", ">=", "<>", "=",
                 "(", ")", "[", "]", ";", ":",
                 ":=", "..", ".", ",", "???"
-        };
+        };*/
 
 class Parser {
     friend class Synchronize;
@@ -36,10 +36,12 @@ class Parser {
     bool     can_parse;
 // 1 jeli synchronizacja OK
 // Podzbiory atomów
-    std::set<SymbolType> statementStart,   stseq,    stiter;
-    std::set<SymbolType> statementSomething, factiter, multiplyOperator;
-    std::set<SymbolType> addOperator,    signs,    logicalOperator;
-// cdTK  - Mini Pascal (parser) 6 Parser (cd1)
+    std::set<SymbolType> statementStart,   conditionalStatementStart,    stiter;
+    std::set<SymbolType> statementValue, factiter, multiplyOperator;
+    std::set<SymbolType> addOperator,    signs,    relativeOperator;
+    std::set<SymbolType> types,logicalOperator;
+
+    // cdTK  - Mini Pascal (parser) 6 Parser (cd1)
     void nextSymbol()
 // Pobranie nastpnego symbolu
     {
@@ -57,12 +59,13 @@ class Parser {
 // Oczekiwany atom
     {
         scanner.scanError(FirstSyntaxError+atom,
-                    "Spodziewany atom: ", AT[atom]);
+                    "Unexpected atom: "/*, AT[atom]*/);
     }
     void syntaxError1(int atom)
 // Nieoczekiwany atom
-    { scanner.scanError(FirstSyntaxError+atom,
-                    "Nieoczekiwany symbol: ", AT[atom]);
+    {
+        scanner.scanError(FirstSyntaxError+atom,
+                    "Unexpcted symbol: "/*, AT[atom]*/);
     }
     void accept(SymbolType atom)
     {
@@ -71,34 +74,40 @@ class Parser {
         else syntaxError(atom);
     };
 // PROCEDURY ROZBIORU (prywatne)
-    void Block            (const std::set<SymbolType>& fs);
+    void content(const std::set<SymbolType> &fs);
     void VarPart          (const std::set<SymbolType>& fs);
     void VarDeclaration   (const std::set<SymbolType>& fs);
     void Type             (const std::set<SymbolType>& fs);
     void SimpleType       (const std::set<SymbolType>& fs);
-    void IndexRange       (const std::set<SymbolType>& fs);
     void ProcPart         (const std::set<SymbolType>& fs);
-    void functionDeclaration(const std::set<SymbolType> &fs);
     void StatementPart    (const std::set<SymbolType>& fs);
     void Statement        (const std::set<SymbolType>& fs);
     void CompoundStatement(const std::set<SymbolType>& fs);
-    void IfStatement      (const std::set<SymbolType>& fs);
-    void WhileStatement   (const std::set<SymbolType>& fs);
+    void ifStatement(const std::set<SymbolType> &fs);
+    void whileStatement(const std::set<SymbolType> &fs);
 // PROCEDURY ROZBIORU,  cd
-    void Assignment       (const std::set<SymbolType>& fs);
-    void ReadStatement    (const std::set<SymbolType>& fs);
+    void assignment(const std::set<SymbolType> &fs);
+    void writeInStatement(const std::set<SymbolType> &fs);
     void InputVariable    (const std::set<SymbolType>& fs);
-    void WriteStatement   (const std::set<SymbolType>& fs);
+    void writeOutStatement(const std::set<SymbolType> &fs);
     void OutputValue      (const std::set<SymbolType>& fs);
-    void Expression       (const std::set<SymbolType>& fs);
+    void expression(const std::set<SymbolType> &fs);
     void SimpleExpression (const std::set<SymbolType>& fs);
     void Term             (const std::set<SymbolType>& fs);
     void Factor           (const std::set<SymbolType>& fs);
-    void Variable         (const std::set<SymbolType>& fs);
+    void variable(const std::set<SymbolType> &fs);
+    void function           ();
+    void mainFunction       ();
+    void parameters         ();
+    void conditionalStatement (const std::set<SymbolType>& fs);
+    void forStatement       (const std::set<SymbolType>& fs);
+    void returnStatement    (const std::set<SymbolType>& fs);
+    void conditionalExpression (const std::set<SymbolType>& fs);
 public:
     Parser(Scanner&);
-    void Program(void);   // Glówna procedura rozbioru
+    void program(void);   // Glówna procedura rozbioru
 
+    int logicalOperator;
 };
 
 

@@ -20,7 +20,7 @@ class Scanner
     int atomLine;     //mozna by
     int atomPos;
     char    spell[MAXIDLEN+1];// Ostatni ident
-    static std::unordered_map <std::string, SymbolType > KT;
+    static std::unordered_map <std::string, SymbolType > keyWordHashMap;
 
 
 public:

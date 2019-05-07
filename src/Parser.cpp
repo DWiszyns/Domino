@@ -3,7 +3,6 @@
 //
 
 #include "Parser.h"
-#include "Synchronize.h"
 #include <set>
 #include <algorithm>
 #include <iostream>
@@ -14,13 +13,13 @@ Parser::Parser(Scanner &s): scanner(s){
     statementStart.insert(statementStartSymbols,statementStartSymbols+8);
     SymbolType typeSymbols[]={INTSY,CHARSY,STRINGSY,
                               FLOATSY,RATIONALSY};
-    types.insert(typeSymbols, typeSymbols+4);
+    types.insert(typeSymbols, typeSymbols+5);
     SymbolType conditionalSymbols[] = {IFSY,WHILESY,FORSY};
     conditionalStatementStart.insert(conditionalSymbols,conditionalSymbols+3);
 
     SymbolType statementValueSymbols[] = {IDENTIFIER,INTCONST,CHARCONST,STRINGCONST,
-                                          FLOATCONST,RATIONALCONST,OROUNDBRACKET};
-    statementValue.insert(statementValueSymbols,statementValueSymbols+8);
+                                          FLOATCONST,RATIONALCONST,BOOLEANSY};
+    statementValue.insert(statementValueSymbols,statementValueSymbols+9);
 
     SymbolType multiplySymbols[] = {MULTIPLYSY,DIVIDESY};
     multiplyOperator.insert(multiplySymbols,multiplySymbols+2);
@@ -37,8 +36,8 @@ Parser::Parser(Scanner &s): scanner(s){
     nextSymbol();         // Pobranie 1-go atomu
 }
 
-void Parser::program(void){
-    std::cout<<"program"<<std::endl;
+void Parser::program(){
+    std::cout<<"PROGRAM"<<std::endl;
     accept(FUNCSY);
     while(symbol!=MAINSY)
     {
@@ -47,289 +46,295 @@ void Parser::program(void){
     }
     accept(MAINSY);
     mainFunction();
-    accept(IDENTIFIER);
+    accept(EOFSY);
 }
 
 void Parser::function() {
     std::cout<<"function"<<std::endl;
     accept(IDENTIFIER);
-    parameters();
+    parametersDefinition();
     accept(COLON);
     if(types.find(symbol)==types.end()){
-        syntaxError(symbol);
-        nextSymbol();
+        syntaxErrorExpected(symbol);
     }
+    nextSymbol();
     accept(OPENBRACKET);
-    std::set<SymbolType>  temp;
-    temp.insert(CLOSEBRACKET);
-    content(temp);
+    content();
+    accept(CLOSEBRACKET);
 
 }
 
 void Parser::mainFunction() {
-    std::cout<<"mainfunction"<<std::endl;
+    std::cout<<"MAINFUNCTION"<<std::endl;
     parameters();
     accept(COLON);
     accept(VOIDSY);
     accept(OPENBRACKET);
-    std::set<SymbolType>  temp;
-    temp.insert(CLOSEBRACKET);
-    content(temp);
+    content();
+    accept(CLOSEBRACKET);
 
 }
-//wyzej spoko poza konstruktorem
 
-void Parser::content(const std::set<SymbolType> &fs){
-    std::cout<<"content"<<std::endl;
+void Parser::content(){
+    std::cout<<"CONTENT"<<std::endl;
     while(symbol!=CLOSEBRACKET && symbol!=EOFSY)
     {
        if(conditionalStatementStart.find(symbol)!=conditionalStatementStart.end())
-           conditionalStatement(fs);
+           conditionalStatement();
        else
        {
-            Statement(fs);
-            accept(SEMICOLON);
+           statement();
+           accept(SEMICOLON);
        }
     }
-    accept(CLOSEBRACKET);
 }
 
-void Parser::VarPart(const std::set<SymbolType>&  fs) // ???
-{
-    // x("VarPart", fs);
-    //std::set_union(fs.begin(),fs.end(),addOperator.begin(),
-     //              addOperator.end(),std::inserter(temp,std::begin(temp)));
-    //Synchronize s(fs + varsy, fs);
-    //if(!can_parse) return;
-    if(symbol==CHARSY)
-    {
-        accept(CHARSY);
-        do
-        {
-//            VarDeclaration(fs + SEMICOLON);
-            accept(SEMICOLON);
-        } while (symbol==IDENTIFIER);
-    }
-}
 
-// VarDecl = ident { ',' ident } ':' Type ;
-void Parser::VarDeclaration(const std::set<SymbolType>&  fs){
-    // x("VarDec", fs);
-    Synchronize s(std::set<SymbolType>{IDENTIFIER,
-                         COMA, COLON}, fs);
-    if(!can_parse) return;
+void Parser::variableDeclaration(){
+    std::cout<<"VARIABLE DECLARATION"<<std::endl;
+    if(types.find(symbol)==types.end())
+        syntaxErrorUnexpected(symbol);
+    nextSymbol();
     accept(IDENTIFIER);
-    while(symbol==COMA)
-    {
-        accept(COMA);
-        accept(IDENTIFIER);
-    }
-    accept(COLON);
-    Type(fs);
-}
-
-void Parser::Type(const std::set<SymbolType>&  fs) //??
-{
-    // x("Type", fs);
-    //Synchronize s(std::set<SymbolType>(IDENTIFIER), fs);
-    if(!can_parse) return;
-    if(symbol==IDENTIFIER) SimpleType(fs);
-    else
-// ArrayType
-    {
-        //accept(arraysy);
-        accept(OTABLEBRACKET);
-        //IndexRange(fs + std::set<SymbolType>(CTABLEBRACKET));
-        accept(CTABLEBRACKET);
-        //accept(ofsy);
-        SimpleType(fs);
-    }
-}
-
-// SimpType = TypeIdent ;
-void Parser::SimpleType(const std::set<SymbolType>& fs) //??
-{
-    if(can_parse) accept(IDENTIFIER);
+    if(symbol==ASSIGN) //TODO co z arrayami?{
+        assignment();
 }
 
 
-void Parser::Statement(const std::set<SymbolType>&  fs){
+void Parser::statement(){
     std::cout<<"Statement"<<std::endl;
     switch(symbol)
     {
         case WRITEIN:
-            writeInStatement(fs);     break;
+            writeInStatement();     break;
         case WRTIEOUT:
-            writeOutStatement(fs);    break;
-        case IDENTIFIER ://ogarnij
-            nextSymbol(); // Symbol za ident
-            if(fs.find(symbol)!=fs.end())   // To nie wywolananie
-                        {
-                            symBack(IDENTIFIER);      // Wycofaj symbol
-                            assignment(fs);
-                        }
-        case RETURNSY:
-            returnStatement(fs);
+            writeOutStatement();    break;
+        case IDENTIFIER : {
+            nextSymbol();
+            if (symbol == OROUNDBRACKET)
+                parameters();
+            else
+                assignment();
+            break;
+        }
+        case RETURNSY:{
+            returnStatement();break;
+        }
+        case INTSY:case STRINGSY: case RATIONALSY:case FLOATSY: case CHARSY:{
+            variableDeclaration();
+            break;
+        }
         default:
-            syntaxError1(symbol);
+            syntaxErrorUnexpected(symbol);
             break;
     }
 }
 
-void Parser::ifStatement(const std::set<SymbolType> &fs){
+void Parser::ifStatement(){
     std::cout<<"IF"<<std::endl;
     accept(IFSY);
     accept(OROUNDBRACKET);
-    conditionalExpression(fs);
+    conditionalExpression();
     accept(CROUNDBRACKET);
     accept(OPENBRACKET);
-    content(fs);
+    content();
     accept(CLOSEBRACKET);
-    if (symbol == ELSESY)
-    {
-       //to trzeba wymyslcec while()
+    bool canUseIf=true;
+    while (symbol == ELSESY){
+        nextSymbol();
+        if(symbol==IFSY&&canUseIf){
+            accept(OROUNDBRACKET);
+            conditionalExpression();
+            accept(CROUNDBRACKET);
+            accept(OPENBRACKET);
+            content();
+            accept(CLOSEBRACKET);
+        }
+        else if(!canUseIf&&symbol==IFSY)
+            syntaxErrorUnexpected(symbol);
+        else if(canUseIf&&symbol!=IFSY){
+            canUseIf=false;
+            accept(OPENBRACKET);
+            content();
+            accept(CLOSEBRACKET);
+        }
     }
 }
 
-void Parser::whileStatement(const std::set<SymbolType> &fs){
-// Synchronizacja w procedurze Statement()
+void Parser::whileStatement(){
     std::cout<<"WHILE"<<std::endl;
     accept(WHILESY);
     accept(OROUNDBRACKET);
-    conditionalExpression(fs);
+    conditionalExpression();
     accept(CROUNDBRACKET);
     accept(OPENBRACKET);
-    content(fs);
+    content();
     accept(CLOSEBRACKET);
 }
-void Parser::assignment(const std::set<SymbolType> &fs)
-{
-// Synchronizacja w procedurze Statement()
-    // t("Assgn", -1);
-    //variable(fs + ASSIGN);
+void Parser::assignment(){
     std::cout<<"ASSGNMENT"<<std::endl;
     accept(ASSIGN);
-    expression(fs);
+    expression();
 }
 
-void Parser::writeInStatement(const std::set<SymbolType> &fs)
-{
+void Parser::writeInStatement(){
     std::cout<<"writeIn"<<std::endl;
     accept(WRITEIN);
     while (symbol==INPUTSTREAM)
     {
         accept(INPUTSTREAM);
-        variable(fs);
+        variable();
     }
 }
 
-void Parser::writeOutStatement(const std::set<SymbolType> &fs)
-{
-    std::cout<<"writeOut"<<std::endl;
+void Parser::writeOutStatement(){
+    std::cout<<"WRITEOUT"<<std::endl;
     accept(WRTIEOUT);
-    while (symbol==OUTPUTSTREAM)
-    {
+    while (symbol==OUTPUTSTREAM){
         nextSymbol();
-        expression(fs);
+        expression();
     }
 }
 
-void Parser::expression(const std::set<SymbolType> &fs){
+void Parser::factor() {
+    std::cout<<"FACTOR"<<std::endl;
+    if(statementValue.find(symbol)!=statementValue.end()){
+      SymbolType currSymbol=symbol;
+      nextSymbol();
+      if(symbol==OROUNDBRACKET&&currSymbol==IDENTIFIER){
+          parameters();
+      }
+  }
+  else if(symbol==OROUNDBRACKET){
+      expression();
+      accept(CROUNDBRACKET);
+  }
+
 
 }
 
-void Parser::Term(const std::set<SymbolType> &fs) {
-
-}
-
-// SimpExpr = Sign Term { AddOp Term } ;
-void Parser::SimpleExpression(const std::set<SymbolType>&  fs)
-{
-    // x("SimExp", fs);
-    std::set<SymbolType>  temp;
-
-    std::set_union(statementValue.begin(),statementValue.end(),signs.begin(),
-                   signs.end(),std::inserter(temp,std::begin(temp)));
-    Synchronize s(temp, fs);
-    if(!can_parse) return;
-    if(signs.find(symbol)!=signs.end()) nextSymbol();
-    std::set_union(fs.begin(),fs.end(),addOperator.begin(),
-                   addOperator.end(),std::inserter(temp,std::begin(temp)));
-    Term(temp);
-    while(addOperator.find(symbol)!=addOperator.end())
-    {
+void Parser::simpleExpression() {
+    std::cout<<"SIMPLE EXPRESSION"<<std::endl;
+    factor();
+    while(multiplyOperator.find(symbol)!=multiplyOperator.end()){
         nextSymbol();
-        Term(temp);
+        factor();
+    }
+
+}
+
+void Parser::expression(){
+    std::cout<<"EXPRESSION"<<std::endl;
+    if(signs.find(symbol)!=signs.end()) nextSymbol();
+    simpleExpression();
+    while(addOperator.find(symbol)!=addOperator.end()){
+        nextSymbol();
+        simpleExpression();
     }
 }
 
 void Parser::parameters() {
     accept(OROUNDBRACKET);
-    accept(IDENTIFIER);
-    while(symbol==COMA)
-    {
+    expression();
+    while(symbol==COMA){
         accept(COMA);
+        expression();
+    }
+    accept(CROUNDBRACKET);
+
+}
+
+void Parser::conditionalStatement() {
+    switch(symbol) {
+        case IFSY:
+            ifStatement();
+            break;
+        case WHILESY:
+            whileStatement();
+            break;
+        case FORSY:
+            forStatement();
+            break;
+        default:
+            syntaxErrorUnexpected(symbol);
+            break;
+    }
+}
+
+void Parser::forStatement() {
+    std::cout<<"FOR"<<std::endl;
+    accept(FORSY);
+    accept(OROUNDBRACKET);
+    statement();
+    accept(SEMICOLON);
+    conditionalExpression();
+    accept(SEMICOLON);
+    statement();
+    accept(CROUNDBRACKET);
+    accept(OPENBRACKET);
+    content();
+    accept(CLOSEBRACKET);
+
+}
+
+void Parser::returnStatement() {
+    std::cout<<"RETURN"<<std::endl;
+    accept(RETURNSY);
+    expression();
+}
+
+void Parser::conditionalExpression() {
+    std::cout<<"CONDITIONAL EXPRESSION"<<std::endl;
+    condition();
+    while(logicalOperator.find(symbol)!=logicalOperator.end()){
+        nextSymbol();
+        condition();
+    }
+
+}
+
+void Parser::variable() {
+    std::cout<<"VARIABLE"<<std::endl;
+    accept(IDENTIFIER);
+    if(symbol==OTABLEBRACKET){
+        nextSymbol();
+        expression();
+        accept(CTABLEBRACKET);
+    }
+
+}
+
+void Parser::condition() {
+    std::cout<<"CONDITION"<<std::endl;
+    expression();
+    if(relativeOperator.find(symbol)!=relativeOperator.end()){
+        nextSymbol();
+        expression();
+    }
+}
+
+void Parser::parametersDefinition() {
+    accept(OROUNDBRACKET);
+    if(types.find(symbol)==types.end()) {
+        syntaxErrorUnexpected(symbol);
+    }
+    nextSymbol();
+    accept(IDENTIFIER);
+    while(symbol==COMA){
+        accept(COMA);
+        if(types.find(symbol)==types.end()) {
+            syntaxErrorUnexpected(symbol);
+        }
+        else
+            nextSymbol();
         accept(IDENTIFIER);
     }
     accept(CROUNDBRACKET);
 
 }
 
-void Parser::conditionalStatement(const std::set<SymbolType> &fs) {
-    switch(symbol) {
-        case IFSY:
-            ifStatement(fs);
-            break;
-        case WHILESY:
-            whileStatement(fs);
-            break;
-        case FORSY:
-            forStatement(fs);
-            break;
-        default:
-            syntaxError1(symbol);
-            break;
-    }
-}
 
-void Parser::forStatement(const std::set<SymbolType> &fs) {
-    std::cout<<"FOR"<<std::endl;
-    accept(FORSY);
-    accept(OROUNDBRACKET);
-    Statement(fs);
-    accept(SEMICOLON);
-    conditionalExpression(fs);
-    accept(SEMICOLON);
-    Statement(fs);
-    accept(CROUNDBRACKET);
-    accept(OPENBRACKET);
-    content(fs);
-    accept(CLOSEBRACKET);
 
-}
-
-void Parser::returnStatement(const std::set<SymbolType> &fs) {
-    accept(RETURNSY);
-}
-
-// Expr = SimpExpr | SimpExpr RelOp SimpExpr ;
-void Parser::conditionalExpression(const std::set<SymbolType> &fs) { //???
-    std::set<SymbolType>  temp;
-    std::set_union(fs.begin(),fs.end(),relativeOperator.begin(),
-                   relativeOperator.end(),std::inserter(temp,std::begin(temp)));
-    SimpleExpression(temp);
-    if(relativeOperator.find(symbol)!=relativeOperator.end())
-    {
-        nextSymbol();
-        SimpleExpression(fs);
-    }
-
-}
-
-void Parser::variable(const std::set<SymbolType> &fs) {
-    //Synchronize s(temp, fs); sprawdzimy czy zmienna juz zadeklarowana
-
-}
 
 
 

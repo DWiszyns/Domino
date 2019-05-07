@@ -8,7 +8,7 @@
 #include "Scanner.h"
 
 
-std::unordered_map <std::string, SymbolType > Scanner::KT= {
+std::unordered_map <std::string, SymbolType > Scanner::keyWordHashMap= {
         { "rational",   RATIONALSY  },
         { "writein",    WRITEIN},  
         { "writeout",   WRTIEOUT},  
@@ -63,8 +63,8 @@ SymbolType Scanner::nextSymbol() {
             nextChar();
         }
         spell[len]='\0';
-        if(KT.count(spell)!=0)
-            return KT[spell];
+        if(keyWordHashMap.count(spell)!=0)
+            return keyWordHashMap[spell];
         else return IDENTIFIER;
     }
     else

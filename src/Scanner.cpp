@@ -200,6 +200,10 @@ void Scanner::scanError(int ec, std::string word) {
     src.error(word, atomLine, atomPos, ScnErr[ec]);
 }
 
+void Scanner::scanError(SymbolType symbol, std::string word) {
+    src.error(word, symbol);
+}
+
 
 
 

@@ -3,6 +3,7 @@
 //
 
 #include "Source.h"
+#include "ScanDef.h"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -27,6 +28,12 @@ Source::~Source() {
 void Source::error(std::string word, int atomLine, int atomPos, std::string errorLabel) {
     errorTotal++;
     std::cout<<"Error "<<errorLabel<<" in "<<atomLine<<':'<<atomPos<<"around "<<word;
+
+}
+
+void Source::error(std::string message, SymbolType atom) {
+    errorTotal++;
+    std::cout<<message<<" "<<atom<<std::endl;
 
 }
 

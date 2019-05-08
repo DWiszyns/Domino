@@ -32,7 +32,6 @@ Parser::Parser(Scanner &s): scanner(s){
     relativeOperator.insert(relativeSymbols,relativeSymbols+6);
     SymbolType logicalSymbols[]={ANDSY, ORSY};
     logicalOperator.insert(logicalSymbols,logicalSymbols+6);
-    back   = MAXSYM; // Znacznik braku atomu poprzedniego
     nextSymbol();         // Pobranie 1-go atomu
 }
 
@@ -47,6 +46,33 @@ void Parser::program(){
     accept(MAINSY);
     mainFunction();
     accept(EOFSY);
+}
+
+void Parser::nextSymbol(){
+    symbol=scanner.nextSymbol();
+}
+
+void Parser::syntaxErrorExpected(SymbolType atom){
+    scanner.scanError(atom,
+                    "Expected atom: ");
+}
+
+void Parser::syntaxErrorUnexpected(SymbolType atom){
+        scanner.scanError(atom,
+                    "Unexpcted symbol: ");
+}
+
+void Parser::accept(SymbolType atom){
+    if(symbol==atom)
+    nextSymbol();
+    else syntaxErrorExpected(atom);
+}
+
+void Parser::accept(const std::vector <SymbolType>& availableAtoms){
+        std::set <SymbolType> availableAtomsSet (availableAtoms.begin(),availableAtoms.end());
+        if(availableAtomsSet.find(symbol)!=availableAtomsSet.end())
+            nextSymbol();
+        else syntaxErrorExpected(symbol);
 }
 
 void Parser::function() {

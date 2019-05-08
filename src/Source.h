@@ -8,6 +8,7 @@
 
 #include <string>
 #include <fstream>
+#include "ScanDef.h"
 
 
 class Source {
@@ -23,6 +24,7 @@ public:
     Source(std::string source);
     ~Source();
     void error(std::string word, int atomLine, int atomPos, std::string errorLabel);
+    void error(std::string message, SymbolType atom);
     char nextChar();
     int getTextLine();
     int getTextPos();

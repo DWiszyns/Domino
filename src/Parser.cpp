@@ -76,15 +76,15 @@ void Parser::accept(SymbolType atom){
     else syntaxErrorExpected(atom);
 }
 
-void Parser::accept(const std::vector <SymbolType>& availableAtoms){
+void Parser::accept(const std::set <SymbolType>& availableAtoms){
         std::set <SymbolType> availableAtomsSet (availableAtoms.begin(),availableAtoms.end());
-        if(availableAtomsSet.find(symbol)!=availableAtomsSet.end())
+        if(availableAtoms.find(symbol)!=availableAtoms.end())
             nextSymbol();
         else syntaxErrorExpected(symbol);
 }
 
 void Parser::function() {
-    std::cout<<"function"<<std::endl;
+    std::cout<<"FUNCTION"<<std::endl;
     accept(IDENTIFIER);
     parametersDefinition();
     accept(COLON);
@@ -130,17 +130,38 @@ void Parser::variableDeclaration(){
         syntaxErrorUnexpected(symbol,types);
     nextSymbol();
     accept(IDENTIFIER);
+    if(symbol==OTABLEBRACKET) arrayDeclaration();
     while(symbol==COMA){
         nextSymbol();
         accept(IDENTIFIER);
     }
-    if(symbol==ASSIGN) //TODO co z arrayami?{
+    if(symbol==ASSIGN)
         assignment();
+}
+
+void Parser::arrayDeclaration() {
+    std::cout<<"ARRAY DECLARATION"<<std::endl;
+    accept(OTABLEBRACKET);
+    expression();
+    accept(CTABLEBRACKET);
+    if(symbol==ASSIGN) {
+        nextSymbol();
+        if (symbol == OPENBRACKET) {
+            nextSymbol();
+            expression();
+            while (symbol==COMA){
+                nextSymbol();
+                expression();
+            }
+            accept(CLOSEBRACKET);
+        }
+        else expression();
+    }
 }
 
 
 void Parser::statement(){
-    std::cout<<"Statement"<<std::endl;
+    std::cout<<"STATEMENT"<<std::endl;
     switch(symbol)
     {
         case WRITEIN:
@@ -217,7 +238,7 @@ void Parser::assignment(){
 }
 
 void Parser::writeInStatement(){
-    std::cout<<"writeIn"<<std::endl;
+    std::cout<<"WRITEIN"<<std::endl;
     accept(WRITEIN);
     while (symbol==INPUTSTREAM)
     {

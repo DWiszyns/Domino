@@ -16,7 +16,6 @@ int main(int argc, char *argv[]) {
     }
     Source source(argv[2]);
     Scanner scan(source);
-    SymbolType retvalue;
     Parser parser(scan);
     parser.program();
 }

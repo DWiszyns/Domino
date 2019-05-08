@@ -28,7 +28,7 @@ class Parser {
     void skipTo(SymbolType atom);
     void skipTo(std::set<SymbolType> expectedAtoms);
     void accept(SymbolType atom);
-    void accept(const std::vector <SymbolType>& availableAtoms);
+    void accept(const std::set <SymbolType>& availableAtoms);
     void content();
     void variableDeclaration();
     void statement();
@@ -50,6 +50,7 @@ class Parser {
     void conditionalExpression ();
     void condition              ();
     void parametersDefinition();
+    void arrayDeclaration();
 public:
     Parser(Scanner&);
     void program();   

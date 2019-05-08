@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
         std::cout<<"Nie wystarczająca ilość argumentów"<<std::endl;
         return 1;
     }
-    */Source source("test1.tkom");
+    */Source source("test2.tkom");
     Scanner scan(source);
     SymbolType retvalue;
     Parser parser(scan);

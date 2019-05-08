@@ -31,10 +31,13 @@ class Parser {
     std::set<SymbolType> statementValue, factiter, multiplyOperator;
     std::set<SymbolType> addOperator,    signs,    relativeOperator;
     std::set<SymbolType> types,logicalOperator;
-    
+
     void nextSymbol();
     void syntaxErrorExpected(SymbolType atom);
     void syntaxErrorUnexpected(SymbolType atom);
+    void syntaxErrorUnexpected(SymbolType atom,std::set <SymbolType> expectedAtoms);
+    void skipto(SymbolType atom);
+    void skipto(std::set <SymbolType> expectedAtoms);
     void accept(SymbolType atom);
     void accept(const std::vector <SymbolType>& availableAtoms);
     void content();

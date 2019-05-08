@@ -55,16 +55,24 @@ void Parser::nextSymbol(){
 void Parser::syntaxErrorExpected(SymbolType atom){
     scanner.scanError(atom,
                     "Expected atom: ");
+    skipto(atom);
 }
 
 void Parser::syntaxErrorUnexpected(SymbolType atom){
-        scanner.scanError(atom,
+    scanner.scanError(atom,
                     "Unexpcted symbol: ");
+    nextSymbol();    
+}
+
+void Parser::syntaxErrorUnexpected(SymbolType atom, std::set <SymbolType> expectedAtoms){
+    scanner.scanError(atom,
+                    "Unexpcted symbol: ");
+    skipto(expectedAtoms);
 }
 
 void Parser::accept(SymbolType atom){
     if(symbol==atom)
-    nextSymbol();
+        nextSymbol();
     else syntaxErrorExpected(atom);
 }
 
@@ -119,7 +127,7 @@ void Parser::content(){
 void Parser::variableDeclaration(){
     std::cout<<"VARIABLE DECLARATION"<<std::endl;
     if(types.find(symbol)==types.end())
-        syntaxErrorUnexpected(symbol);
+        syntaxErrorUnexpected(symbol,types);
     nextSymbol();
     accept(IDENTIFIER);
     while(symbol==COMA){
@@ -346,21 +354,32 @@ void Parser::condition() {
 void Parser::parametersDefinition() {
     accept(OROUNDBRACKET);
     if(types.find(symbol)==types.end()) {
-        syntaxErrorUnexpected(symbol);
+        syntaxErrorUnexpected(symbol,types);
     }
     nextSymbol();
     accept(IDENTIFIER);
     while(symbol==COMA){
         accept(COMA);
         if(types.find(symbol)==types.end()) {
-            syntaxErrorUnexpected(symbol);
+            syntaxErrorUnexpected(symbol,types);
         }
         else
             nextSymbol();
         accept(IDENTIFIER);
     }
     accept(CROUNDBRACKET);
+}
 
+void Parser::skipto(SymbolType atom){
+    while(symbol!=atom&&symbol!=EOFSY) 
+        nextSymbol();
+    nextSymbol();    
+}
+
+void Parser::skipto(std::set <SymbolType> atoms){
+    while(atoms.find(symbol)==atoms.end()&&symbol!=EOFSY) 
+        nextSymbol();
+    nextSymbol();
 }
 
 

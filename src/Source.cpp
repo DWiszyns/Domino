@@ -34,7 +34,6 @@ void Source::error(std::string word, int atomLine, int atomPos, std::string erro
 void Source::error(std::string message, SymbolType atom) {
     errorTotal++;
     std::cout<<message<<" "<<atom<<std::endl;
-
 }
 
 char Source::nextChar() {

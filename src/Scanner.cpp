@@ -7,9 +7,66 @@
 #include <cstring>
 #include "Scanner.h"
 
+std::string atomsTable[54]= {
+        "function",//FUNCSY, //FUNCTION 0
+        "writein",//        WRITEIN, //1
+        "writeout",//        WRTIEOUT, //2
+        "while",//        WHILESY, //3
+        "for",//        FORSY, //4
+        "if",//        IFSY, //5
+        "else",//        ELSESY, //6
+        "main",//        MAINSY, //7
+        "EOF",//        EOFSY, //8
+        "&&",//        ANDSY, //9
+        "||",//        ORSY, //10
+        "return",//        RETURNSY, //11
+        "void",//        VOIDSY, //12
+        "string",//        STRINGSY, //13
+        "float",//        FLOATSY, //14
+        "rational",//        RATIONALSY, //15
+        "int",//        INTSY, //16
+        "short",//        SHORTSY, //17
+        "char",//        CHARSY, //18
+        "boolean",//        BOOLEANSY, //19
+        ":",//        COLON, //20
+        ">>",//        INPUTSTREAM, // >> 21
+        "<<",//        OUTPUTSTREAM,  // << 22
+        "+",//        ADDSY, //23
+        "-",//        SUBTRACTSY, //24
+        "/",//        DIVIDESY, //25
+        "*",//        MULTIPLYSY, //26
+        "%",//        RESTSY, //27
+        ">=",//        MOREOREQUAL, //28
+        "<=",//        LESSOREQUAL, //29
+        "!=",//        DIFFERENT, //30
+        ">",//        MORE, //31
+        "<",//        LESS, //32
+        "=",//        ASSIGN, //33
+        "==",//        EQUALS,// == 34
+        "[",//        OTABLEBRACKET, //35
+        "]",//        CTABLEBRACKET, //36
+        "(",//        OROUNDBRACKET,//= ‘(‘ 37
+        ")",//        CROUNDBRACKET,//=’) 38
+        "{",//        OPENBRACKET, //='{'39
+        "}",//        CLOSEBRACKET, //='}'40
+        ";",//        SEMICOLON, //41
+        ",",//        COMA, //42
+        ".",//        DOT, //43
+        "!",//        EXCLAMATION, //44
+        "true",//TRUE
+        "false",//FALSE
+        "others",//        OTHERS, //47
+        "intconst",//        INTCONST, //48
+        "charconst",//        CHARCONST, //49
+        "identifier",//        IDENTIFIER, //50
+        "rationalconst",//        RATIONALCONST, //51
+        "floatconst",//        FLOATCONST, //52
+        "stringconst"//        STRINGCONST, //53
+//        MAXSYM
+};
 
 std::unordered_map <std::string, SymbolType > Scanner::keyWordHashMap= {
-        { "rational",   RATIONALSY  },
+        { "rational",   RATIONALSY},
         { "writein",    WRITEIN},  
         { "writeout",   WRTIEOUT},  
         { "function",   FUNCSY }, 
@@ -51,8 +108,8 @@ SymbolType Scanner::nextSymbol() {
         }
     }
 
-    int line=src.getTextLine();
-    int pos=src.getTextPos();
+    atomLine=src.getTextLine();
+    atomPos=src.getTextPos();
 
 //---creating variable
     if(isalpha(c)){
@@ -201,7 +258,7 @@ void Scanner::scanError(int ec, std::string word) {
 }
 
 void Scanner::scanError(SymbolType symbol, std::string word) {
-    src.error(word, symbol);
+    src.error(word, atomsTable[symbol],atomLine,atomPos);
 }
 
 

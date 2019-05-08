@@ -12,22 +12,11 @@
 
 //std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
 
-/*char *AT[MAXSYM + 1] =    // Atomy tekstowo
-        {
-                "beg", "rd", "wrt", "if", "whl",
-                "end", "thn", "els", "do", "var",
-                "not", "and", "div", "or", "arr",
-                "of", "prg", "prc",
-                "id", "ico", "cco", "*", "+", "-",
-                "<", "<=", ">", ">=", "<>", "=",
-                "(", ")", "[", "]", ";", ":",
-                ":=", "..", ".", ",", "???"
-        };*/
 
 class Parser {
     Scanner&    scanner;
     SymbolType  symbol;
-    std::set<SymbolType> statementStart,   conditionalStatementStart,    stiter;
+    std::set<SymbolType> statementStart,   conditionalStatementStart;
     std::set<SymbolType> statementValue, factiter, multiplyOperator;
     std::set<SymbolType> addOperator,    signs,    relativeOperator;
     std::set<SymbolType> types,logicalOperator;
@@ -36,8 +25,8 @@ class Parser {
     void syntaxErrorExpected(SymbolType atom);
     void syntaxErrorUnexpected(SymbolType atom);
     void syntaxErrorUnexpected(SymbolType atom,std::set <SymbolType> expectedAtoms);
-    void skipto(SymbolType atom);
-    void skipto(std::set <SymbolType> expectedAtoms);
+    void skipTo(SymbolType atom);
+    void skipTo(std::set<SymbolType> expectedAtoms);
     void accept(SymbolType atom);
     void accept(const std::vector <SymbolType>& availableAtoms);
     void content();

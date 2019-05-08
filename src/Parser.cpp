@@ -32,7 +32,7 @@ Parser::Parser(Scanner &s): scanner(s){
     relativeOperator.insert(relativeSymbols,relativeSymbols+6);
     SymbolType logicalSymbols[]={ANDSY, ORSY};
     logicalOperator.insert(logicalSymbols,logicalSymbols+6);
-    nextSymbol();         // Pobranie 1-go atomu
+    nextSymbol();
 }
 
 void Parser::program(){
@@ -54,20 +54,20 @@ void Parser::nextSymbol(){
 
 void Parser::syntaxErrorExpected(SymbolType atom){
     scanner.scanError(atom,
-                    "Expected atom: ");
-    skipto(atom);
+                    "Error expected atom: ");
+    skipTo(atom);
 }
 
 void Parser::syntaxErrorUnexpected(SymbolType atom){
     scanner.scanError(atom,
-                    "Unexpcted symbol: ");
+                    "Error unexpcted symbol: ");
     nextSymbol();    
 }
 
 void Parser::syntaxErrorUnexpected(SymbolType atom, std::set <SymbolType> expectedAtoms){
     scanner.scanError(atom,
-                    "Unexpcted symbol: ");
-    skipto(expectedAtoms);
+                    "Error unexpcted symbol: ");
+    skipTo(expectedAtoms);
 }
 
 void Parser::accept(SymbolType atom){
@@ -165,6 +165,7 @@ void Parser::statement(){
         default:
             syntaxErrorUnexpected(symbol);
             break;
+
     }
 }
 
@@ -370,13 +371,13 @@ void Parser::parametersDefinition() {
     accept(CROUNDBRACKET);
 }
 
-void Parser::skipto(SymbolType atom){
+void Parser::skipTo(SymbolType atom){
     while(symbol!=atom&&symbol!=EOFSY) 
         nextSymbol();
     nextSymbol();    
 }
 
-void Parser::skipto(std::set <SymbolType> atoms){
+void Parser::skipTo(std::set<SymbolType> atoms){
     while(atoms.find(symbol)==atoms.end()&&symbol!=EOFSY) 
         nextSymbol();
     nextSymbol();

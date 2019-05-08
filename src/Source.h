@@ -17,11 +17,11 @@ class Source {
     int textPos;
     int errorTotal;
     char c;
-    std::ifstream we;
+    std::ifstream input;
 
 
 public:
-    Source(std::string source);
+    Source(std::string source,bool test=false);
     ~Source();
     void error(std::string word, int atomLine, int atomPos, std::string errorLabel);
     void error(std::string message, std::string atom,int atomLine, int atomPos);

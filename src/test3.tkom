@@ -10,12 +10,12 @@ function somefunction(rational r, int e):rational{
 function main():void{
     string table[2]={"dominik","wiszynski"};
     string a,b;
-    int c,d;
+    int c,d,e;
     float z = 123.37f;
     rational r = 1234.456r;
     writein>>a>>b>>c>>d>>r;
     string d=a+b;
-    int e= c*d;
-    rational x = somefunction(r,e);
+    int f=e+c*d;
+    rational x = somefunction(r,f);
     writeout<<c<<" "<<r;
 }

@@ -9,20 +9,24 @@
 #include <iomanip>
 
 
-Source::Source(std::string source):source(source) {
+
+Source::Source(std::string source,bool test):source(source) {
     textLine=1;
     textPos=0;
     errorTotal=0;
-    we.open(source,std::fstream::in);
-    if(!we.is_open())
-    {
-        std::cout<<"Fatal error can't open source file"<<std::endl;
+    if(!test) {
+        input.open(source, std::fstream::in);
+        if (!input.is_open()) {
+            std::cout << "Fatal error can't open source file" << std::endl;
+        }
+        std::cout << "Domino v.0.1 2019" << std::endl;
     }
-    std::cout<<"Domino v.0.1 2019"<<std::endl;
+    else input>>source;
 }
 
+
 Source::~Source() {
-    we.close();
+    input.close();
 }
 
 void Source::error(std::string word, int atomLine, int atomPos, std::string errorLabel) {
@@ -37,13 +41,13 @@ void Source::error(std::string message, std::string atom, int atomLine, int atom
 }
 
 char Source::nextChar() {
-    we.get(c);
+    input.get(c);
     ++textPos;
     if(c=='\n') {
         ++textLine;
         textPos = 0;
     }
-    if(we.eof()) {
+    if(input.eof()) {
         c=EOF;
     }
     std::cout<<c;
@@ -87,5 +91,5 @@ void Source::setC(char c) {
 }
 
 bool Source::isOpen() {
-    return we.is_open();
+    return input.is_open();
 }

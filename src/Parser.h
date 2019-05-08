@@ -57,13 +57,11 @@ class Parser {
         symbol = atom;
     }
     void syntaxErrorExpected(int atom)
-// Oczekiwany atom
     {
         scanner.scanError(atom,
                     "Expected atom: "/*, AT[atom]*/);
     }
     void syntaxErrorUnexpected(int atom)
-// Nieoczekiwany atom
     {
         scanner.scanError(atom,
                     "Unexpcted symbol: "/*, AT[atom]*/);

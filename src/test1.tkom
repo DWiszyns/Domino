@@ -16,5 +16,5 @@ writein>>a>>b>>c>>d>>r;
 string d=a+b;
 int e= c*d;
 rational x = somefunction(r,e);
-writeout<<c<<” ”<<r;
+writeout<<c<<" "<<r;
 }

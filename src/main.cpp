@@ -10,13 +10,12 @@
 #include "Parser.h"
 
 int main(int argc, char *argv[]) {
-    float arg = 1.5f;
-    std::cout<<STRINGCONST<<std::endl;
+    /*std::cout<<STRINGCONST<<std::endl;
     if(argc!=3){
         std::cout<<"Nie wystarczająca ilość argumentów"<<std::endl;
         return 1;
     }
-    Source source(argv[2]);
+    */Source source("test1.tkom");
     Scanner scan(source);
     SymbolType retvalue;
     Parser parser(scan);

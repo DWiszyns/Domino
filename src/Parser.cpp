@@ -96,6 +96,10 @@ void Parser::variableDeclaration(){
         syntaxErrorUnexpected(symbol);
     nextSymbol();
     accept(IDENTIFIER);
+    while(symbol==COMA){
+        nextSymbol();
+        accept(IDENTIFIER);
+    }
     if(symbol==ASSIGN) //TODO co z arrayami?{
         assignment();
 }

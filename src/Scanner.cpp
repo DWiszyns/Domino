@@ -89,8 +89,14 @@ SymbolType Scanner::nextSymbol() {
                 big = h>SHRT_MAX;
                 nextChar();
             }
-            if(c=='f') return FLOATCONST;
-            else if (c=='r') return RATIONALCONST;
+            if(c=='f') {
+                nextChar();
+                return FLOATCONST;
+            }
+            else if (c=='r') {
+                nextChar();
+                return RATIONALCONST;
+            }
 
         }
         else {

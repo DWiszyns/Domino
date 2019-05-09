@@ -109,7 +109,7 @@ SymbolType Scanner::createString(){
 
 SymbolType Scanner::getFirstUsefulChar(){
     while(isspace(c) || c=='/'){   
-        while(isspace(c)) nextChar();// skip spaces
+        while(isspace(c)) nextChar();
         if(c==EOF) return EOFSY;
         if(c=='/')
         {

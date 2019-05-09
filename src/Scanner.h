@@ -16,9 +16,9 @@ class Scanner
     Source &src;
     char c;
     void nextChar() { c=src.nextChar(); }
-    int atomLine;     //mozna by
+    int atomLine;
     int atomPos;
-    char    spell[MAXIDLEN+1];// Ostatni ident
+    char spell[MAXIDLEN+1];
     static std::unordered_map <std::string, SymbolType > keyWordHashMap;
 
 

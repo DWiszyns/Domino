@@ -111,7 +111,7 @@ void Parser::mainFunction() {
 
 void Parser::content(){
     std::cout<<"CONTENT"<<std::endl;
-    while(symbol!=CLOSEBRACKET && endOfStream.find(symbol)!=endOfStream.end())
+    while(symbol!=CLOSEBRACKET && (endOfStream.find(symbol)==endOfStream.end()))
     {
        if(conditionalStatementStart.find(symbol)!=conditionalStatementStart.end())
            conditionalStatement();
@@ -404,12 +404,3 @@ void Parser::skipTo(std::set<SymbolType> atoms){
         nextSymbol();
     nextSymbol();
 }
-
-
-
-
-
-
-
-
-

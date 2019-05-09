@@ -96,6 +96,32 @@ Scanner::~Scanner() {
 
 }
 
+void Scanner::createString(){
+    unsigned int len=0, h;
+        while(isalnum(c))
+        { 
+            if(len<MAXIDLEN) spell[len++]=c;
+            nextChar();
+        }
+        spell[len]='\0';
+}
+
+void Scanner::getFirstUsefulChar(){
+    while(isspace(c) || c=='/')
+    { while(isspace(c)) nextChar();// skip spaces
+        if(c==EOF) return;
+        if(c=='/')
+        {
+            nextChar();
+            if(c=='/'){
+                while(c!='\n')
+                    nextChar();
+            } else return;
+        }
+        if(c=='\0') return;
+    }
+}
+
 SymbolType Scanner::nextSymbol() {
     if(src.getTextLine()==1 && src.getTextPos()==0) nextChar();
     while(isspace(c) || c=='/')
@@ -110,20 +136,12 @@ SymbolType Scanner::nextSymbol() {
             } else return DIVIDESY;
         }
         if(c=='\0') return ENDOFTEXT;
-    }
 
+    }
     atomLine=src.getTextLine();
     atomPos=src.getTextPos();
-
-//---creating variable
     if(isalpha(c)){
-        unsigned int len=0, h;
-        while(isalnum(c))
-        { 
-            if(len<MAXIDLEN) spell[len++]=c;
-            nextChar();
-        }
-        spell[len]='\0';
+        createString();
         if(keyWordHashMap.count(spell)!=0)
             return keyWordHashMap[spell];
         else return IDENTIFIER;

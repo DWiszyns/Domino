@@ -28,6 +28,8 @@ public:
     virtual SymbolType nextSymbol();
     void scanError(int ec, std::string word);
     void scanError(SymbolType atom, std::string word);
+    void createString();
+    void getFirstUsefulChar();
 };
 
 

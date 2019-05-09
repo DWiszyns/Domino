@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <queue>
 #include <stack>
@@ -18,4 +19,17 @@ int main(int argc, char *argv[]) {
     Scanner scan(source);
     Parser parser(scan);
     parser.program();
+    /*std::fstream input("../../src/test3.tkom");
+    input.open("../../src/test3.tkom",std::fstream::in);
+    std::string ex = "Example";
+    std::stringstream x;
+    std::ifstream    f;
+    x<<input.rdbuf();
+    std::cout<<x.str();
+    x<<ex;
+    std::cout<<x.str();
+    char c;
+    x.get(c);
+    std::cout<<c;*/
+
 }

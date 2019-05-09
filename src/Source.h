@@ -8,6 +8,7 @@
 
 #include <string>
 #include <fstream>
+#include <sstream>
 #include "ScanDef.h"
 
 
@@ -17,15 +18,17 @@ class Source {
     int textPos;
     int errorTotal;
     char c;
-    std::ifstream input;
+    std::fstream input;
+    std::stringstream fileInput;
+
 
 
 public:
     Source(std::string source,bool test=false);
     ~Source();
     void error(std::string word, int atomLine, int atomPos, std::string errorLabel);
-    void error(std::string message, std::string atom,int atomLine, int atomPos);
-    char nextChar();
+    virtual void error(std::string message, std::string atom,int atomLine, int atomPos);
+    virtual char nextChar();
     int getTextLine();
     int getTextPos();
     const std::string &getSource() const;

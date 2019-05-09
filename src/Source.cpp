@@ -19,14 +19,15 @@ Source::Source(std::string source,bool test):source(source) {
         if (!input.is_open()) {
             std::cout << "Fatal error can't open source file" << std::endl;
         }
+        fileInput<<input.rdbuf();
+        input.close();
         std::cout << "Domino v.0.1 2019" << std::endl;
     }
-    else input>>source;
+    else fileInput<<source;
 }
 
 
 Source::~Source() {
-    input.close();
 }
 
 void Source::error(std::string word, int atomLine, int atomPos, std::string errorLabel) {
@@ -41,14 +42,17 @@ void Source::error(std::string message, std::string atom, int atomLine, int atom
 }
 
 char Source::nextChar() {
-    input.get(c);
+    fileInput.get(c);
     ++textPos;
     if(c=='\n') {
         ++textLine;
         textPos = 0;
     }
-    if(input.eof()) {
+    if(fileInput.eof()) {
         c=EOF;
+    }
+    if(c=='\0'){
+        std::cout<<"mam";
     }
     std::cout<<c;
     return c;

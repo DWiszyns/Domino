@@ -7,7 +7,7 @@
 #include <cstring>
 #include "Scanner.h"
 
-std::string atomsTable[54]= {
+std::string atomsTable[55]= {
         "function",//FUNCSY, //FUNCTION 0
         "writein",//        WRITEIN, //1
         "writeout",//        WRTIEOUT, //2
@@ -61,7 +61,8 @@ std::string atomsTable[54]= {
         "identifier",//        IDENTIFIER, //50
         "rationalconst",//        RATIONALCONST, //51
         "floatconst",//        FLOATCONST, //52
-        "stringconst"//        STRINGCONST, //53
+        "stringconst",//        STRINGCONST, //53
+        "end of text"
 //        MAXSYM
 };
 
@@ -86,6 +87,8 @@ std::unordered_map <std::string, SymbolType > Scanner::keyWordHashMap= {
 };
 
 Scanner::Scanner(Source &source): src(source) {
+    atomLine=1;
+    atomPos=0;
 
 }
 
@@ -106,6 +109,7 @@ SymbolType Scanner::nextSymbol() {
                     nextChar();
             } else return DIVIDESY;
         }
+        if(c=='\0') return ENDOFTEXT;
     }
 
     atomLine=src.getTextLine();

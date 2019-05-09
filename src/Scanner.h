@@ -6,7 +6,6 @@
 #define DOMINO_SCAN_H
 
 #define MAXIDLEN 15
-#define NKEYS 17
 
 #include <unordered_map>
 #include "Source.h"
@@ -26,7 +25,7 @@ class Scanner
 public:
     Scanner(Source &source);
     ~Scanner();
-    SymbolType nextSymbol();
+    virtual SymbolType nextSymbol();
     void scanError(int ec, std::string word);
     void scanError(SymbolType atom, std::string word);
 };

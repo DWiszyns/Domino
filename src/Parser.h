@@ -17,7 +17,7 @@ class Parser {
     Scanner&    scanner;
     SymbolType  symbol;
     std::set<SymbolType> statementStart,   conditionalStatementStart;
-    std::set<SymbolType> statementValue, factiter, multiplyOperator;
+    std::set<SymbolType> statementValue, endOfStream, multiplyOperator;
     std::set<SymbolType> addOperator,    signs,    relativeOperator;
     std::set<SymbolType> types,logicalOperator;
 

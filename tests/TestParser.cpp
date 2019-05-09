@@ -7,14 +7,13 @@
 #include "Scanner.h"
 #include "Parser.h"
 
-using ::testing::_;
 
 class MockSource : public Source{
 public:
     MockSource(std::string source): Source(source,true){};
     MOCK_METHOD4(error,void(std::string message, std::string atom,int atomLine, int atomPos));
     MOCK_METHOD4(error,void(std::string word, int atomLine, int atomPos, std::string errorLabel));
-    MOCK_METHOD0(nextChar,void());
+    MOCK_METHOD0(nextChar,char());
 
 };
 
@@ -23,16 +22,17 @@ public:
     MockScanner(MockSource &source): Scanner(source){};
     MOCK_METHOD2(scanError,void(int ec, std::string atom));
     MOCK_METHOD2(scanError,void(SymbolType atom, std::string word));
-    MOCK_METHOD0(nextSymbol,void());
+    MOCK_METHOD0(nextSymbol,SymbolType());
 
 };
 
 
-TEST(ParserTest,Empty_Source_Test){
-    MockSource src(" ");
+TEST(ParserTest,Example_Parse_Test){
+    MockSource src("function xyz():void{} function main():void{}");
     MockScanner scan(src);
-    EXPECT_CALL(scan,nextSymbol());
+    EXPECT_CALL(scan,nextSymbol())
+    .Times(testing::AtLeast(1))
+    .WillOnce(testing::Return(FUNCSY));
     Parser parser(scan);
-    parser.program();
 }
 

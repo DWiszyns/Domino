@@ -61,6 +61,7 @@
      RATIONALCONST, //49
      FLOATCONST, //50
      STRINGCONST, //51
+     ENDOFTEXT,//52
      MAXSYM
  };
 

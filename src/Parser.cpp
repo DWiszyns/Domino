@@ -12,8 +12,8 @@ Parser::Parser(Scanner &s): scanner(s){
     SymbolType statementStartSymbols[] = {WRITEIN,WRTIEOUT,IDENTIFIER,RETURNSY};
     statementStart.insert(statementStartSymbols,statementStartSymbols+8);
     SymbolType typeSymbols[]={INTSY,CHARSY,STRINGSY,
-                              FLOATSY,RATIONALSY};
-    types.insert(typeSymbols, typeSymbols+5);
+                              FLOATSY,RATIONALSY,VOIDSY};
+    types.insert(typeSymbols, typeSymbols+6);
     SymbolType conditionalSymbols[] = {IFSY,WHILESY,FORSY};
     conditionalStatementStart.insert(conditionalSymbols,conditionalSymbols+3);
 
@@ -23,8 +23,8 @@ Parser::Parser(Scanner &s): scanner(s){
 
     SymbolType multiplySymbols[] = {MULTIPLYSY,DIVIDESY};
     multiplyOperator.insert(multiplySymbols,multiplySymbols+2);
-    std::set_union(statementValue.begin(),statementValue.end(),multiplyOperator.begin(),
-            multiplyOperator.end(),std::inserter(factiter,std::begin(factiter)));
+    SymbolType endSymbols[] = {EOFSY,ENDOFTEXT};
+    endOfStream.insert(endSymbols,endSymbols+2);
     SymbolType signSymbols[]={SUBTRACTSY, ADDSY};
     signs.insert(signSymbols,signSymbols+2);
     addOperator.insert(signSymbols,signSymbols+2);
@@ -45,7 +45,7 @@ void Parser::program(){
     }
     accept(MAINSY);
     mainFunction();
-    accept(EOFSY);
+    accept(endOfStream);
 }
 
 void Parser::nextSymbol(){
@@ -89,7 +89,7 @@ void Parser::function() {
     parametersDefinition();
     accept(COLON);
     if(types.find(symbol)==types.end()){
-        syntaxErrorExpected(symbol);
+        syntaxErrorUnexpected(symbol);
     }
     nextSymbol();
     accept(OPENBRACKET);
@@ -111,7 +111,7 @@ void Parser::mainFunction() {
 
 void Parser::content(){
     std::cout<<"CONTENT"<<std::endl;
-    while(symbol!=CLOSEBRACKET && symbol!=EOFSY)
+    while(symbol!=CLOSEBRACKET && endOfStream.find(symbol)!=endOfStream.end())
     {
        if(conditionalStatementStart.find(symbol)!=conditionalStatementStart.end())
            conditionalStatement();
@@ -375,19 +375,20 @@ void Parser::condition() {
 
 void Parser::parametersDefinition() {
     accept(OROUNDBRACKET);
-    if(types.find(symbol)==types.end()) {
-        syntaxErrorUnexpected(symbol,types);
-    }
-    nextSymbol();
-    accept(IDENTIFIER);
-    while(symbol==COMA){
-        accept(COMA);
-        if(types.find(symbol)==types.end()) {
-            syntaxErrorUnexpected(symbol,types);
+    if(symbol!=CROUNDBRACKET) {
+        if (types.find(symbol) == types.end()) {
+            syntaxErrorUnexpected(symbol, types);
         }
-        else
-            nextSymbol();
+        nextSymbol();
         accept(IDENTIFIER);
+        while (symbol == COMA) {
+            accept(COMA);
+            if (types.find(symbol) == types.end()) {
+                syntaxErrorUnexpected(symbol, types);
+            } else
+                nextSymbol();
+            accept(IDENTIFIER);
+        }
     }
     accept(CROUNDBRACKET);
 }

@@ -25,11 +25,16 @@ class Scanner
 public:
     Scanner(Source &source);
     ~Scanner();
+    bool divide;
     virtual SymbolType nextSymbol();
     void scanError(int ec, std::string word);
     void scanError(SymbolType atom, std::string word);
-    void createString();
-    void getFirstUsefulChar();
+    SymbolType createString();
+    SymbolType createNumber();
+    SymbolType getFirstUsefulChar();
+    SymbolType createStringInQuotes();
+    SymbolType createTwoSignOperator();
+    SymbolType createOneSignOperator();
 };
 
 

@@ -9,7 +9,7 @@
  {
      FUNCSY, //FUNCTION 0
      WRITEIN, //1
-     WRTIEOUT, //2
+     WRITEOUT, //2
      WHILESY, //3
      FORSY, //4
      IFSY, //5

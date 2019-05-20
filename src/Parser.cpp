@@ -9,7 +9,7 @@
 
 Parser::Parser(Scanner &s): scanner(s){
 
-    SymbolType statementStartSymbols[] = {WRITEIN,WRTIEOUT,IDENTIFIER,RETURNSY};
+    SymbolType statementStartSymbols[] = {WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};
     statementStart.insert(statementStartSymbols,statementStartSymbols+8);
     SymbolType typeSymbols[]={INTSY,CHARSY,STRINGSY,
                               FLOATSY,RATIONALSY,VOIDSY};
@@ -166,7 +166,7 @@ void Parser::statement(){
     {
         case WRITEIN:
             writeInStatement();     break;
-        case WRTIEOUT:
+        case WRITEOUT:
             writeOutStatement();    break;
         case IDENTIFIER : {
             nextSymbol();
@@ -249,7 +249,7 @@ void Parser::writeInStatement(){
 
 void Parser::writeOutStatement(){
     std::cout<<"WRITEOUT"<<std::endl;
-    accept(WRTIEOUT);
+    accept(WRITEOUT);
     while (symbol==OUTPUTSTREAM){
         nextSymbol();
         expression();

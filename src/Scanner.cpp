@@ -10,7 +10,7 @@
 std::string atomsTable[55]= {
         "function",//FUNCSY, //FUNCTION 0
         "writein",//        WRITEIN, //1
-        "writeout",//        WRTIEOUT, //2
+        "writeout",//        WRITEOUT, //2
         "while",//        WHILESY, //3
         "for",//        FORSY, //4
         "if",//        IFSY, //5
@@ -69,7 +69,7 @@ std::string atomsTable[55]= {
 std::unordered_map <std::string, SymbolType > Scanner::keyWordHashMap= {
         { "rational",   RATIONALSY},
         { "writein",    WRITEIN},  
-        { "writeout",   WRTIEOUT},  
+        { "writeout",   WRITEOUT},
         { "function",   FUNCSY }, 
         { "int",        INTSY  }, 
         { "string",     STRINGSY  }, 

@@ -7,6 +7,7 @@
 #include "Source.h"
 #include "Scanner.h"
 
+/*
 class MockSource : public Source{
 public:
     MockSource(std::string source): Source(source,true){};
@@ -40,3 +41,4 @@ TEST(ScanTest,Error_Call_Test){
             .Times(testing::AtLeast(1));
     scan.scanError(FUNCSY,"wrong");
 }
+*/

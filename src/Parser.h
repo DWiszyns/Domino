@@ -53,7 +53,7 @@ class Parser {
     void arrayDeclaration();
 public:
     Parser(Scanner&);
-    void program();   
+    void parse();
 };
 
 

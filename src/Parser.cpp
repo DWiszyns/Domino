@@ -35,7 +35,7 @@ Parser::Parser(Scanner &s): scanner(s){
     nextSymbol();
 }
 
-void Parser::program(){
+void Parser::parse(){
     std::cout<<"PROGRAM"<<std::endl;
     accept(FUNCSY);
     while(symbol!=MAINSY)

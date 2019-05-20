@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }*/
     //Source source(argv[2]);
-    Source source("test3.tkom");
+    Source source("test1.tkom");
     Scanner scan(source);
     Parser parser(scan);
-    parser.program();
+    parser.parse();
 }

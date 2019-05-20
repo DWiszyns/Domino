@@ -7,7 +7,7 @@
 #include "Scanner.h"
 #include "Parser.h"
 
-
+/*
 class MockSource : public Source{
 public:
     MockSource(std::string source): Source(source,true){};
@@ -35,5 +35,6 @@ TEST(ParserTest,Example_Parse_Test){
     .WillOnce(testing::Return(FUNCSY));
     Parser parser(scan);
 }
+ */
 
 

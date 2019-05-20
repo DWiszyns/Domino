@@ -22,7 +22,7 @@ class Parser {
     std::set<SymbolType> types,logicalOperator;
 
     void nextSymbol();
-    void syntaxErrorExpected(SymbolType atom);
+    virtual void syntaxErrorExpected(SymbolType atom);
     void syntaxErrorUnexpected(SymbolType atom);
     void syntaxErrorUnexpected(SymbolType atom,std::set <SymbolType> expectedAtoms);
     void skipTo(SymbolType atom);

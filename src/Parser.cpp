@@ -54,7 +54,7 @@ void Parser::nextSymbol(){
 
 void Parser::syntaxErrorExpected(SymbolType atom){
     scanner.scanError(atom,
-                    "Error expected atom: ");
+                    "Error expected token: ");
     skipTo(atom);
 }
 

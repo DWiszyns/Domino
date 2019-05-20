@@ -5,5 +5,14 @@
 #include "Program.h"
 
 int Program::execute() {
-    return 0;
+    mainFunction.execute(functions);
+    return a+b;
+
+}
+
+Program::~Program() {
+}
+
+Program::Program(int a, int b):a(a),b(b) {
+
 }

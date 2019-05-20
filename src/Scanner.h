@@ -10,31 +10,32 @@
 #include <unordered_map>
 #include "Source.h"
 #include "ScanDef.h"
+#include "Token.h"
 
-class Scanner
-        {
+class Scanner{
     Source &src;
     char c;
     void nextChar() { c=src.nextChar(); }
     int atomLine;
     int atomPos;
     char spell[MAXIDLEN+1];
-    static std::unordered_map <std::string, SymbolType > keyWordHashMap;
+    static std::unordered_map <std::string, SymbolType> keyWordHashMap;
 
 
 public:
     Scanner(Source &source);
     ~Scanner();
     bool divide;
-    virtual SymbolType nextSymbol();
+    virtual Token nextToken();
     void scanError(int ec, std::string word);
     void scanError(SymbolType atom, std::string word);
-    SymbolType createString();
-    SymbolType createNumber();
-    SymbolType getFirstUsefulChar();
-    SymbolType createStringInQuotes();
-    SymbolType createTwoSignOperator();
-    SymbolType createOneSignOperator();
+    Token createString();
+    Token createNumber();
+    Token getFirstUsefulChar();
+    Token createStringInQuotes();
+    Token createTwoSignOperator();
+    Token createOneSignOperator();
+    void flushSpell();
 };
 
 

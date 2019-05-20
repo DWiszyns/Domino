@@ -3,3 +3,17 @@
 //
 
 #include "MainFunction.h"
+
+void MainFunction::execute(std::list<Function> &functions) {
+    this->functions=functions;
+    content.execute(functions);
+
+}
+
+MainFunction::MainFunction(){
+
+}
+
+MainFunction::~MainFunction() {
+
+}

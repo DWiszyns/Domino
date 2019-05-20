@@ -4,6 +4,7 @@
 
 #include "Source.h"
 #include "Scanner.h"
+#include "Token.h"
 #include <boost/test/unit_test.hpp>
 
 
@@ -12,183 +13,183 @@ BOOST_AUTO_TEST_SUITE(ScanTest)
 BOOST_AUTO_TEST_CASE(function_symbol_test){
         Source src("function x():void{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL( FUNCSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL( FUNCSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(identifier_symbol_test){
         Source src("x():void{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(IDENTIFIER, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(IDENTIFIER, c.getType());
     }
 
 BOOST_AUTO_TEST_CASE(oroundbracket_symbol_test){
         Source src("():void{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(OROUNDBRACKET, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(OROUNDBRACKET, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(croundbracket_symbol_test){
         Source src("):void{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(CROUNDBRACKET, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(CROUNDBRACKET, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(colon_symbol_test){
         Source src(":void{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(COLON, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(COLON, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(void_symbol_test){
         Source src("void{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(VOIDSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(VOIDSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(openbracket_symbol_test){
         Source src("{} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(OPENBRACKET, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(OPENBRACKET, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(closebracket_symbol_test){
         Source src("} function main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(CLOSEBRACKET, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(CLOSEBRACKET, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(main_symbol_test){
         Source src("main():void{}",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(MAINSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(MAINSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(rational_symbol_test){
         Source src("rational",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(RATIONALSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(RATIONALSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(float_symbol_test){
         Source src("float",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(FLOATSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(FLOATSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(int_symbol_test){
         Source src("int",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(INTSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(INTSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(string_symbol_test){
         Source src("string",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(STRINGSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(STRINGSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(char_symbol_test){
         Source src("char",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(CHARSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(CHARSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(otablebracket_symbol_test){
         Source src("[",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(OTABLEBRACKET, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(OTABLEBRACKET, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(ctablebracket_symbol_test){
         Source src("]",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(CTABLEBRACKET, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(CTABLEBRACKET, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(coma_symbol_test){
         Source src(",",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(COMA, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(COMA, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(writein_symbol_test){
         Source src("writein",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(WRITEIN, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(WRITEIN, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(writeout_symbol_test){
         Source src("writeout",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(WRITEOUT, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(WRITEOUT, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(outputstream_symbol_test){
         Source src("<<",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(OUTPUTSTREAM, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(OUTPUTSTREAM, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(inputstream_symbol_test){
         Source src(">>",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(INPUTSTREAM, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(INPUTSTREAM, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(semicolon_symbol_test){
         Source src(";",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(SEMICOLON, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(SEMICOLON, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(plus_symbol_test){
         Source src("+",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(ADDSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(ADDSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(minus_symbol_test){
         Source src("-",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(SUBTRACTSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(SUBTRACTSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(multiply_symbol_test){
         Source src("*",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(MULTIPLYSY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(MULTIPLYSY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(divide_symbol_test){
         Source src("/",true);
         Scanner scan(src);
-        int c = scan.nextSymbol();
-        BOOST_CHECK_EQUAL(DIVIDESY, c );
+        Token c = scan.nextToken();
+        BOOST_CHECK_EQUAL(DIVIDESY, c.getType());
 }
 
 

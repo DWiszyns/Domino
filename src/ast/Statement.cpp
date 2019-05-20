@@ -3,3 +3,15 @@
 //
 
 #include "Statement.h"
+
+Statement::Statement() {
+
+}
+
+Statement::~Statement() {
+
+}
+
+void Statement::execute() {
+
+}

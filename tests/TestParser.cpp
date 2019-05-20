@@ -30,7 +30,7 @@ public:
 TEST(ParserTest,Example_Parse_Test){
     MockSource src("function xyz():void{} function main():void{}");
     MockScanner scan(src);
-    EXPECT_CALL(scan,nextSymbol())
+    EXPECT_CALL(scan,nextToken())
     .Times(testing::AtLeast(1))
     .WillOnce(testing::Return(FUNCSY));
     Parser parser(scan);

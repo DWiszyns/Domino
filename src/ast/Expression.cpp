@@ -3,3 +3,12 @@
 //
 
 #include "Expression.h"
+
+Expression::Expression(SimpleExpression& simpleExpression) {
+    simpleExpressions.push_back(simpleExpression);
+}
+
+void Expression::execute() {
+
+
+}

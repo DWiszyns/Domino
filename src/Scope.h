@@ -11,7 +11,6 @@
 #include "ScanDef.h"
 
 class Scope {
-    Scope *externalScope;
     //Parser parser; //tego nie jestem pewien
     std::string types[7] = { "int","rational",
                              "boolean","float",
@@ -67,8 +66,9 @@ class Scope {
     std::list<Variable> variables;
     std::list <Array> arrays;
     std::list <Function> functions;
-
+    Scope *externalScope;
 public:
+    Scope();
     Scope(Scope *ext, std::list<Variable> variables, std::list <Array> arrays,std::list <Function> functions);
     ~Scope();
     //lista array, zmiennych i funkcji

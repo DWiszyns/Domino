@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <cstring>
 #include "Scanner.h"
+#include "Token.h"
 
 std::string atomsTable[55]= {
         "function",//FUNCSY, //FUNCTION 0
@@ -95,7 +96,7 @@ Scanner::~Scanner() {
 
 }
 
-SymbolType Scanner::createString(){
+Token Scanner::createString(){
     unsigned int len=0, h;
         while(isalnum(c)){ 
             if(len<MAXIDLEN) spell[len++]=c;
@@ -103,28 +104,28 @@ SymbolType Scanner::createString(){
         }
         spell[len]='\0';
         if(keyWordHashMap.count(spell)!=0)
-            return keyWordHashMap[spell];
-        else return IDENTIFIER;
+            return Token(keyWordHashMap[spell],spell);
+        else return Token(IDENTIFIER,spell);
 }
 
-SymbolType Scanner::getFirstUsefulChar(){
+Token Scanner::getFirstUsefulChar(){
     while(isspace(c) || c=='/'){   
         while(isspace(c)) nextChar();
-        if(c==EOF) return EOFSY;
+        if(c==EOF) return Token(EOFSY,"EOF");
         if(c=='/')
         {
             nextChar();
             if(c=='/'){
                 while(c!='\n')
                     nextChar();
-            } else return DIVIDESY;
+            } else return Token(DIVIDESY,"/");
         }
-        if(c=='\0') return ENDOFTEXT;
+        if(c=='\0') return Token(ENDOFTEXT,"\0");
     }
-    return MAXSYM;
+    return Token(MAXSYM,"");
 }
 
-SymbolType Scanner::createNumber(){
+Token Scanner::createNumber(){
     int big; long l=0;
         while(isdigit(c))
         { 
@@ -146,24 +147,25 @@ SymbolType Scanner::createNumber(){
             }
             if(c=='f') {
                 nextChar();
-                return FLOATCONST;
+                return Token(FLOATCONST,spell);
             }
             else if (c=='r') {
                 nextChar();
-                return RATIONALCONST;
+                return Token(RATIONALCONST,spell);
             }
 
         }
         else {
             std::string intconstant = std::to_string(l);
             if (big) scanError(ICONST2BIG, intconstant);
-            return INTCONST;
+            return Token(INTCONST,spell);
         }
 }
 
-SymbolType Scanner::createStringInQuotes(){
+Token Scanner::createStringInQuotes(){
     nextChar();
     unsigned int len = 0;
+    std::string myString;
     while (c != '"') {
         if (c!='\''){
             if (len < MAXIDLEN) spell[len++] = c;
@@ -174,84 +176,87 @@ SymbolType Scanner::createStringInQuotes(){
     spell[len] = '\0';
     if (len == 1) {
         nextChar();
-        return CHARCONST;
+        return Token(CHARCONST,spell);
     }
-    else nextChar();
-    return STRINGCONST;
+    else
+        myString=spell;
+        nextChar();
+    return Token(STRINGCONST,spell);
 
 }
 
-SymbolType Scanner::createTwoSignOperator(){
+Token Scanner::createTwoSignOperator(){
     switch(c){
         case '=':
             nextChar();
-            if(c=='=') { nextChar(); return EQUALS; }
-            else return ASSIGN;
+            if(c=='=') { nextChar(); return Token(EQUALS,atomsTable[ASSIGN]); }
+            else return Token(ASSIGN,atomsTable[ASSIGN]);
         case '&':
             nextChar();
-            if(c=='&') { nextChar(); return ANDSY;}
-            else return OTHERS;
+            if(c=='&') { nextChar(); return Token(ANDSY,atomsTable[ANDSY]);}
+            else return Token(OTHERS,atomsTable[OTHERS]);
         case '<':
             nextChar();
-            if(c=='=') { nextChar(); return LESSOREQUAL;}
-            else if(c=='>') { nextChar(); return DIFFERENT; }
-            else if(c=='<') { nextChar(); return OUTPUTSTREAM; }
-            else return LESS;
+            if(c=='=') { nextChar(); return Token(LESSOREQUAL,atomsTable[LESSOREQUAL]);}
+            else if(c=='>') { nextChar(); return Token(DIFFERENT,atomsTable[DIFFERENT]); }
+            else if(c=='<') { nextChar(); return Token(OUTPUTSTREAM,atomsTable[OUTPUTSTREAM]); }
+            else return Token(LESS,atomsTable[LESS]);
         case '>':
             nextChar();
-            if(c=='=') { nextChar(); return MOREOREQUAL; }
-            else if(c=='>') { nextChar(); return INPUTSTREAM; }
-            else return MORE;
+            if(c=='=') { nextChar(); return Token(MOREOREQUAL,atomsTable[MOREOREQUAL]); }
+            else if(c=='>') { nextChar(); return Token(INPUTSTREAM,atomsTable[INPUTSTREAM]); }
+            else return Token(MORE,atomsTable[MORE]);
         case '|':
             nextChar();
-            if(c=='|') { nextChar(); return ORSY;}
-            else return OTHERS;
+            if(c=='|') { nextChar(); return Token(ORSY,atomsTable[ORSY]);}
+            else return Token(OTHERS,atomsTable[OTHERS]);
         case '!':
             nextChar();
-            if(c=='=') { nextChar(); return DIFFERENT; }
-            else return EXCLAMATION;
+            if(c=='=') { nextChar(); return Token(DIFFERENT,atomsTable[DIFFERENT]); }
+            else return Token(EXCLAMATION,atomsTable[EXCLAMATION]);
     }
 }
-SymbolType Scanner::createOneSignOperator(){
+Token Scanner::createOneSignOperator(){
     switch(c){
         case '+':
-            nextChar(); return ADDSY;
+            nextChar(); return Token(ADDSY,atomsTable[ADDSY]);
         case '-':
-            nextChar(); return SUBTRACTSY;
+            nextChar(); return Token(SUBTRACTSY, atomsTable[SUBTRACTSY]);
         case '*':
-            nextChar(); return MULTIPLYSY;
+            nextChar(); return Token(MULTIPLYSY,atomsTable[MULTIPLYSY]);
         case '%':
-            nextChar(); return RESTSY;
+            nextChar(); return Token(RESTSY,atomsTable[RESTSY]);
         case '(':
-            nextChar(); return OROUNDBRACKET;
+            nextChar(); return Token(OROUNDBRACKET,atomsTable[OROUNDBRACKET]);
         case ')':
-            nextChar(); return CROUNDBRACKET;
+            nextChar(); return Token(CROUNDBRACKET,atomsTable[CROUNDBRACKET]);
         case '[':
-            nextChar(); return OTABLEBRACKET;
+            nextChar(); return Token(OTABLEBRACKET,atomsTable[OTABLEBRACKET]);
         case ']':
-            nextChar(); return CTABLEBRACKET;
+            nextChar(); return Token(CTABLEBRACKET,atomsTable[CTABLEBRACKET]);
         case ',':
-            nextChar(); return COMA;
+            nextChar(); return Token(COMA,atomsTable[COMA]);
         case ';':
-            nextChar(); return SEMICOLON;
+            nextChar(); return Token(SEMICOLON,atomsTable[SEMICOLON]);
         case ':':
-            nextChar(); return COLON;
+            nextChar(); return Token(COLON,atomsTable[COLON]);
         case '.':
-            nextChar(); return DOT;
+            nextChar(); return Token(DOT,atomsTable[DOT]);
         case '{':
-            nextChar(); return OPENBRACKET;
+            nextChar(); return Token(OPENBRACKET,atomsTable[OPENBRACKET]);
         case '}':
-            nextChar(); return CLOSEBRACKET;
+            nextChar(); return Token(CLOSEBRACKET,atomsTable[CLOSEBRACKET]);
         default :
-            nextChar(); return OTHERS;
+            nextChar(); return Token(OTHERS,atomsTable[OTHERS]);
     }
 }
 
 
-SymbolType Scanner::nextSymbol() {
+Token Scanner::nextToken() {
+    flushSpell();
     if(src.getTextLine()==1 && src.getTextPos()==0) nextChar();
-    SymbolType returned = getFirstUsefulChar();
-    if(returned!=MAXSYM) return returned;
+    Token returned = getFirstUsefulChar();
+    if(returned.getType()!=MAXSYM) return returned;
     atomLine=src.getTextLine();
     atomPos=src.getTextPos();
     if(isalpha(c)){
@@ -289,6 +294,12 @@ void Scanner::scanError(int ec, std::string word) {
 
 void Scanner::scanError(SymbolType symbol, std::string word) {
     src.error(word, atomsTable[symbol],atomLine,atomPos);
+}
+
+void Scanner::flushSpell() {
+    for(int i=0;i<16;++i)
+        spell[i]='/0';
+
 }
 
 

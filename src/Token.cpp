@@ -20,3 +20,7 @@ SymbolType Token::getType() {
 Token::Token(SymbolType tokenType, std::string value):tokenType(tokenType),value(value)
 {
 }
+
+Token::~Token() {
+
+}

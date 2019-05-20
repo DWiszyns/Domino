@@ -7,8 +7,11 @@
 
 
 #include "Scanner.h"
+#include "Token.h"
+#include "ast/Program.h"
 #include <set>
 #include <vector>
+#include <memory>
 
 //std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
 
@@ -16,6 +19,7 @@
 class Parser {
     Scanner&    scanner;
     SymbolType  symbol;
+    Token token = Token(OTHERS,"");
     std::set<SymbolType> statementStart,   conditionalStatementStart;
     std::set<SymbolType> statementValue, endOfStream, multiplyOperator;
     std::set<SymbolType> addOperator,    signs,    relativeOperator;
@@ -53,7 +57,7 @@ class Parser {
     void arrayDeclaration();
 public:
     Parser(Scanner&);
-    void parse();
+    std::unique_ptr<Program> parse();
 };
 
 

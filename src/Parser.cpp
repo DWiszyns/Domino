@@ -3,12 +3,12 @@
 //
 
 #include "Parser.h"
+#include "ast/Program.h"
 #include <set>
 #include <algorithm>
 #include <iostream>
 
 Parser::Parser(Scanner &s): scanner(s){
-
     SymbolType statementStartSymbols[] = {WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};
     statementStart.insert(statementStartSymbols,statementStartSymbols+8);
     SymbolType typeSymbols[]={INTSY,CHARSY,STRINGSY,
@@ -35,7 +35,7 @@ Parser::Parser(Scanner &s): scanner(s){
     nextSymbol();
 }
 
-void Parser::parse(){
+std::unique_ptr<Program> Parser::parse(){
     std::cout<<"PROGRAM"<<std::endl;
     accept(FUNCSY);
     while(symbol!=MAINSY)
@@ -46,10 +46,13 @@ void Parser::parse(){
     accept(MAINSY);
     mainFunction();
     accept(endOfStream);
+    Program a(2,3);
+    return std::make_unique<Program>(a);
 }
 
 void Parser::nextSymbol(){
-    symbol=scanner.nextSymbol();
+    token= scanner.nextToken();
+    symbol=token.getType();
 }
 
 void Parser::syntaxErrorExpected(SymbolType atom){
@@ -100,7 +103,7 @@ void Parser::function() {
 
 void Parser::mainFunction() {
     std::cout<<"MAINFUNCTION"<<std::endl;
-    parameters();
+    parametersDefinition();
     accept(COLON);
     accept(VOIDSY);
     accept(OPENBRACKET);
@@ -171,7 +174,10 @@ void Parser::statement(){
         case IDENTIFIER : {
             nextSymbol();
             if (symbol == OROUNDBRACKET)
+            {
                 parameters();
+                accept(CROUNDBRACKET);
+            }
             else
                 assignment();
             break;
@@ -264,8 +270,7 @@ void Parser::factor() {
       if(symbol==OROUNDBRACKET&&currSymbol==IDENTIFIER){
           parameters();
       }
-  }
-  else if(symbol==OROUNDBRACKET){
+  }else if(symbol==OROUNDBRACKET){
       expression();
       accept(CROUNDBRACKET);
   }

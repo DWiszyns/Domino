@@ -6,7 +6,14 @@
 #define DOMINO_STATEMENT_H
 
 
+#include "../Scope.h"
+
 class Statement {
+    Scope scope;
+public:
+    Statement();
+    ~Statement();
+    void execute();
 
 };
 

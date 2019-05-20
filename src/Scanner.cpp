@@ -89,17 +89,27 @@ std::unordered_map <std::string, SymbolType > Scanner::keyWordHashMap= {
 Scanner::Scanner(Source &source): src(source) {
     atomLine=1;
     atomPos=0;
-
 }
 
 Scanner::~Scanner() {
 
 }
 
-SymbolType Scanner::nextSymbol() {
-    if(src.getTextLine()==1 && src.getTextPos()==0) nextChar();
-    while(isspace(c) || c=='/')
-    { while(isspace(c)) nextChar();// skip spaces
+SymbolType Scanner::createString(){
+    unsigned int len=0, h;
+        while(isalnum(c)){ 
+            if(len<MAXIDLEN) spell[len++]=c;
+            nextChar();
+        }
+        spell[len]='\0';
+        if(keyWordHashMap.count(spell)!=0)
+            return keyWordHashMap[spell];
+        else return IDENTIFIER;
+}
+
+SymbolType Scanner::getFirstUsefulChar(){
+    while(isspace(c) || c=='/'){   
+        while(isspace(c)) nextChar();
         if(c==EOF) return EOFSY;
         if(c=='/')
         {
@@ -111,27 +121,11 @@ SymbolType Scanner::nextSymbol() {
         }
         if(c=='\0') return ENDOFTEXT;
     }
+    return MAXSYM;
+}
 
-    atomLine=src.getTextLine();
-    atomPos=src.getTextPos();
-
-//---creating variable
-    if(isalpha(c)){
-        unsigned int len=0, h;
-        while(isalnum(c))
-        { 
-            if(len<MAXIDLEN) spell[len++]=c;
-            nextChar();
-        }
-        spell[len]='\0';
-        if(keyWordHashMap.count(spell)!=0)
-            return keyWordHashMap[spell];
-        else return IDENTIFIER;
-    }
-    else
-//---Numeric
-    if(isdigit(c))
-    { int big; long l=0;
+SymbolType Scanner::createNumber(){
+    int big; long l=0;
         while(isdigit(c))
         { 
             l = l*10+(c-'0');
@@ -165,33 +159,30 @@ SymbolType Scanner::nextSymbol() {
             if (big) scanError(ICONST2BIG, intconstant);
             return INTCONST;
         }
-    }
-    else
+}
 
-// cd3 NextSymbol() ---Rest of the signs
-    switch(c)
-    {
-        case '"': {
+SymbolType Scanner::createStringInQuotes(){
+    nextChar();
+    unsigned int len = 0;
+    while (c != '"') {
+        if (c!='\''){
+            if (len < MAXIDLEN) spell[len++] = c;
             nextChar();
-            unsigned int len = 0;
-            while (c != '"') {
-                if (c!='\'')
-                {
-                    if (len < MAXIDLEN) spell[len++] = c;
-                    nextChar();
-                }
-                else scanError(CARCONSTWRONG, spell);
-            }
-            spell[len] = '\0';
-            if (len == 1) {
-                nextChar();
-                return CHARCONST;
-            }
-            else nextChar();
-            return STRINGCONST;
         }
-// cd4 NextSymbol()
-//---- 2 and 1 sign operators
+        else scanError(CARCONSTWRONG, spell);
+    }
+    spell[len] = '\0';
+    if (len == 1) {
+        nextChar();
+        return CHARCONST;
+    }
+    else nextChar();
+    return STRINGCONST;
+
+}
+
+SymbolType Scanner::createTwoSignOperator(){
+    switch(c){
         case '=':
             nextChar();
             if(c=='=') { nextChar(); return EQUALS; }
@@ -219,7 +210,10 @@ SymbolType Scanner::nextSymbol() {
             nextChar();
             if(c=='=') { nextChar(); return DIFFERENT; }
             else return EXCLAMATION;
-//----Operatory 1 znakowe
+    }
+}
+SymbolType Scanner::createOneSignOperator(){
+    switch(c){
         case '+':
             nextChar(); return ADDSY;
         case '-':
@@ -251,6 +245,38 @@ SymbolType Scanner::nextSymbol() {
         default :
             nextChar(); return OTHERS;
     }
+}
+
+
+SymbolType Scanner::nextSymbol() {
+    if(src.getTextLine()==1 && src.getTextPos()==0) nextChar();
+    SymbolType returned = getFirstUsefulChar();
+    if(returned!=MAXSYM) return returned;
+    atomLine=src.getTextLine();
+    atomPos=src.getTextPos();
+    if(isalpha(c)){
+        returned=createString();
+    }
+    else if(isdigit(c)){ 
+        returned=createNumber();
+    }
+    else switch(c)
+    {
+        case '"': {
+            returned=createStringInQuotes();
+            break;
+        }
+        case '=':case '&':case '<':
+        case '>':case '|':case '!':{
+            returned=createTwoSignOperator();
+            break;
+        }
+        default :{
+            returned=createOneSignOperator();
+            break;
+        }
+    }
+    return returned;
 }
 
 void Scanner::scanError(int ec, std::string word) {

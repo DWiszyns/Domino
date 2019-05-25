@@ -4,7 +4,7 @@
 
 #include "Node.h"
 
-Node::Node(int value):value(value){
+Node::Node(){
 
 }
 
@@ -13,5 +13,5 @@ Node::~Node() {
 }
 
 int Node::getValue() {
-    return value;
+    return 0;
 }

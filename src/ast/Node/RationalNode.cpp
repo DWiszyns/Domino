@@ -3,3 +3,15 @@
 //
 
 #include "RationalNode.h"
+
+RationalNode::RationalNode(Rational value):value(value) {
+
+}
+
+RationalNode::~RationalNode() {
+
+}
+
+Rational RationalNode::getValue() {
+    return value;
+}

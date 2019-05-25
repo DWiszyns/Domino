@@ -7,9 +7,9 @@
 
 
 class Node {
-    int value;
+//    int value;
 public:
-    Node(int value=0);
+    Node();
     ~Node();
     int getValue();
 

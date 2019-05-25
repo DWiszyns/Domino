@@ -6,7 +6,14 @@
 #define DOMINO_CHARNODE_H
 
 
-class CharNode {
+#include "Node.h"
+
+class CharNode: public Node {
+    char value;
+public:
+    CharNode(char value='c');
+    ~CharNode();
+    char getValue();
 
 };
 

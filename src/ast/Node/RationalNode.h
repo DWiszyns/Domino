@@ -6,7 +6,15 @@
 #define DOMINO_RATIONALNODE_H
 
 
-class RationalNode {
+#include "Node.h"
+#include "../../Rational.h"
+
+class RationalNode: public Node {
+    Rational value;
+public:
+    RationalNode(Rational value="1.5r");
+    ~RationalNode();
+    Rational getValue();
 
 };
 

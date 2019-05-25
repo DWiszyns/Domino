@@ -3,3 +3,15 @@
 //
 
 #include "CharNode.h"
+
+char CharNode::getValue() {
+    return value;
+}
+
+CharNode::~CharNode() {
+
+}
+
+CharNode::CharNode(char value):value(value){
+
+}

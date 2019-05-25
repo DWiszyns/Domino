@@ -3,3 +3,15 @@
 //
 
 #include "FloatNode.h"
+
+float FloatNode::getValue() {
+    return value;
+}
+
+FloatNode::FloatNode(float value):value(value) {
+
+}
+
+FloatNode::~FloatNode() {
+
+}

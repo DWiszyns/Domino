@@ -5,8 +5,15 @@
 #ifndef DOMINO_STRINGNODE_H
 #define DOMINO_STRINGNODE_H
 
+#include <string>
+#include "Node.h"
 
-class StringNode {
+class StringNode: public Node {
+    std::string value;
+public:
+    StringNode(std::string value="1.5r");
+    ~StringNode();
+    std::string getValue();
 
 };
 

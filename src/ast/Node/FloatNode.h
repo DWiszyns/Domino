@@ -6,7 +6,14 @@
 #define DOMINO_FLOATNODE_H
 
 
-class FloatNode {
+#include "Node.h"
+
+class FloatNode: public Node {
+    float value;
+public:
+    FloatNode(float value=1.5f);
+    ~FloatNode();
+    float getValue();
 
 };
 

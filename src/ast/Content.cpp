@@ -13,12 +13,13 @@ void Content::execute(std::list<Function> functions) {
 }
 
 Content::Content() {
+//    statements=std::list<Statement> statements;
 
 }
 
-Content::Content(Scope &scope):scope(scope) {
+/*Content::Content(Scope &scope):scope(scope) {
 
-}
+}*/
 
 void Content::addStatement(Statement statement) {
     statements.push_back(statement);

@@ -8,15 +8,15 @@
 #include <list>
 
 #include "Function.h"
-#include "../Scope.h"
+//#include "../Scope.h"
 #include "Statement.h"
 
 class Content {
-    Scope scope;
+   // Scope scope;
     std::list <Statement> statements;
 public:
     Content();
-    Content(Scope &scope);
+ //   Content(/*Scope &scope*/);
     ~Content();
     void execute(std::list<Function> functions);
     void addStatement(Statement statement);

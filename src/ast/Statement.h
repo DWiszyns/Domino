@@ -9,7 +9,8 @@
 #include "../Scope.h"
 
 class Statement {
-    Scope scope;
+//    Scope scope;
+    int a=1;
 public:
     Statement();
     ~Statement();

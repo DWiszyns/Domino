@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <list>
-#include "Parser.h"
+//#include "Parser.h"
 #include "ScanDef.h"
 
 class Scope {

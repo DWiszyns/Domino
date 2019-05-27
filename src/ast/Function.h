@@ -6,8 +6,18 @@
 #define DOMINO_FUNCTION_H
 
 
-class Function {
+#include "Variable.h" //watch out might have too many includes
 
+class Function {
+    std::string name;
+    TypeKind type;
+public:
+    //jakis wskaznik na nia?
+    Function(std::string name, TypeKind type):
+            name(name), type(type){
+    }
+    ~Function(){
+    }
 };
 
 

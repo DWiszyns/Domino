@@ -128,6 +128,7 @@ void Parser::content(){
 
 
 void Parser::variableDeclaration(){
+    //trzeba dodac zmienna do Scope'a
     std::cout<<"VARIABLE DECLARATION"<<std::endl;
     if(types.find(symbol)==types.end())
         syntaxErrorUnexpected(symbol,types);
@@ -270,6 +271,7 @@ void Parser::factor() {
       if(symbol==OROUNDBRACKET&&currSymbol==IDENTIFIER){
           parameters();
       }
+      //TODO czy zmienna zadeklarowana? jaki typ zmiennej?
   }else if(symbol==OROUNDBRACKET){
       expression();
       accept(CROUNDBRACKET);

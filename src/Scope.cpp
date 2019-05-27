@@ -19,3 +19,19 @@ Scope::Scope() {
     externalScope=nullptr;
 
 }
+
+void Scope::addVariable(Variable variable) {
+    variables.push_back(variable);
+
+}
+
+void Scope::addArray(Scope::Array array) {
+    arrays.push_back(array);
+
+}
+
+void Scope::addFunction(Function function) {
+    functions.push_back(function);
+
+}
+

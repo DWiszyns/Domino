@@ -4,14 +4,3 @@
 
 #include "Node.h"
 
-Node::Node(){
-
-}
-
-Node::~Node() {
-
-}
-
-int Node::getValue() {
-    return 0;
-}

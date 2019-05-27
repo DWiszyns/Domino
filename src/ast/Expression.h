@@ -8,15 +8,14 @@
 
 #include <list>
 #include "SimpleExpression.h"
-#include "../ScanDef.h"
 
 class Expression {
     std::list <SimpleExpression> simpleExpressions;
-    std::list <SymbolType> operators;
+    std::list <SymbolType> additionOperators;
     int value;
 public:
     Expression(SimpleExpression& simpleExpression);
-    void execute();
+    Node execute();
     void addOperator();
     void addSimpleExpression();
 

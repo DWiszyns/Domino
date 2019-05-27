@@ -26,6 +26,8 @@ public:
     ~Variable();
     auto getValue();
     auto getValueByIndex(unsigned int i);
+    Node getNode();
+    Node getNodeByIndex(int i);
     std::string getName();
     bool isSingleNode();
 

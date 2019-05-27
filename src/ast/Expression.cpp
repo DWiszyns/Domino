@@ -8,7 +8,14 @@ Expression::Expression(SimpleExpression& simpleExpression) {
     simpleExpressions.push_back(simpleExpression);
 }
 
-void Expression::execute() {
+Node Expression::execute() {
+    return Node(0);
+}
 
+void Expression::addOperator() {
+
+}
+
+void Expression::addSimpleExpression() {
 
 }

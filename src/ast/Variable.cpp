@@ -41,3 +41,13 @@ std::string Variable::getName() {
 bool Variable::isSingleNode() {
     return singleNode;
 }
+
+Node Variable::getNode() {
+    return *nodes[0];
+}
+
+Node Variable::getNodeByIndex(int i) {
+    return *nodes[i];
+}
+
+

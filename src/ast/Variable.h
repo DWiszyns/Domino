@@ -8,36 +8,26 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include "Node/Node.h"
 
-std::string types[7] = { "int","rational",
-                         "boolean","float",
-                         "string","char","void"};
-enum TypeKind{Int, Rational, Boolean,
-    Float, String, Char, Void };
-//template <typename T>
+
 class Variable {
     std::string name;
-    std::unique_ptr<Node> node;
+    std::vector<std::unique_ptr<Node>> nodes;
+    unsigned int size;
+    bool singleNode;//tells us if we can access it with []
     //std::string value;
 //    TypeKind type; //do I really need you?
 public:
-    Variable(){
-        node=std::make_unique<Node>();
-
-    }
-    Variable(Variable &otherVariable):
-            name(otherVariable.name),node(std::move(otherVariable.node)){
-    }
-    Variable(std::string name, std::unique_ptr<Node> node):name(name),node(std::move(node)){
-
-    };
-    ~Variable(){
-
-    }
-    auto getValue(){
-        return node->getValue();
-    }
+    Variable();
+    Variable(Variable &otherVariable);
+    Variable(std::string name, std::vector<std::unique_ptr<Node>> nodes, unsigned int size);
+    ~Variable();
+    auto getValue();
+    auto getValueByIndex(unsigned int i);
+    std::string getName();
+    bool isSingleNode();
 
 };
 

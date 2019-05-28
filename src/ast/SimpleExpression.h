@@ -6,6 +6,7 @@
 #define DOMINO_SIMPLEEXPRESSION_H
 
 #include <list>
+#include <memory>
 #include "../ScanDef.h"
 #include "Factor/Factor.h"
 

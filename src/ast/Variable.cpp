@@ -30,11 +30,11 @@ Variable::~Variable() {
 }
 
 auto Variable::getValue() {
-    return 0;//nodes[0]->getValue();
+    return nodes[0]->getNewValue();
 }
 
 auto Variable::getValueByIndex(unsigned int i) {
-    return 0;//nodes[i]->getValue();
+    return nodes[i]->getNewValue();//nodes[i]->getValue();
 }
 
 std::string Variable::getName() {

@@ -5,20 +5,11 @@
 #include <numeric>
 #include "Rational.h"
 
-/*
-Rational::Rational(int numerator, unsigned denominator):numerator(numerator),denominator(denominator){
-    std::stringstream temp;
-    temp<<numerator<<"."<<denominator<<'r';
-    stringRepresentation=temp.str();
-}
- */
-
 
 Rational::Rational(short int numerator, unsigned denominator):numerator(numerator),denominator(denominator) {
     std::stringstream temp;
     temp<<numerator<<"."<<denominator<<'r';
     stringRepresentation=temp.str();
-
 }
 
 

@@ -138,7 +138,286 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         BOOST_TEST_PASSPOINT();
         BOOST_CHECK_EQUAL("15.1r",o.getNewValue().rational->getRational());
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+    }
 
+    BOOST_AUTO_TEST_CASE(adding_two_nodes_rational_and_int){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        Rational y("8.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m+n);
+        Node p(n+m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("15.1r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(p.getNewValue().rational->getRational(),o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
+    }
+
+    BOOST_AUTO_TEST_CASE(subtracting_two_nodes_integers){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        int y=8;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(n-m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(1,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
+    }
+
+    BOOST_AUTO_TEST_CASE(subtracting_two_nodes_float_and_integer){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        float y=8.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m-n);
+        Node p(n-m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(-1.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(-1*p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
+
+    }
+
+    BOOST_AUTO_TEST_CASE(subtracting_two_nodes_floats){
+        BOOST_TEST_PASSPOINT();
+        float x=7.0f;
+        float y=8.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m-n);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(-1.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+    }
+
+    BOOST_AUTO_TEST_CASE(subtracting_two_nodes_rational_and_float){
+        BOOST_TEST_PASSPOINT();
+        Rational x("7.1r");
+        float y=8.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m-n);
+        Node p(n-m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(-1.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(-1*p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
+    }
+
+    BOOST_AUTO_TEST_CASE(subtracting_two_nodes_rationals){
+        BOOST_TEST_PASSPOINT();
+        Rational x("7.1r");
+        Rational y("8.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m-n);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("-1.1r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+    }
+
+    BOOST_AUTO_TEST_CASE(subtracting_two_nodes_rational_and_int){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        Rational y("8.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m-n);
+        Node p(n-m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("-1.1r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(p.getNewValue().rational->getRational(),"1.1r");
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
+    }
+
+    BOOST_AUTO_TEST_CASE(multiplying_two_nodes_integers){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        int y=8;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(n*m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(56,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
+    }
+
+    BOOST_AUTO_TEST_CASE(multiplying_two_nodes_float_and_integer){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        float y=8.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m*n);
+        Node p(n*m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(56.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
+
+    }
+
+    BOOST_AUTO_TEST_CASE(multiplying_two_nodes_floats){
+        BOOST_TEST_PASSPOINT();
+        float x=7.0f;
+        float y=8.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m*n);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(56.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+    }
+
+    BOOST_AUTO_TEST_CASE(multiplying_two_nodes_rational_and_float){
+        BOOST_TEST_PASSPOINT();
+        Rational x("7.1r");
+        float y=8.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m*n);
+        Node p(n*m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(56.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
+    }
+
+    BOOST_AUTO_TEST_CASE(multiplying_two_nodes_rationals){
+        BOOST_TEST_PASSPOINT();
+        Rational x("7.1r");
+        Rational y("8.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m*n);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("56.1r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+    }
+
+    BOOST_AUTO_TEST_CASE(multilying_two_nodes_rational_and_int){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        Rational y("8.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m*n);
+        Node p(n*m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("56.1r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(p.getNewValue().rational->getRational(),"56.1r");
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
+    }
+
+    BOOST_AUTO_TEST_CASE(dividing_two_nodes_integers){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        int y=14;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(n/m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(2,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
+    }
+
+    BOOST_AUTO_TEST_CASE(dividing_two_nodes_float_and_integer){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        float y=14.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m/n);
+        Node p(n/m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(0.5f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(1/p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
+
+    }
+
+    BOOST_AUTO_TEST_CASE(dividing_two_nodes_floats){
+        BOOST_TEST_PASSPOINT();
+        float x=7.0f;
+        float y=14.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(n/m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(2.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+    }
+
+    BOOST_AUTO_TEST_CASE(dividing_two_nodes_rational_and_float){
+        BOOST_TEST_PASSPOINT();
+        Rational x("7.1r");
+        float y=14.0f;
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m/n);
+        Node p(n/m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL(0.5f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(1/p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
+    }
+
+    BOOST_AUTO_TEST_CASE(dividing_two_nodes_rationals){
+        BOOST_TEST_PASSPOINT();
+        Rational x("7.1r");
+        Rational y("8.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m*n);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("56.1r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+    }
+
+    BOOST_AUTO_TEST_CASE(dividing_two_nodes_rational_and_int){
+        BOOST_TEST_PASSPOINT();
+        int x=7;
+        Rational y("14.1r");
+        BOOST_TEST_PASSPOINT();
+        Node m(x);
+        Node n(y);
+        Node o(m/n);
+        Node p(n/m);
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_EQUAL("1.2r",o.getNewValue().rational->getRational());
+        BOOST_CHECK_EQUAL(p.getNewValue().rational->getRational(),"2.1r");
+        BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
+        BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
     }
 
 

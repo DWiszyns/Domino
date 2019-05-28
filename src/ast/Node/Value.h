@@ -39,9 +39,6 @@ union Value{
         boolean=x;
     }
     Value(const Rational& x){
-
-//        const Rational &&y=*x;
-//        const Rational *z=&y;
         rational=new Rational(x);
     }
 

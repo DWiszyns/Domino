@@ -18,10 +18,8 @@ SimpleExpression::~SimpleExpression() {
 
 void SimpleExpression::addOperator(SymbolType newOperator) {
     multiplicationOperators.push_back(newOperator);
-
 }
 
-void SimpleExpression::addFactor(Factor &factor) {
-    factors.push_back(factor);
-
+void SimpleExpression::addFactor(std::unique_ptr<Factor> factor) {
+    factors.push_back(std::move(factor));
 }

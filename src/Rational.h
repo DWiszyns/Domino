@@ -16,14 +16,14 @@ class Rational {
     Rational shorten(Rational rational);
 public:
     Rational();
-    Rational(int numerator,unsigned denominator);
+    Rational(short int numerator,unsigned denominator);
     Rational(std::string number);
     Rational(char* number);
     Rational(const Rational& other);
     ~Rational();
     int getNumerator();
     unsigned int getDenominator();
-    std::string getRational();
+    std::string getRational() const;
     friend std::ostream& operator<<(std::ostream& os, const Rational& obj);
     friend std::istream& operator>>(std::istream& is, Rational& obj);
     Rational& operator=(const Rational& other); // copy assignment

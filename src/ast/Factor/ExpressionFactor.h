@@ -10,9 +10,9 @@
 #include "../Expression.h"
 
 class ExpressionFactor: public Factor {
-    Expression expression;
+    std::unique_ptr<Expression> expression;
 public:
-    ExpressionFactor(Expression expression);
+    ExpressionFactor(std::unique_ptr<Expression> expression);
     ~ExpressionFactor();
     Node calculate() override;
 

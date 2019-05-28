@@ -5,7 +5,6 @@
 #ifndef DOMINO_SCOPE_H
 #define DOMINO_SCOPE_H
 
-#include <iostream>
 #include <list>
 #include "ast/Variable.h"
 #include "ast/Function.h"

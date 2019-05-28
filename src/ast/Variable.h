@@ -21,7 +21,8 @@ class Variable {
 //    TypeKind type; //do I really need you?
 public:
     Variable();
-    Variable(Variable &otherVariable);
+    Variable(const Variable &otherVariable);
+    Variable& operator=(const Variable&);
     Variable(std::string name, std::vector<std::unique_ptr<Node>> nodes, unsigned int size);
     ~Variable();
     auto getValue();

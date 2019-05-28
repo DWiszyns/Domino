@@ -5,11 +5,23 @@
 #include <numeric>
 #include "Rational.h"
 
+/*
 Rational::Rational(int numerator, unsigned denominator):numerator(numerator),denominator(denominator){
     std::stringstream temp;
     temp<<numerator<<"."<<denominator<<'r';
     stringRepresentation=temp.str();
 }
+ */
+
+
+Rational::Rational(short int numerator, unsigned denominator):numerator(numerator),denominator(denominator) {
+    std::stringstream temp;
+    temp<<numerator<<"."<<denominator<<'r';
+    stringRepresentation=temp.str();
+
+}
+
+
 
 Rational::~Rational() {
 
@@ -46,7 +58,7 @@ Rational &Rational::operator=(const Rational& other)
     if (this != &other) {
         this->numerator=other.numerator;
         this->denominator=other.denominator;
-        this->stringRepresentation=other.stringRepresentation;
+        this->stringRepresentation=std::move(other.stringRepresentation);
     }
     return *this;
 }
@@ -193,7 +205,7 @@ unsigned int Rational::getDenominator() {
     return denominator;
 }
 
-std::string Rational::getRational() {
+std::string Rational::getRational() const{
     return stringRepresentation;
 }
 
@@ -202,7 +214,6 @@ Rational::Rational() {
     denominator=1;
     stringRepresentation="0.1r";
 }
-
 
 
 

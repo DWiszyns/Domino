@@ -9,5 +9,9 @@ ExpressionFactor::~ExpressionFactor() {
 }
 
 Node ExpressionFactor::calculate() {
-    return expression.execute();
+    return expression->execute();
+}
+
+ExpressionFactor::ExpressionFactor(std::unique_ptr<Expression> expression):expression(std::move(expression)),Factor(Node (0)) {
+
 }

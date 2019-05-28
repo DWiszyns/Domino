@@ -6,17 +6,18 @@
 #define DOMINO_SIMPLEEXPRESSION_H
 
 #include <list>
-#include "Factor/Factor.h"
 #include "../ScanDef.h"
+#include "Factor/Factor.h"
+
 
 class SimpleExpression {
-    std::list <Factor> factors;
+    std::list <std::unique_ptr<Factor>> factors;
     std::list <SymbolType> multiplicationOperators;
 public:
     SimpleExpression();
     ~SimpleExpression();
     Node execute();
-    void addFactor(Factor &factor);
+    void addFactor(std::unique_ptr<Factor> factor);
     void addOperator(SymbolType multiplicationOperator);
 
 };

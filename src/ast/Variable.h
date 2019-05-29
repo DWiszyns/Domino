@@ -15,7 +15,7 @@ class Variable {
     unsigned int size;
     bool singleNode;//tells us if we can access it with []
     //std::string value;
-//    TypeKind type; //do I really need you?
+//    TypeKind type; //do I really need you? //i probably to set type for all values;
 public:
     Variable();
     Variable(const Variable &otherVariable);

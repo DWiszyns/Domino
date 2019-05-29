@@ -1,28 +1,26 @@
-#include <utility>
 
 #include <utility>
-
 //
 // Created by dominik on 5/20/19.
 //
 
 #include "SimpleExpression.h"
-#include "Factor/ValueFactor.h"
+#include "../Factor/ValueFactor.h"
 
 Node SimpleExpression::execute() {
     std::unique_ptr<Factor> tempFactor;
     auto it = multiplicationOperators.begin();
     for(auto &factor: factors){
         if(factor==*factors.begin()){
-            tempFactor=std::make_unique<Factor>(factor->calculate());
+            tempFactor=std::make_unique<ValueFactor>(*factor); //either way we're only interested in value, so even for expressionfactor we calculate it now
         }
         else {
             switch(*it){
                 case MULTIPLYSY:
-                    tempFactor=std::make_unique<Factor>(tempFactor->calculate()*factor->calculate());
+                    tempFactor=std::make_unique<ValueFactor>((tempFactor->calculate())*(factor->calculate()));
                     break;
                 case DIVIDESY:
-                    tempFactor=std::make_unique<Factor>(tempFactor->calculate()/factor->calculate());
+                    tempFactor=std::make_unique<ValueFactor>((tempFactor->calculate())/(factor->calculate()));
                     break;
                 default:break;
             }
@@ -58,15 +56,17 @@ SimpleExpression::SimpleExpression(std::list<std::unique_ptr<Factor>> factors,
 SimpleExpression::SimpleExpression(const SimpleExpression &otherExpression):
     multiplicationOperators(otherExpression.multiplicationOperators){
     for(const auto &n:otherExpression.factors)
-        factors.push_back(std::make_unique<Factor>(*n));
-
+        if(dynamic_cast<ValueFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ValueFactor>(*n));
+        else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr)  factors.push_back(std::make_unique<ExpressionFactor>(*n));
+        else factors.push_back(std::make_unique<Factor>(*n));
 }
 
 SimpleExpression &SimpleExpression::operator=(const SimpleExpression &otherExpression){
     if (this != &otherExpression) {
         multiplicationOperators=otherExpression.multiplicationOperators;
-        for(const auto &n:otherExpression.factors)
-            factors.push_back(std::make_unique<Factor>(*n));
+            for(const auto &n:otherExpression.factors)
+                if(typeid(n)==typeid(ValueFactor)) factors.push_back(std::make_unique<ValueFactor>(*n));
+                else  factors.push_back(std::make_unique<ExpressionFactor>(*n));
     }
     return *this;
 }

@@ -6,21 +6,24 @@
 #define DOMINO_VALUE_H
 
 #include "../../Rational.h"
+#include<memory>
 
 
 enum TypeKind{INT, BOOLEAN,
     FLOAT, STRING, CHAR, RATIONAL};
 
 union Value{
-    std::string *str;
+    std::unique_ptr<std::string> str;
     int integer{};
     float floatVal;
     char character;
-    Rational *rational;
+    Rational rational;
     bool boolean;
 
     Value(){
         integer=0;
+    }
+    ~Value(){
     }
 
     explicit Value(const float& x){
@@ -39,24 +42,25 @@ union Value{
         boolean=x;
     }
     Value(const Rational& x){
-        rational=new Rational(x);
+
+        rational=x;
     }
 
     explicit Value(const std::string& x){
-        str=new std::string(x);
+        str=std::make_unique<std::string>(x);
     }
 
     Value(const Value &otherValue, TypeKind typeKind=INT){
-        if(typeKind==STRING) str=otherValue.str;
+        if(typeKind==STRING) str=std::make_unique<std::string>(*otherValue.str);
         integer=otherValue.integer;
         floatVal=otherValue.floatVal;
         character=otherValue.character;
-        if(typeKind==RATIONAL) rational=new Rational(*(otherValue.rational));
+        rational=otherValue.rational;
         boolean=otherValue.boolean;
     }
     Value& operator=(const std::string& other)
     {
-        str = new std::string(other);
+        str = std::make_unique<std::string>(other);
         return *this;
     }
 
@@ -74,7 +78,7 @@ union Value{
 
     Value& operator=(const Rational& other)
     {
-        rational = new Rational(other);
+        rational = other;
         return *this;
     }
 
@@ -92,7 +96,7 @@ union Value{
 
     Value& operator=(const std::string&& other)
     {
-        str = new std::string(other);
+        str = std::make_unique<std::string>(other);
         return *this;
     }
 
@@ -110,7 +114,7 @@ union Value{
 
     Value& operator=(const Rational&& other)
     {
-        rational = new Rational(other);
+        rational = other;
         return *this;
     }
 
@@ -128,7 +132,7 @@ union Value{
 
     Value& operator=(const Value& otherValue)
     {
-        this->str=otherValue.str;
+        this->str=std::make_unique<std::string>(*otherValue.str);
         this->integer=otherValue.integer;
         this->floatVal=otherValue.floatVal;
         this->character=otherValue.character;

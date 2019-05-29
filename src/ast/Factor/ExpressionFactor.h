@@ -7,12 +7,16 @@
 
 
 #include "Factor.h"
-#include "../Expression.h"
+
+class Expression;
 
 class ExpressionFactor: public Factor {
     std::unique_ptr<Expression> expression;
 public:
     ExpressionFactor(std::unique_ptr<Expression> expression);
+    ExpressionFactor(const ExpressionFactor& otherExpression);
+
+    explicit ExpressionFactor(const Factor& otherFactor);
     ~ExpressionFactor();
     Node calculate() override;
 

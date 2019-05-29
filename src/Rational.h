@@ -12,8 +12,8 @@
 class Rational {
     int numerator;
     unsigned int denominator;
-    std::string stringRepresentation;
-    Rational shorten(Rational rational);
+    //std::string stringRepresentation;
+    Rational shorten(Rational rational) const;
 public:
     Rational();
     Rational(short int numerator,unsigned denominator);
@@ -21,8 +21,8 @@ public:
     Rational(char* number);
     Rational(const Rational& other);
     ~Rational();
-    int getNumerator();
-    unsigned int getDenominator();
+    int getNumerator() const;
+    unsigned int getDenominator() const;
     std::string getRational() const;
     friend std::ostream& operator<<(std::ostream& os, const Rational& obj);
     friend std::istream& operator>>(std::istream& is, Rational& obj);
@@ -35,10 +35,10 @@ public:
     bool operator>=(const Rational& rhs);
     bool operator==(const Rational& rhs);
     bool operator!=(const Rational& rhs);
-    Rational operator+(const Rational& rhs);
-    Rational operator-(const Rational& rhs);
-    Rational operator*(const Rational& rhs);
-    Rational operator/(const Rational& rhs);
+    Rational operator+(const Rational& rhs) const;
+    Rational operator-(const Rational& rhs) const;
+    Rational operator*(const Rational& rhs) const;
+    Rational operator/(const Rational& rhs) const;
     Rational&operator+=(const Rational& rhs);
     Rational&operator-=(const Rational& rhs);
     Rational&operator*=(const Rational& rhs);

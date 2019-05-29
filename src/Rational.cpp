@@ -7,9 +7,9 @@
 
 
 Rational::Rational(short int numerator, unsigned denominator):numerator(numerator),denominator(denominator) {
-    std::stringstream temp;
-    temp<<numerator<<"."<<denominator<<'r';
-    stringRepresentation=temp.str();
+   // std::stringstream temp;
+   // temp<<numerator<<"."<<denominator<<'r';
+   // stringRepresentation=temp.str();
 }
 
 
@@ -22,9 +22,9 @@ Rational::Rational(std::string number) {
     unsigned long position=number.find('.');
     numerator=std::stoi(number.substr(0,position));
     denominator=std::stoi(number.substr(position+1,number.size()-1));
-    std::stringstream temp;
-    temp<<numerator<<"."<<denominator<<'r';
-    stringRepresentation=temp.str();
+   // std::stringstream temp;
+   // temp<<numerator<<"."<<denominator<<'r';
+   // stringRepresentation=temp.str();
 }
 
 Rational::Rational(char *oldNumber) {
@@ -32,14 +32,15 @@ Rational::Rational(char *oldNumber) {
     unsigned long position=number.find('.');
     numerator=std::stoi(number.substr(0,position));
     denominator=std::stoi(number.substr(position+1,number.size()-1));
-    std::stringstream temp;
-    temp<<numerator<<"."<<denominator<<'r';
-    stringRepresentation=temp.str();
+   // std::stringstream temp;
+   // temp<<numerator<<"."<<denominator<<'r';
+    //stringRepresentation=temp.str();
 }
 
 
 Rational::Rational(const Rational &other):numerator(other.numerator),
-    denominator(other.denominator),stringRepresentation(other.stringRepresentation){
+    denominator(other.denominator)//,stringRepresentation(other.stringRepresentation)
+    {
 
 
 }
@@ -49,7 +50,7 @@ Rational &Rational::operator=(const Rational& other)
     if (this != &other) {
         this->numerator=other.numerator;
         this->denominator=other.denominator;
-        this->stringRepresentation=std::move(other.stringRepresentation);
+       // this->stringRepresentation=std::move(other.stringRepresentation);
     }
     return *this;
 }
@@ -63,12 +64,14 @@ Rational &Rational::operator=(Rational &&other) noexcept {
 
 std::ostream& operator<<(std::ostream& os, const Rational& obj)
 {
-    os<<obj.stringRepresentation;
+    os<<obj.numerator<<"."<<obj.denominator<<'r';
     return os;
 }
 
 std::istream &operator>>(std::istream &is, Rational &obj) {
-    is>>obj.stringRepresentation;
+    std::string stringRepresentation;
+    is>>stringRepresentation;
+    obj=stringRepresentation;
     return is;
 }
 
@@ -103,7 +106,7 @@ bool Rational::operator<(const Rational &rhs) {
     return !(*this>rhs||*this==rhs);
 }
 
-Rational Rational::operator+(const Rational &rhs) {
+Rational Rational::operator+(const Rational &rhs) const {
     Rational ourNumber=shorten(*this);
     Rational otherNumber=shorten(rhs);
     ourNumber.numerator*=otherNumber.denominator;
@@ -113,7 +116,7 @@ Rational Rational::operator+(const Rational &rhs) {
     return shorten(Rational(newNumerator, commonDenominator));
 }
 
-Rational Rational::operator-(const Rational &rhs) {
+Rational Rational::operator-(const Rational &rhs) const {
     Rational ourNumber=shorten(*this);
     Rational otherNumber=shorten(rhs);
     ourNumber.numerator*=otherNumber.denominator;
@@ -123,14 +126,14 @@ Rational Rational::operator-(const Rational &rhs) {
     return shorten(Rational(newNumerator, commonDenominator));
 }
 
-Rational Rational::operator*(const Rational &rhs) {
+Rational Rational::operator*(const Rational &rhs) const {
     Rational ourNumber=shorten(*this);
     Rational otherNumber=shorten(rhs);
     return shorten(Rational(ourNumber.numerator*otherNumber.numerator,
     ourNumber.denominator*otherNumber.denominator));
 }
 
-Rational Rational::operator/(const Rational &rhs) {
+Rational Rational::operator/(const Rational &rhs) const {
     Rational ourNumber=shorten(*this);
     Rational otherNumber=shorten(rhs);
     return shorten(Rational(ourNumber.numerator*otherNumber.denominator,
@@ -177,7 +180,7 @@ Rational &Rational::operator/=(const Rational &rhs) {
     return *this;
 }
 
-Rational Rational::shorten(Rational rational) {
+Rational Rational::shorten(Rational rational) const {
     int gcd=std::gcd(rational.numerator,rational.denominator);
     int numerator = rational.numerator/gcd;
     unsigned int denominator = rational.denominator/gcd;
@@ -188,22 +191,26 @@ Rational &Rational::operator*() {
     return *this;
 }
 
-int Rational::getNumerator() {
+int Rational::getNumerator() const {
     return numerator;
 }
 
-unsigned int Rational::getDenominator() {
+unsigned int Rational::getDenominator() const {
     return denominator;
 }
 
 std::string Rational::getRational() const{
+    std::string stringRepresentation;
+    std::stringstream temp;
+    temp<<numerator<<"."<<denominator<<'r';
+    stringRepresentation=temp.str();
     return stringRepresentation;
 }
 
 Rational::Rational() {
     numerator=0;
     denominator=1;
-    stringRepresentation="0.1r";
+    //stringRepresentation="0.1r";
 }
 
 

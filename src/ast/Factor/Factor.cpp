@@ -19,3 +19,7 @@ Factor::Factor(const Factor &otherFactor):node(otherFactor.getNode()) {
 Factor::Factor() {
 
 }
+
+Node Factor::calculate() {
+    return 0;//getNode();
+}

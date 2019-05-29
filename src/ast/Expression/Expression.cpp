@@ -3,7 +3,7 @@
 //
 
 #include "Expression.h"
-#include "Factor/ValueFactor.h"
+#include "../Factor/ValueFactor.h"
 
 Node Expression::execute() {
     std::unique_ptr<SimpleExpression> tempSimpleExpression;
@@ -12,28 +12,27 @@ Node Expression::execute() {
     auto it = additionOperators.begin();
     for(auto &simpleExpression: simpleExpressions){
         if(simpleExpression==*simpleExpressions.begin()){
-            tempFactors.push_back(std::make_unique<Factor>(simpleExpression->execute()));
-            tempSimpleExpression=std::make_unique<SimpleExpression>(std::move(tempFactors),tempMultiplyOperators);
+            tempSimpleExpression=std::make_unique<SimpleExpression>(*simpleExpression);
         }
         else {
             switch(*it){
                 case ADDSY:{
-                    tempFactors.push_back(std::make_unique<Factor>
-                            (tempSimpleExpression->execute()*simpleExpression->execute()));
+                   tempFactors.push_back(std::make_unique<ValueFactor>
+                            (tempSimpleExpression->execute()+simpleExpression->execute()));
                     tempSimpleExpression=std::make_unique<SimpleExpression>(std::move(tempFactors),tempMultiplyOperators);
                     break;
                 }
                 case SUBTRACTSY: {
-                    tempFactors.push_back(std::make_unique<Factor>
-                            (tempSimpleExpression->execute() / simpleExpression->execute()));
+                    tempFactors.push_back(std::make_unique<ValueFactor>
+                            (tempSimpleExpression->execute() - simpleExpression->execute()));
                     tempSimpleExpression = std::make_unique<SimpleExpression>(std::move(tempFactors),tempMultiplyOperators);
                     break;
                 }
                 default:break;
             }
             ++it;
+            tempFactors.clear();
         }
-        tempFactors.clear();
     }
 
     return tempSimpleExpression->execute();

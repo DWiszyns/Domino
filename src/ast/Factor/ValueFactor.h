@@ -10,7 +10,10 @@
 
 class ValueFactor: public Factor {
 public:
-    ValueFactor(Node node);
+    explicit ValueFactor(Node node);
+    ValueFactor(const ValueFactor& otherFactor);
+
+    explicit ValueFactor(const Factor& otherFactor);
     ~ ValueFactor();
     Node calculate() override;
 };

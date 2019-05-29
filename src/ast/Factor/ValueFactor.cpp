@@ -16,3 +16,11 @@ ValueFactor::~ValueFactor() {
 
 }
 
+ValueFactor::ValueFactor(const ValueFactor& otherFactor):Factor(otherFactor.getNode()){
+
+}
+
+ValueFactor::ValueFactor(const Factor &otherFactor) : Factor(otherFactor) {
+
+}
+

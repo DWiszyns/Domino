@@ -22,6 +22,7 @@ ExpressionFactor::ExpressionFactor(const ExpressionFactor &otherExpression):Fact
     expression=std::make_unique<Expression>(std::move(*otherExpression.expression));
 }
 
-ExpressionFactor::ExpressionFactor(const Factor &otherFactor) : Factor(otherFactor) {
+ExpressionFactor::ExpressionFactor(const Factor &otherFactor) : Factor(otherFactor) { //o tu obcina expression i co teraz
 
 }
+

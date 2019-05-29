@@ -35,18 +35,6 @@ SimpleExpression::SimpleExpression() {
 
 }
 
-//void SimpleExpression::addOperator(SymbolType newOperator) {
-//    multiplicationOperators.push_back(newOperator);
-//}
-
-//void SimpleExpression::addFactor(std::unique_ptr<Factor> factor) {
-//    factors.push_back(std::move(factor));
-//}
-
-//SimpleExpression::SimpleExpression(std::unique_ptr<Factor> factor) {
-//    factors.push_back(std::move(factor));
-//}
-
 SimpleExpression::SimpleExpression(std::list<std::unique_ptr<Factor>> factors,
                                    std::list<SymbolType> multiplicationOperators) {
     this->factors= std::move(factors);
@@ -57,16 +45,17 @@ SimpleExpression::SimpleExpression(const SimpleExpression &otherExpression):
     multiplicationOperators(otherExpression.multiplicationOperators){
     for(const auto &n:otherExpression.factors)
         if(dynamic_cast<ValueFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ValueFactor>(*n));
-        else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr)  factors.push_back(std::make_unique<ExpressionFactor>(*n));
+        else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr)  factors.push_back(std::make_unique<ExpressionFactor>(*(dynamic_cast<ExpressionFactor*>(n.get()))));
         else factors.push_back(std::make_unique<Factor>(*n));
 }
 
 SimpleExpression &SimpleExpression::operator=(const SimpleExpression &otherExpression){
     if (this != &otherExpression) {
         multiplicationOperators=otherExpression.multiplicationOperators;
-            for(const auto &n:otherExpression.factors)
-                if(typeid(n)==typeid(ValueFactor)) factors.push_back(std::make_unique<ValueFactor>(*n));
-                else  factors.push_back(std::make_unique<ExpressionFactor>(*n));
+        for(const auto &n:otherExpression.factors)
+            if(dynamic_cast<ValueFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ValueFactor>(*n));
+            else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ExpressionFactor>(*(dynamic_cast<ExpressionFactor*>(n.get()))));
+            else factors.push_back(std::make_unique<Factor>(*n));
     }
     return *this;
 }

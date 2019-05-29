@@ -12,42 +12,42 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
     BOOST_AUTO_TEST_CASE(node_from_int){
         int x=7;
         Node n(x);
-        BOOST_CHECK_EQUAL(x,n.getNewValue().integer);
+        BOOST_CHECK_EQUAL(x, n.getValue().integer);
         BOOST_CHECK_EQUAL(n.getTypeKind(),INT);
     }
 
     BOOST_AUTO_TEST_CASE(node_from_rational){
         Rational x="7.5r";
         Node n(x);
-        BOOST_CHECK_EQUAL(x.getRational(),n.getNewValue().rational.getRational());
+        BOOST_CHECK_EQUAL(x.getRational(), n.getValue().rational.getRational());
         BOOST_CHECK_EQUAL(n.getTypeKind(),RATIONAL);
     }
 
     BOOST_AUTO_TEST_CASE(node_from_float){
         float x=7.7f;
         Node n(x);
-        BOOST_CHECK_EQUAL(x,n.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(x, n.getValue().floatVal);
         BOOST_CHECK_EQUAL(n.getTypeKind(),FLOAT);
     }
 
     BOOST_AUTO_TEST_CASE(node_from_string){
         std::string x="asdsa";
         Node n(x);
-        BOOST_CHECK_EQUAL(x,*(n.getNewValue().str));
+        BOOST_CHECK_EQUAL(x,*(n.getValue().str));
         BOOST_CHECK_EQUAL(n.getTypeKind(),STRING);
     }
 
     BOOST_AUTO_TEST_CASE(node_from_char){
         char x='c';
         Node n(x);
-        BOOST_CHECK_EQUAL(x,n.getNewValue().character);
+        BOOST_CHECK_EQUAL(x, n.getValue().character);
         BOOST_CHECK_EQUAL(n.getTypeKind(),CHAR);
     }
 
     BOOST_AUTO_TEST_CASE(node_from_bool){
         bool x=true;
         Node n(x);
-        BOOST_CHECK_EQUAL(x,n.getNewValue().boolean);
+        BOOST_CHECK_EQUAL(x, n.getValue().boolean);
         BOOST_CHECK_EQUAL(n.getTypeKind(),BOOLEAN);
     }
 
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         bool x=true;
         Node n(x);
         Node h(n);
-        BOOST_CHECK_EQUAL(x,h.getNewValue().boolean);
+        BOOST_CHECK_EQUAL(x, h.getValue().boolean);
         BOOST_CHECK_EQUAL(h.getTypeKind(),BOOLEAN);
     }
 
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         x.boolean=true;
         TypeKind typekind=BOOLEAN;
         Node n(x,typekind);
-        BOOST_CHECK_EQUAL(true,n.getNewValue().boolean);
+        BOOST_CHECK_EQUAL(true, n.getValue().boolean);
         BOOST_CHECK_EQUAL(n.getTypeKind(),BOOLEAN);
     }
 
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m+n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(15,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(15, o.getValue().integer);
         BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
     }
 
@@ -91,8 +91,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m+n);
         Node p(n+m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(15.0f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(15.0f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
 
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m+n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(15.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(15.0f, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
     }
 
@@ -121,8 +121,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m+n);
         Node p(n+m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(15.0f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(15.0f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
     }
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m+n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("15.1r",o.getNewValue().rational.getRational());
+        BOOST_CHECK_EQUAL("15.1r", o.getValue().rational.getRational());
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
     }
 
@@ -150,8 +150,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m+n);
         Node p(n+m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("15.1r",o.getNewValue().rational.getRational());
-        BOOST_CHECK_EQUAL(p.getNewValue().rational.getRational(),o.getNewValue().rational.getRational());
+        BOOST_CHECK_EQUAL("15.1r", o.getValue().rational.getRational());
+        BOOST_CHECK_EQUAL(p.getValue().rational.getRational(), o.getValue().rational.getRational());
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
         BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
     }
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(n-m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(1,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(1, o.getValue().integer);
         BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
     }
 
@@ -179,8 +179,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m-n);
         Node p(n-m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(-1.0f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(-1*p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(-1.0f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(-1* p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
 
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m-n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(-1.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(-1.0f, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
     }
 
@@ -209,8 +209,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m-n);
         Node p(n-m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(-1.0f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(-1*p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(-1.0f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(-1* p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
     }
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m-n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("-1.1r",o.getNewValue().rational.getRational());
+        BOOST_CHECK_EQUAL("-1.1r", o.getValue().rational.getRational());
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
     }
 
@@ -238,8 +238,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m-n);
         Node p(n-m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("-1.1r",o.getNewValue().rational.getRational());
-        BOOST_CHECK_EQUAL(p.getNewValue().rational.getRational(),"1.1r");
+        BOOST_CHECK_EQUAL("-1.1r", o.getValue().rational.getRational());
+        BOOST_CHECK_EQUAL(p.getValue().rational.getRational(),"1.1r");
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
         BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
     }
@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(n*m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(56,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(56, o.getValue().integer);
         BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
     }
 
@@ -267,8 +267,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m*n);
         Node p(n*m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(56.0f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(56.0f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
 
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m*n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(56.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(56.0f, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
     }
 
@@ -297,8 +297,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m*n);
         Node p(n*m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(56.0f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(56.0f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
     }
@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m*n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("56.1r",o.getNewValue().rational.getRational());
+        BOOST_CHECK_EQUAL("56.1r", o.getValue().rational.getRational());
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
     }
 
@@ -326,8 +326,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m*n);
         Node p(n*m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("56.1r",o.getNewValue().rational.getRational());
-        BOOST_CHECK_EQUAL(p.getNewValue().rational.getRational(),"56.1r");
+        BOOST_CHECK_EQUAL("56.1r", o.getValue().rational.getRational());
+        BOOST_CHECK_EQUAL(p.getValue().rational.getRational(),"56.1r");
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
         BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
     }
@@ -341,7 +341,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(n/m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(2,o.getNewValue().integer);
+        BOOST_CHECK_EQUAL(2, o.getValue().integer);
         BOOST_CHECK_EQUAL(o.getTypeKind(),INT);
     }
 
@@ -355,8 +355,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m/n);
         Node p(n/m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(0.5f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(1/p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(0.5f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(1/ p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
 
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(n/m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(2.0f,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(2.0f, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
     }
 
@@ -385,8 +385,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m/n);
         Node p(n/m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL(0.5f,o.getNewValue().floatVal);
-        BOOST_CHECK_EQUAL(1/p.getNewValue().floatVal,o.getNewValue().floatVal);
+        BOOST_CHECK_EQUAL(0.5f, o.getValue().floatVal);
+        BOOST_CHECK_EQUAL(1/ p.getValue().floatVal, o.getValue().floatVal);
         BOOST_CHECK_EQUAL(o.getTypeKind(),FLOAT);
         BOOST_CHECK_EQUAL(p.getTypeKind(),FLOAT);
     }
@@ -400,7 +400,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node n(y);
         Node o(m*n);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("56.1r",o.getNewValue().rational.getRational());
+        BOOST_CHECK_EQUAL("56.1r", o.getValue().rational.getRational());
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
     }
 
@@ -414,8 +414,8 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
         Node o(m/n);
         Node p(n/m);
         BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_EQUAL("1.2r",o.getNewValue().rational.getRational());
-        BOOST_CHECK_EQUAL(p.getNewValue().rational.getRational(),"2.1r");
+        BOOST_CHECK_EQUAL("1.2r", o.getValue().rational.getRational());
+        BOOST_CHECK_EQUAL(p.getValue().rational.getRational(),"2.1r");
         BOOST_CHECK_EQUAL(o.getTypeKind(),RATIONAL);
         BOOST_CHECK_EQUAL(p.getTypeKind(),RATIONAL);
     }

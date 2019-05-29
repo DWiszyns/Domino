@@ -27,8 +27,7 @@ public:
     Node(const Node &node);
     Node(Value value, TypeKind typeKind);
     ~Node();
-    auto getValue();
-    const Value& getNewValue() const;
+    const Value& getValue() const;
     const TypeKind getTypeKind() const;
     friend std::ostream& operator<<(std::ostream& os, const Node& obj);
     Node operator+(const Node& rhs);

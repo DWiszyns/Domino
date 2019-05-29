@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().integer,7);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().integer,7);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),INT);
     }
 
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
         std::list<SymbolType> addSymbols;
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().integer,14);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().integer,14);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),INT);
     }
 
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
         std::list<SymbolType> addSymbols;
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().floatVal,14.0f);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().floatVal,14.0f);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),FLOAT);
     }
 
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         Expression expression(std::move(simpleExpressions),addSymbols);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),RATIONAL);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().rational.getRational(),"14.1r");
+        BOOST_CHECK_EQUAL(expression.execute().getValue().rational.getRational(),"14.1r");
     }
 
 
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
         std::list<SymbolType> addSymbols;
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(simpleExpression.execute().getNewValue().floatVal,14.0f);
+        BOOST_CHECK_EQUAL(simpleExpression.execute().getValue().floatVal,14.0f);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getTypeKind(),FLOAT);
     }
 
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
 
         addSymbols.push_back(ADDSY);
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().floatVal,42.0f);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().floatVal,42.0f);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),FLOAT);
     }
 
@@ -153,11 +153,11 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
 
         addSymbols.push_back(SUBTRACTSY);
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().floatVal,-14.0f);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().floatVal,-14.0f);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),FLOAT);
     }
 
-    BOOST_AUTO_TEST_CASE(expression_with_equation_on_simpleexpressions){
+    BOOST_AUTO_TEST_CASE(expression_with_equation_on_multiple_simple_expressions){
         std::list<std::unique_ptr<Factor>> factorsList;
         factorsList.push_back(std::make_unique<ValueFactor>(7));
         factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
@@ -194,9 +194,67 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
         addSymbols.push_back(ADDSY);
         addSymbols.push_back(SUBTRACTSY);
         Expression expression(std::move(simpleExpressions),addSymbols);
-        BOOST_CHECK_EQUAL(expression.execute().getNewValue().floatVal,-14.0f);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().floatVal,-14.0f);
         BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),FLOAT);
     }
+
+    BOOST_AUTO_TEST_CASE(expression_with_equation_on_simplesexpression_one_of_which_conitains_expressionfactor){
+
+        std::list<std::unique_ptr<Factor>> factorsList;
+        factorsList.push_back(std::make_unique<ValueFactor>(7));
+        factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
+        factorsList.push_back(std::make_unique<ValueFactor>(Rational("4.1r")));
+//------------EXPRESSION FACTOR---------------------------------------------------------------------///
+        std::list<std::unique_ptr<Factor>> factorsListTemp;
+        factorsListTemp.push_back(std::make_unique<ValueFactor>(7));
+        std::list<SymbolType> symbolsTemp;
+        std::list<std::unique_ptr<SimpleExpression>> simpleExpressionsTemp;
+        std::list<SymbolType> addSymbolsTemp;
+        SimpleExpression simpleExpressionTemp(std::move(factorsListTemp),symbolsTemp);
+        simpleExpressionsTemp.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpressionTemp)));
+        Expression expressionTemp(std::move(simpleExpressionsTemp),addSymbolsTemp);
+        ExpressionFactor expressionFactor(std::make_unique<Expression>(expressionTemp));
+        factorsList.push_back(std::make_unique<ExpressionFactor>(expressionFactor));
+
+
+        std::list<SymbolType> symbols;
+        symbols.push_back(MULTIPLYSY);
+        symbols.push_back(DIVIDESY);
+        symbols.push_back(DIVIDESY);
+        SimpleExpression simpleExpression(std::move(factorsList),symbols);
+
+        std::list<std::unique_ptr<Factor>> factorsList2;
+        factorsList2.push_back(std::make_unique<ValueFactor>(7));
+        factorsList2.push_back(std::make_unique<ValueFactor>(8.0f));
+        factorsList2.push_back(std::make_unique<ValueFactor>(Rational("2.1r")));
+        std::list<SymbolType> symbols2;
+        symbols2.push_back(MULTIPLYSY);
+        symbols2.push_back(DIVIDESY);
+        SimpleExpression simpleExpression2(std::move(factorsList2),symbols2);
+
+        std::list<std::unique_ptr<Factor>> factorsList3;
+        factorsList3.push_back(std::make_unique<ValueFactor>(7));
+        factorsList3.push_back(std::make_unique<ValueFactor>(8.0f));
+        factorsList3.push_back(std::make_unique<ValueFactor>(Rational("1.1r")));
+        std::list<SymbolType> symbols3;
+        symbols3.push_back(MULTIPLYSY);
+        symbols3.push_back(DIVIDESY);
+        SimpleExpression simpleExpression3(std::move(factorsList3),symbols3);
+
+        std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
+        std::list<SymbolType> addSymbols;
+        simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
+        simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression2)));
+        simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression3)));
+
+        addSymbols.push_back(ADDSY);
+        addSymbols.push_back(SUBTRACTSY);
+        Expression expression(std::move(simpleExpressions),addSymbols);
+        BOOST_CHECK_EQUAL(expression.execute().getValue().floatVal,-26.0f);
+        BOOST_CHECK_EQUAL(expression.execute().getTypeKind(),FLOAT);
+    }
+
+
 
 
 

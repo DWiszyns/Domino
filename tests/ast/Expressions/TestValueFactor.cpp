@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_SUITE(ValueFactorTest)
         int x=7;
         Node n(x);
         ValueFactor myFactor(n);
-        BOOST_CHECK_EQUAL(myFactor.calculate().getNewValue().integer,7);
+        BOOST_CHECK_EQUAL(myFactor.calculate().getValue().integer,7);
         BOOST_CHECK_EQUAL(myFactor.calculate().getTypeKind(),INT);
     }
 
@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_SUITE(ValueFactorTest)
         nodes.push_back(std::make_unique<Node>(m));
         Variable myVariable("myVariable",std::move(nodes),2);
         ValueFactor myFactor(myVariable.getNodeByIndex(1));
-        BOOST_CHECK_EQUAL(myFactor.calculate().getNewValue().floatVal,8.0f);
+        BOOST_CHECK_EQUAL(myFactor.calculate().getValue().floatVal,8.0f);
         BOOST_CHECK_EQUAL(myFactor.calculate().getTypeKind(),FLOAT);
     }
 

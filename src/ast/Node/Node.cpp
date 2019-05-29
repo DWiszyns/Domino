@@ -14,10 +14,6 @@ Node::~Node() {
 
 }
 
-auto Node::getValue() {
-    return 0;
-}
-
 Node::Node(float val):value(val),typeKind(FLOAT) {
 }
 
@@ -52,12 +48,12 @@ Node::Node(Value value, TypeKind typeKind):value(value,typeKind),typeKind(typeKi
 
 
 
-const Value& Node::getNewValue() const {
+const Value& Node::getValue() const {
     return value;
 }
 
 std::ostream &operator<<(std::ostream &os, const Node &obj) {
-    Value value(obj.getNewValue(),obj.typeKind);
+    Value value(obj.getValue(),obj.typeKind);
     switch(obj.getTypeKind()){
         case INT:
         {
@@ -65,19 +61,19 @@ std::ostream &operator<<(std::ostream &os, const Node &obj) {
             break;
         }
         case STRING:{
-            os<<*obj.getNewValue().str;
+            os<<*obj.getValue().str;
             break;}
         case FLOAT:{
-            os<<obj.getNewValue().floatVal;
+            os<< obj.getValue().floatVal;
             break;}
         case RATIONAL:{
-            os<<obj.getNewValue().rational.getRational();
+            os<< obj.getValue().rational.getRational();
             break;}
         case CHAR:{
-            os<<obj.getNewValue().character;
+            os<< obj.getValue().character;
             break;}
         case BOOLEAN:{
-            os<<obj.getNewValue().boolean;
+            os<< obj.getValue().boolean;
             break;}
         default:break;
 
@@ -93,43 +89,43 @@ const TypeKind Node::getTypeKind() const{
 Node Node::operator+(const Node &rhs) {
     if(this->isNumericType()&&rhs.isNumericType()){
         if(this->typeKind==INT&&rhs.typeKind==INT){
-            int x= this->getNewValue().integer+rhs.getNewValue().integer;
+            int x= this->getValue().integer+ rhs.getValue().integer;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().integer+rhs.getNewValue().floatVal;
+            float x= this->getValue().integer+ rhs.getValue().floatVal;
             return Node(x);
         }
         else if (this->typeKind==FLOAT&&rhs.typeKind==INT){
-            float x= this->getNewValue().floatVal+rhs.getNewValue().integer;
+            float x= this->getValue().floatVal+ rhs.getValue().integer;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==FLOAT){
-            float x= rhs.getNewValue().floatVal+this->getNewValue().floatVal;
+            float x= rhs.getValue().floatVal+ this->getValue().floatVal;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==RATIONAL){
-            float temp=(float)rhs.getNewValue().rational.getNumerator()/rhs.getNewValue().rational.getDenominator();
-            float x= temp+this->getNewValue().floatVal;
+            float temp=(float) rhs.getValue().rational.getNumerator()/ rhs.getValue().rational.getDenominator();
+            float x= temp+ this->getValue().floatVal;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==RATIONAL){
-            Rational x= Rational(this->getNewValue().integer,1)+rhs.getNewValue().rational;
+            Rational x= Rational(this->getValue().integer,1)+ rhs.getValue().rational;
             return Node(x);
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==FLOAT){
-            float temp=(float)this->getNewValue().rational.getNumerator()/this->getNewValue().rational.getDenominator();
-            float x= temp+rhs.getNewValue().floatVal;
+            float temp=(float) this->getValue().rational.getNumerator()/ this->getValue().rational.getDenominator();
+            float x= temp+ rhs.getValue().floatVal;
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==INT){
-            Rational x= Rational(rhs.getNewValue().integer,1)+this->getNewValue().rational;
+            Rational x= Rational(rhs.getValue().integer,1)+ this->getValue().rational;
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==RATIONAL){
-            Rational x= this->getNewValue().rational+rhs.getNewValue().rational;
+            Rational x= this->getValue().rational+ rhs.getValue().rational;
             return Node(x);
         }
     }
@@ -143,43 +139,43 @@ bool Node::isNumericType() const {
 Node Node::operator-(const Node &rhs) {
     if(this->isNumericType()&&rhs.isNumericType()){
         if(this->typeKind==INT&&rhs.typeKind==INT){
-            int x= this->getNewValue().integer-rhs.getNewValue().integer;
+            int x= this->getValue().integer- rhs.getValue().integer;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().integer-rhs.getNewValue().floatVal;
+            float x= this->getValue().integer- rhs.getValue().floatVal;
             return Node(x);
         }
         else if (this->typeKind==FLOAT&&rhs.typeKind==INT){
-            float x= this->getNewValue().floatVal-rhs.getNewValue().integer;
+            float x= this->getValue().floatVal- rhs.getValue().integer;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().floatVal-rhs.getNewValue().floatVal;
+            float x= this->getValue().floatVal- rhs.getValue().floatVal;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==RATIONAL){
-            float temp=(float)rhs.getNewValue().rational.getNumerator()/rhs.getNewValue().rational.getDenominator();
-            float x= this->getNewValue().floatVal-temp;
+            float temp=(float) rhs.getValue().rational.getNumerator()/ rhs.getValue().rational.getDenominator();
+            float x= this->getValue().floatVal-temp;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==RATIONAL){
-            Rational x= Rational(this->getNewValue().integer,1)-rhs.getNewValue().rational;
+            Rational x= Rational(this->getValue().integer,1)- rhs.getValue().rational;
             return Node(x);
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==FLOAT){
-            float temp=(float)this->getNewValue().rational.getNumerator()/this->getNewValue().rational.getDenominator();
-            float x= temp-rhs.getNewValue().floatVal;
+            float temp=(float) this->getValue().rational.getNumerator()/ this->getValue().rational.getDenominator();
+            float x= temp- rhs.getValue().floatVal;
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==INT){
-            Rational x= this->getNewValue().rational-Rational(rhs.getNewValue().integer,1);
+            Rational x= this->getValue().rational-Rational(rhs.getValue().integer,1);
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==RATIONAL){
-            Rational x= this->getNewValue().rational-rhs.getNewValue().rational;
+            Rational x= this->getValue().rational- rhs.getValue().rational;
             return Node(x);
         }
     }
@@ -189,43 +185,43 @@ Node Node::operator-(const Node &rhs) {
 Node Node::operator*(const Node &rhs) {
     if(this->isNumericType()&&rhs.isNumericType()){
         if(this->typeKind==INT&&rhs.typeKind==INT){
-            int x= this->getNewValue().integer*rhs.getNewValue().integer;
+            int x= this->getValue().integer* rhs.getValue().integer;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().integer*rhs.getNewValue().floatVal;
+            float x= this->getValue().integer* rhs.getValue().floatVal;
             return Node(x);
         }
         else if (this->typeKind==FLOAT&&rhs.typeKind==INT){
-            float x= this->getNewValue().floatVal*rhs.getNewValue().integer;
+            float x= this->getValue().floatVal* rhs.getValue().integer;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().floatVal*rhs.getNewValue().floatVal;
+            float x= this->getValue().floatVal* rhs.getValue().floatVal;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==RATIONAL){
-            float temp=(float)rhs.getNewValue().rational.getNumerator()/rhs.getNewValue().rational.getDenominator();
-            float x= this->getNewValue().floatVal*temp;
+            float temp=(float) rhs.getValue().rational.getNumerator()/ rhs.getValue().rational.getDenominator();
+            float x= this->getValue().floatVal*temp;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==RATIONAL){
-            Rational x= Rational(this->getNewValue().integer,1)*(rhs.getNewValue().rational);
+            Rational x= Rational(this->getValue().integer,1)*(rhs.getValue().rational);
             return Node(x);
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==FLOAT){
-            float temp=(float)this->getNewValue().rational.getNumerator()/this->getNewValue().rational.getDenominator();
-            float x= temp*rhs.getNewValue().floatVal;
+            float temp=(float) this->getValue().rational.getNumerator()/ this->getValue().rational.getDenominator();
+            float x= temp* rhs.getValue().floatVal;
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==INT){
-            Rational x= (this->getNewValue().rational)*Rational(rhs.getNewValue().integer,1);
+            Rational x= (this->getValue().rational)*Rational(rhs.getValue().integer,1);
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==RATIONAL){
-            Rational x= (this->getNewValue().rational)*(rhs.getNewValue().rational);
+            Rational x= (this->getValue().rational)*(rhs.getValue().rational);
             return Node(x);
         }
     }
@@ -235,43 +231,43 @@ Node Node::operator*(const Node &rhs) {
 Node Node::operator/(const Node &rhs) {
     if(this->isNumericType()&&rhs.isNumericType()){
         if(this->typeKind==INT&&rhs.typeKind==INT){
-            int x= this->getNewValue().integer/rhs.getNewValue().integer;
+            int x= this->getValue().integer/ rhs.getValue().integer;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().integer/rhs.getNewValue().floatVal;
+            float x= this->getValue().integer/ rhs.getValue().floatVal;
             return Node(x);
         }
         else if (this->typeKind==FLOAT&&rhs.typeKind==INT){
-            float x= this->getNewValue().floatVal/rhs.getNewValue().integer;
+            float x= this->getValue().floatVal/ rhs.getValue().integer;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==FLOAT){
-            float x= this->getNewValue().floatVal/rhs.getNewValue().floatVal;
+            float x= this->getValue().floatVal/ rhs.getValue().floatVal;
             return Node(x);
         }
         else if(this->typeKind==FLOAT&&rhs.typeKind==RATIONAL){
-            float temp=(float)rhs.getNewValue().rational.getNumerator()/rhs.getNewValue().rational.getDenominator();
-            float x= this->getNewValue().floatVal/temp;
+            float temp=(float) rhs.getValue().rational.getNumerator()/ rhs.getValue().rational.getDenominator();
+            float x= this->getValue().floatVal/temp;
             return Node(x);
         }
         else if (this->typeKind==INT&&rhs.typeKind==RATIONAL){
-            Rational x= Rational(this->getNewValue().integer,1)/(rhs.getNewValue().rational);
+            Rational x= Rational(this->getValue().integer,1)/(rhs.getValue().rational);
             return Node(x);
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==FLOAT){
-            float temp=(float)this->getNewValue().rational.getNumerator()/this->getNewValue().rational.getDenominator();
-            float x= temp/rhs.getNewValue().floatVal;
+            float temp=(float) this->getValue().rational.getNumerator()/ this->getValue().rational.getDenominator();
+            float x= temp/ rhs.getValue().floatVal;
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==INT){
-            Rational x= (this->getNewValue().rational)/Rational(rhs.getNewValue().integer,1);
+            Rational x= (this->getValue().rational)/Rational(rhs.getValue().integer,1);
             return Node(x);
 
         }
         else if(this->typeKind==RATIONAL&&rhs.typeKind==RATIONAL){
-            Rational x= (this->getNewValue().rational)/(rhs.getNewValue().rational);
+            Rational x= (this->getValue().rational)/(rhs.getValue().rational);
             return Node(x);
         }
     }

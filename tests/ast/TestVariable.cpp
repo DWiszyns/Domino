@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_SUITE(VariableTest)
         Variable myVariable("myVariable",std::move(nodes),1);
         BOOST_CHECK_EQUAL(myVariable.isSingleNode(),true);
         BOOST_CHECK_EQUAL(myVariable.getName(),"myVariable");
-        BOOST_CHECK_EQUAL(myVariable.getNode().getNewValue().integer,7);
+        BOOST_CHECK_EQUAL(myVariable.getNode().getValue().integer,7);
         BOOST_CHECK_EQUAL(myVariable.getNode().getTypeKind(),INT);
     }
 
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_SUITE(VariableTest)
             Variable myVariable("myVariable",std::move(nodes),2);
             BOOST_CHECK_EQUAL(myVariable.isSingleNode(),false);
             BOOST_CHECK_EQUAL(myVariable.getName(),"myVariable");
-            BOOST_CHECK_EQUAL(myVariable.getNodeByIndex(1).getNewValue().integer,8);
+            BOOST_CHECK_EQUAL(myVariable.getNodeByIndex(1).getValue().integer,8);
             BOOST_CHECK_EQUAL(myVariable.getNode().getTypeKind(),INT);
     }
 

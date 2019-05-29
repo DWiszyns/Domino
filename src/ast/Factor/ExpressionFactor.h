@@ -15,7 +15,6 @@ class ExpressionFactor: public Factor {
 public:
     ExpressionFactor(std::unique_ptr<Expression> expression);
     ExpressionFactor(const ExpressionFactor& otherExpression);
-
     explicit ExpressionFactor(const Factor& otherFactor);
     ~ExpressionFactor();
     Node calculate() override;

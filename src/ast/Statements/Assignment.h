@@ -11,12 +11,13 @@
 #include "../Expression/Expression.h"
 
 class Assignment:public Statement {
-    std::unique_ptr<Variable> lvalue;
+    Variable *lvalue;
     Expression rvalue;
     unsigned int index;
 public:
     Assignment(std::unique_ptr<Variable> lvalue, std::unique_ptr <Expression> rvalue,unsigned int i=0);//czy jest mi tu potrzebny Scope???
     //mozna sprawdzic czy zmienna nalezy do Scope'a, ale czy tego nie powininem sprawdzic w parserze??
+    Assignment(Variable* lvalue, std::unique_ptr <Expression> expressionRValue, unsigned int i);
     ~Assignment() override;
     void execute() override;
 

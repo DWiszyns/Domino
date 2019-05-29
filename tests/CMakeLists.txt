@@ -9,7 +9,7 @@ include_directories(../src)
 
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 
-add_executable(basictests TestSource.cpp TestScan.cpp TestParser.cpp testsMain.cpp TestRational.cpp ast/Expressions/TestExpressions.cpp ast/Expressions/TestSimpleExpression.cpp ast/Expressions/TestValueFactor.cpp ast/Expressions/TestExpressionFactor.cpp ast/TestNode.cpp ast/TestVariable.cpp)
+add_executable(basictests TestSource.cpp TestScan.cpp TestParser.cpp testsMain.cpp TestRational.cpp ast/Expressions/TestExpressions.cpp ast/Expressions/TestSimpleExpression.cpp ast/Expressions/TestValueFactor.cpp ast/Expressions/TestExpressionFactor.cpp ast/TestNode.cpp ast/TestVariable.cpp ast/Statements/TestAssignment.cpp)
 
 #target_link_libraries(basictests gtest gtest_main gmock gmock_main DominoLib)
 target_link_libraries(basictests ${Boost_LIBRARIES} DominoLib)

@@ -44,9 +44,12 @@ SimpleExpression::SimpleExpression(std::list<std::unique_ptr<Factor>> factors,
 SimpleExpression::SimpleExpression(const SimpleExpression &otherExpression):
     multiplicationOperators(otherExpression.multiplicationOperators){
     for(const auto &n:otherExpression.factors)
-        if(dynamic_cast<ValueFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ValueFactor>(*n));
-        else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr)  factors.push_back(std::make_unique<ExpressionFactor>(*(dynamic_cast<ExpressionFactor*>(n.get()))));
-        else factors.push_back(std::make_unique<Factor>(*n));
+        if(dynamic_cast<ValueFactor*>(n.get()) != nullptr)
+            factors.push_back(std::make_unique<ValueFactor>(*n));
+        else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr)
+            factors.push_back(std::make_unique<ExpressionFactor>(*(dynamic_cast<ExpressionFactor*>(n.get()))));
+        else
+            factors.push_back(std::make_unique<Factor>(*n));
 }
 
 SimpleExpression &SimpleExpression::operator=(const SimpleExpression &otherExpression){
@@ -54,7 +57,8 @@ SimpleExpression &SimpleExpression::operator=(const SimpleExpression &otherExpre
         multiplicationOperators=otherExpression.multiplicationOperators;
         for(const auto &n:otherExpression.factors)
             if(dynamic_cast<ValueFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ValueFactor>(*n));
-            else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr) factors.push_back(std::make_unique<ExpressionFactor>(*(dynamic_cast<ExpressionFactor*>(n.get()))));
+            else if(dynamic_cast<ExpressionFactor*>(n.get()) != nullptr)
+                factors.push_back(std::make_unique<ExpressionFactor>(*(dynamic_cast<ExpressionFactor*>(n.get()))));
             else factors.push_back(std::make_unique<Factor>(*n));
     }
     return *this;

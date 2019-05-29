@@ -24,3 +24,7 @@ Content::Content() {
 void Content::addStatement(Statement statement) {
     statements.push_back(statement);
 }
+
+Content::~Content() {
+
+}

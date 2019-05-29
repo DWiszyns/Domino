@@ -9,29 +9,16 @@
 #include <iostream>
 
 Parser::Parser(Scanner &s): scanner(s){
-    SymbolType statementStartSymbols[] = {WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};
-    statementStart.insert(statementStartSymbols,statementStartSymbols+8);
-    SymbolType typeSymbols[]={INTSY,CHARSY,STRINGSY,
-                              FLOATSY,RATIONALSY,VOIDSY};
-    types.insert(typeSymbols, typeSymbols+6);
-    SymbolType conditionalSymbols[] = {IFSY,WHILESY,FORSY};
-    conditionalStatementStart.insert(conditionalSymbols,conditionalSymbols+3);
-
-    SymbolType statementValueSymbols[] = {IDENTIFIER,INTCONST,CHARCONST,STRINGCONST,
-                                          FLOATCONST,RATIONALCONST,BOOLEANSY};
-    statementValue.insert(statementValueSymbols,statementValueSymbols+9);
-
-    SymbolType multiplySymbols[] = {MULTIPLYSY,DIVIDESY};
-    multiplyOperator.insert(multiplySymbols,multiplySymbols+2);
-    SymbolType endSymbols[] = {EOFSY,ENDOFTEXT};
-    endOfStream.insert(endSymbols,endSymbols+2);
-    SymbolType signSymbols[]={SUBTRACTSY, ADDSY};
-    signs.insert(signSymbols,signSymbols+2);
-    addOperator.insert(signSymbols,signSymbols+2);
-    SymbolType relativeSymbols[]={EQUALS, LESSOREQUAL, LESS, MORE, MOREOREQUAL,DIFFERENT};
-    relativeOperator.insert(relativeSymbols,relativeSymbols+6);
-    SymbolType logicalSymbols[]={ANDSY, ORSY};
-    logicalOperator.insert(logicalSymbols,logicalSymbols+6);
+    statementStart={WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};
+    types={INTSY,CHARSY,STRINGSY,FLOATSY,RATIONALSY,VOIDSY};
+    conditionalStatementStart={IFSY,WHILESY,FORSY};
+    statementValue={IDENTIFIER,INTCONST,CHARCONST,STRINGCONST,
+                    FLOATCONST,RATIONALCONST,BOOLEANSY};
+    multiplyOperator={MULTIPLYSY,DIVIDESY};
+    endOfStream={EOFSY,ENDOFTEXT};
+    signs={SUBTRACTSY, ADDSY};
+    relativeOperator={EQUALS, LESSOREQUAL, LESS, MORE, MOREOREQUAL,DIFFERENT};
+    logicalOperator={ANDSY, ORSY};
     nextSymbol();
 }
 
@@ -294,7 +281,7 @@ void Parser::expression(){
     std::cout<<"EXPRESSION"<<std::endl;
     if(signs.find(symbol)!=signs.end()) nextSymbol();
     simpleExpression();
-    while(addOperator.find(symbol)!=addOperator.end()){
+    while(signs.find(symbol)!=signs.end()){
         nextSymbol();
         simpleExpression();
     }

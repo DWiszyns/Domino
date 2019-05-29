@@ -46,17 +46,11 @@ int main(int argc, char *argv[]) {
         std::cout<<"Nie wystarczająca ilość argumentów"<<std::endl;
         return 1;
     }*/
-//    Source source(argv[2]);
-//    //Source source("test1.tkom");
-//    Scanner scan(source);
-//    Parser parser(scan);
-//    execute(*parser.parse());
+    Source source(argv[2]);
+    //Source source("test1.tkom");
+   Scanner scan(source);
+    Parser parser(scan);
+   execute(*parser.parse());
     //Scope scope;
     //std::cout<<scope.types[0];
-    t1 t1a;
-    t2 t2a;
-    t3 t3a;
-    t1a.execute();
-    t2a.execute();
-    t3a.execute();
 }

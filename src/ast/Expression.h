@@ -6,19 +6,20 @@
 #define DOMINO_EXPRESSION_H
 
 
-#include <list>
 #include "SimpleExpression.h"
 
 class Expression {
     std::list <std::unique_ptr<SimpleExpression>> simpleExpressions;
     std::list <SymbolType> additionOperators;
-    int value;
 public:
-    Expression(std::unique_ptr<SimpleExpression> simpleExpression);
-    ~Expression();
+    explicit Expression();
+    Expression(std::list <std::unique_ptr<SimpleExpression>> simpleExpressions,std::list <SymbolType> additionOperators);
+    ~Expression()=default;
     Node execute();
-    void addOperator();
-    void addSimpleExpression();
+    void addOperator(SymbolType additionOperator);
+    Expression(const Expression&);
+    Expression& operator=(const Expression& otherExpression);
+    //void addSimpleExpression(std::unique_ptr<SimpleExpression> simpleExpression);
 
 };
 

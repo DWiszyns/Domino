@@ -6,7 +6,7 @@
 #define DOMINO_IFSTATEMENT_H
 
 
-#include "Statement.h"
+#include "../Statement.h"
 
 class IfStatement{
 

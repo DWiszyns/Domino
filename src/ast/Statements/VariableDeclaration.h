@@ -6,12 +6,12 @@
 #define DOMINO_VARIABLEDECLARATION_H
 
 
-#include "Statement.h"
+#include "Assignment.h"
 
 class VariableDeclaration: public Statement {
 public:
-    VariableDeclaration(Scope scope, int whichType, std::string name);
-    ~VariableDeclaration();
+    VariableDeclaration(Scope scope, int whichType, std::string name,Assignment assignment);
+    ~VariableDeclaration() override;
     void execute(Scope scope);
 
 };

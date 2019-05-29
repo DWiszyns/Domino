@@ -6,7 +6,7 @@
 #define DOMINO_CONDITIONALSTATEMENT_H
 
 
-#include "Statement.h"
+#include "../Statement.h"
 
 class ConditionalStatement: public Statement {
 

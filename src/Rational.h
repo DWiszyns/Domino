@@ -6,7 +6,7 @@
 #define DOMINO_RATIONAL_H
 
 
-#include <iostream>
+//#include <iostream>
 #include <sstream>
 
 class Rational {

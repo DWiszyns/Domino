@@ -6,9 +6,6 @@
 #define DOMINO_VARIABLE_H
 
 
-#include <string>
-#include <memory>
-#include <vector>
 #include "Node/Node.h"
 
 
@@ -29,6 +26,7 @@ public:
     auto getValueByIndex(unsigned int i);
     Node getNode();
     Node getNodeByIndex(int i);
+    void setNodeForIndex(int i,Node node);
     std::string getName();
     bool isSingleNode();
 

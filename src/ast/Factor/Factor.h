@@ -10,10 +10,13 @@
 class Factor {
     Node node;
 public:
+    explicit Factor();
+    Factor& operator=(const Factor&) = delete;
     Factor(Node node);
-    ~Factor();
+    Factor(const Factor &otherFactor);
+    ~Factor()= default;
     virtual Node calculate();
-    Node getNode();
+    Node getNode() const;
 
 };
 

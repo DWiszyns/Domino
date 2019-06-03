@@ -7,6 +7,7 @@
 #include <set>
 #include <algorithm>
 #include <iostream>
+#include "ast/Variable.h"
 
 Parser::Parser(Scanner &s): scanner(s){
     statementStart={WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};
@@ -31,10 +32,10 @@ std::unique_ptr<Program> Parser::parse(){
         accept(FUNCSY);
     }
     accept(MAINSY);
-    mainFunction();
+    MainFunction myMain(mainFunction());
     accept(endOfStream);
     Program a(2,3);
-    return std::make_unique<Program>(a);
+    return std::make_unique<Program>(myMain);
 }
 
 void Parser::nextSymbol(){
@@ -76,83 +77,95 @@ void Parser::accept(const std::set <SymbolType>& availableAtoms){
 void Parser::function() {
     std::cout<<"FUNCTION"<<std::endl;
     accept(IDENTIFIER);
-    parametersDefinition();
+    std::string funcName=token.getValue();
+    ParametersDefinition parameters(parametersDefinition());
     accept(COLON);
     if(types.find(symbol)==types.end()){
         syntaxErrorUnexpected(symbol);
     }
+    SymbolType type=token.getType();
     nextSymbol();
     accept(OPENBRACKET);
+    //Content content=
     content();
     accept(CLOSEBRACKET);
+ //   scope.addFunction(Function(funcName,type,parameters,content))
 
 }
 
-void Parser::mainFunction() {
+MainFunction Parser::mainFunction() {
     std::cout<<"MAINFUNCTION"<<std::endl;
     parametersDefinition();
     accept(COLON);
     accept(VOIDSY);
     accept(OPENBRACKET);
-    content();
+    Content myContent(content());
     accept(CLOSEBRACKET);
+    return MainFunction(myContent);
 
 }
 
-void Parser::content(){
+Content Parser::content(){
     std::cout<<"CONTENT"<<std::endl;
+    std::list<std::unique_ptr<Statement>> statements;
     while(symbol!=CLOSEBRACKET && (endOfStream.find(symbol)==endOfStream.end()))
     {
        if(conditionalStatementStart.find(symbol)!=conditionalStatementStart.end())
            conditionalStatement();
        else
        {
-           statement();
+           statements.push_back(std::move(statement()));
            accept(SEMICOLON);
        }
     }
+    return Content(std::move(statements),&scope);
 }
 
 
-void Parser::variableDeclaration(){
+VariableDeclaration& Parser::variableDeclaration(){
     //trzeba dodac zmienna do Scope'a
     std::cout<<"VARIABLE DECLARATION"<<std::endl;
     if(types.find(symbol)==types.end())
         syntaxErrorUnexpected(symbol,types);
+    TypeKind type = getTypeFromSymbol(symbol);
     nextSymbol();
+    std::string name=token.getValue();
     accept(IDENTIFIER);
-    if(symbol==OTABLEBRACKET) arrayDeclaration();
-    while(symbol==COMA){
-        nextSymbol();
-        accept(IDENTIFIER);
+    int size=1;
+    if(symbol==OTABLEBRACKET) {
+        size = arrayDeclaration();
+        VariableDeclaration varDec(scope, type, name, static_cast<unsigned int>(size));
+        return varDec;
     }
-    if(symbol==ASSIGN)
-        assignment();
+    else{
+        std::vector<Variable> variables;
+        /*
+        while(symbol==COMA){
+            nextSymbol();
+            accept(IDENTIFIER);
+        }
+         */
+        if(symbol==ASSIGN) {
+            VariableDeclaration varDec(scope, type, name, assignment(Variable(name, size, type), 0));
+            return varDec;
+        }
+    }
+
 }
 
-void Parser::arrayDeclaration() {
+int Parser::arrayDeclaration() {
     std::cout<<"ARRAY DECLARATION"<<std::endl;
     accept(OTABLEBRACKET);
-    expression();
+    //expression();originally I think we need value
+    int size = std::stoi(token.getValue());
+    accept(INTCONST);
     accept(CTABLEBRACKET);
-    if(symbol==ASSIGN) {
-        nextSymbol();
-        if (symbol == OPENBRACKET) {
-            nextSymbol();
-            expression();
-            while (symbol==COMA){
-                nextSymbol();
-                expression();
-            }
-            accept(CLOSEBRACKET);
-        }
-        else expression();
-    }
 }
 
 
-void Parser::statement(){
+std::unique_ptr<Statement> Parser::statement(){
     std::cout<<"STATEMENT"<<std::endl;
+    std::unique_ptr<Statement> statement;
     switch(symbol)
     {
         case WRITEIN:
@@ -160,28 +173,44 @@ void Parser::statement(){
         case WRITEOUT:
             writeOutStatement();    break;
         case IDENTIFIER : {
+            std::string name=token.getValue();
             nextSymbol();
             if (symbol == OROUNDBRACKET)
             {
                 parameters();
                 accept(CROUNDBRACKET);
+                //funccall
             }
-            else
-                assignment();
-            break;
+            else {
+                Variable myVariable(scope.getVariable(name));
+                int index=0;
+                if(symbol==OTABLEBRACKET)
+                {
+                    nextSymbol();
+                    if(symbol==INTCONST) index=std::stoi(token.getValue());
+                    //std::unique_ptr<Expression> express=expression();
+                    accept(CTABLEBRACKET);
+                }
+                if (myVariable.getName() == "emptyvariable")
+                    throw "Variable not declared";
+                statement=std::make_unique<Assignment>(
+                        assignment(myVariable,static_cast<unsigned int>(index)));
+                break;
+            }
         }
         case RETURNSY:{
             returnStatement();break;
         }
         case INTSY:case STRINGSY: case RATIONALSY:case FLOATSY: case CHARSY:{
-            variableDeclaration();
+            statement =std::make_unique<VariableDeclaration>(variableDeclaration());
             break;
         }
         default:
             syntaxErrorUnexpected(symbol);
             break;
-
     }
+    return statement;
+
 }
 
 void Parser::ifStatement(){
@@ -225,11 +254,12 @@ void Parser::whileStatement(){
     content();
     accept(CLOSEBRACKET);
 }
-void Parser::assignment(){
+Assignment Parser::assignment(Variable variable,unsigned int i){
     std::cout<<"ASSGNMENT"<<std::endl;
     accept(ASSIGN);
-    expression();
+    return Assignment(&variable,expression(),i);
 }
+
 
 void Parser::writeInStatement(){
     std::cout<<"WRITEIN"<<std::endl;
@@ -250,41 +280,58 @@ void Parser::writeOutStatement(){
     }
 }
 
-void Parser::factor() {
+std::unique_ptr<Factor> Parser::factor() {
     std::cout<<"FACTOR"<<std::endl;
     if(statementValue.find(symbol)!=statementValue.end()){
       SymbolType currSymbol=symbol;
+      std::string name=token.getValue();
       nextSymbol();
+      if(currSymbol==IDENTIFIER){
+          Variable x(scope.getVariable(name));
+          if(x.getName()=="emptyvariable")
+              throw  "Variable not declared";
+          return std::make_unique<ValueFactor>(x.getNode());
+      }
+      /* funccall
       if(symbol==OROUNDBRACKET&&currSymbol==IDENTIFIER){
           parameters();
       }
+       */
+      return std::make_unique<ValueFactor>(name);
       //TODO czy zmienna zadeklarowana? jaki typ zmiennej?
   }else if(symbol==OROUNDBRACKET){
-      expression();
+      std::unique_ptr<Factor> factorPointer=std::make_unique<ExpressionFactor>(expression());
       accept(CROUNDBRACKET);
-  }
+      return factorPointer;
 
-
-}
-
-void Parser::simpleExpression() {
-    std::cout<<"SIMPLE EXPRESSION"<<std::endl;
-    factor();
-    while(multiplyOperator.find(symbol)!=multiplyOperator.end()){
-        nextSymbol();
-        factor();
     }
-
 }
 
-void Parser::expression(){
+std::unique_ptr<SimpleExpression> Parser::simpleExpression() {
+    std::list <std::unique_ptr<Factor>> factors;
+    std::list <SymbolType > multiplyOperators;
+    std::cout<<"SIMPLE EXPRESSION"<<std::endl;
+    factors.push_back(std::move(factor()));
+    while(multiplyOperator.find(symbol)!=multiplyOperator.end()){
+        multiplyOperators.push_back(symbol);
+        nextSymbol();
+        factors.push_back(std::move(factor()));
+    }
+    return std::make_unique<SimpleExpression>(std::move(factors),multiplyOperators);
+}
+
+std::unique_ptr<Expression> Parser::expression(){
+    std::list <std::unique_ptr<SimpleExpression>> simpleExpressions;
+    std::list <SymbolType > addOperators;
     std::cout<<"EXPRESSION"<<std::endl;
     if(signs.find(symbol)!=signs.end()) nextSymbol();
-    simpleExpression();
+    simpleExpressions.push_back(simpleExpression());
     while(signs.find(symbol)!=signs.end()){
+        addOperators.push_back(symbol);
         nextSymbol();
-        simpleExpression();
+        simpleExpressions.push_back(simpleExpression());
     }
+    return std::make_unique<Expression>(std::move(simpleExpressions),addOperators);
 }
 
 void Parser::parameters() {
@@ -295,7 +342,7 @@ void Parser::parameters() {
         expression();
     }
     accept(CROUNDBRACKET);
-
+    //return std::vector<Variable> parameters;
 }
 
 void Parser::conditionalStatement() {
@@ -347,14 +394,22 @@ void Parser::conditionalExpression() {
 
 }
 
-void Parser::variable() {
+std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have node returning it
+    std::string name=token.getValue();
+    Variable x(scope.getVariable(token.getValue()));
+    if(x.getName()=="emptyvariable")
+        throw  "Variable not declared";
     std::cout<<"VARIABLE"<<std::endl;
     accept(IDENTIFIER);
     if(symbol==OTABLEBRACKET){
         nextSymbol();
-        expression();
+        std::unique_ptr<Expression> someExpression(std::move(expression()));
+        std::vector<std::unique_ptr<Node>> nodes;
+        nodes.push_back(std::make_unique<Node>(x.getNodeByIndex(someExpression->execute().getValue().integer)));
         accept(CTABLEBRACKET);
+        return std::make_unique<Variable>("copy",std::move(nodes),1);//chyba zle
     }
+    return std::make_unique<Variable>(x);
 
 }
 
@@ -367,24 +422,34 @@ void Parser::condition() {
     }
 }
 
-void Parser::parametersDefinition() {
+ParametersDefinition Parser::parametersDefinition() {
     accept(OROUNDBRACKET);
+    std::vector<Variable> parameters;
     if(symbol!=CROUNDBRACKET) {
         if (types.find(symbol) == types.end()) {
             syntaxErrorUnexpected(symbol, types);
         }
+        TypeKind type=getTypeFromSymbol(token.getType());
         nextSymbol();
+        std::string name=token.getValue();
         accept(IDENTIFIER);
+        Variable x(name,1,type);
+        parameters.push_back(x);// i don't think we need to initialize our vector
         while (symbol == COMA) {
             accept(COMA);
             if (types.find(symbol) == types.end()) {
                 syntaxErrorUnexpected(symbol, types);
-            } else
+            } else {
+                type = getTypeFromSymbol(token.getType());
                 nextSymbol();
+            }
             accept(IDENTIFIER);
+            name=token.getValue();
+            parameters.emplace_back(name,1,type);// i don't think we need to initialize our vector
         }
     }
     accept(CROUNDBRACKET);
+    return ParametersDefinition(parameters);
 }
 
 void Parser::skipTo(SymbolType atom){
@@ -397,4 +462,16 @@ void Parser::skipTo(std::set<SymbolType> atoms){
     while(atoms.find(symbol)==atoms.end()&&symbol!=EOFSY) 
         nextSymbol();
     nextSymbol();
+}
+
+TypeKind Parser::getTypeFromSymbol(SymbolType symbol) {
+    switch(symbol){
+        case INTSY:return INT;
+        case FLOATSY:return FLOAT;
+        case STRINGSY:return STRING;
+        case CHARSY:return CHAR;
+        case BOOLEANSY:return BOOLEAN;
+        case RATIONALSY:return RATIONAL;
+        default:return INT;
+    }
 }

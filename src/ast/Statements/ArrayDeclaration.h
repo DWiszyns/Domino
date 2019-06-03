@@ -5,7 +5,7 @@
 #ifndef DOMINO_ARRAYDECLARATION_H
 #define DOMINO_ARRAYDECLARATION_H
 
-
+#include "VariableDeclaration.h"
 class ArrayDeclaration {
 
 };

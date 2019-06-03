@@ -1,0 +1,11 @@
+function main():void{
+string a="Super";
+string b="Dominik";
+int c=4
+int d=5;
+int e=7;
+float z = 123.37f;
+rational r = 1234.456r;
+int f= e+c*d;
+writeout<<c<<" "<<r;
+}

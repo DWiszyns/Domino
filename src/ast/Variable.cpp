@@ -7,11 +7,11 @@
 Variable::Variable() {
         nodes.push_back(std::move(std::make_unique<Node>()));
         singleNode=true;
+        name="emptyvariable";
 }
 
 Variable::Variable(const Variable &otherVariable) :
         name(otherVariable.name){
-   nodes.reserve(otherVariable.nodes.size());
    for(const auto &n:otherVariable.nodes)
         nodes.push_back(std::make_unique<Node>(*n));
 }
@@ -60,6 +60,50 @@ Variable &Variable::operator=(const Variable &otherVariable){
 
 void Variable::setNodeForIndex(int i,Node node) {
     nodes[i]=std::make_unique<Node>(node);
+
+}
+
+Variable::Variable(std::string name, unsigned int size, TypeKind type):
+        name(std::move(name)),size(size){
+    std::vector<std::unique_ptr<Node>> nodes;
+    singleNode= size == 1;
+    setDefaultValues(type);
+
+}
+
+void Variable::setDefaultValues(TypeKind typeKind) {
+    switch(typeKind){
+        case INT: {
+            for (int i = 0; i < size; ++i)
+                nodes.push_back(std::make_unique<Node>(0));
+            break;
+        }
+        case FLOAT: {
+            for (int i = 0; i < size; ++i)
+                nodes.push_back(std::make_unique<Node>(0.1f));
+            break;
+        }
+        case RATIONAL:{
+            for(int i=0;i<size;++i)
+                nodes.push_back(std::make_unique<Node>(Rational("1.1r")));
+            break;
+        }
+        case CHAR:{
+            for(int i=0;i<size;++i)
+                nodes.push_back(std::make_unique<Node>('a'));
+        }
+        case STRING:{
+            for(int i=0;i<size;++i)
+                nodes.push_back(std::make_unique<Node>("default"));
+            break;
+        }
+        case BOOLEAN:{
+            for(int i=0;i<size;++i)
+                nodes.push_back(std::make_unique<Node>(true));
+            break;
+        }
+        default:break;
+    }
 
 }
 

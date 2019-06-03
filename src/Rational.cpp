@@ -7,9 +7,7 @@
 
 
 Rational::Rational(short int numerator, unsigned denominator):numerator(numerator),denominator(denominator) {
-   // std::stringstream temp;
-   // temp<<numerator<<"."<<denominator<<'r';
-   // stringRepresentation=temp.str();
+
 }
 
 
@@ -22,9 +20,6 @@ Rational::Rational(std::string number) {
     unsigned long position=number.find('.');
     numerator=std::stoi(number.substr(0,position));
     denominator=std::stoi(number.substr(position+1,number.size()-1));
-   // std::stringstream temp;
-   // temp<<numerator<<"."<<denominator<<'r';
-   // stringRepresentation=temp.str();
 }
 
 Rational::Rational(char *oldNumber) {
@@ -32,14 +27,11 @@ Rational::Rational(char *oldNumber) {
     unsigned long position=number.find('.');
     numerator=std::stoi(number.substr(0,position));
     denominator=std::stoi(number.substr(position+1,number.size()-1));
-   // std::stringstream temp;
-   // temp<<numerator<<"."<<denominator<<'r';
-    //stringRepresentation=temp.str();
 }
 
 
 Rational::Rational(const Rational &other):numerator(other.numerator),
-    denominator(other.denominator)//,stringRepresentation(other.stringRepresentation)
+    denominator(other.denominator)
     {
 
 
@@ -50,7 +42,6 @@ Rational &Rational::operator=(const Rational& other)
     if (this != &other) {
         this->numerator=other.numerator;
         this->denominator=other.denominator;
-       // this->stringRepresentation=std::move(other.stringRepresentation);
     }
     return *this;
 }
@@ -210,7 +201,6 @@ std::string Rational::getRational() const{
 Rational::Rational() {
     numerator=0;
     denominator=1;
-    //stringRepresentation="0.1r";
 }
 
 

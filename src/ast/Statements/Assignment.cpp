@@ -25,4 +25,14 @@ Assignment::Assignment(Variable* lvalue, std::unique_ptr <Expression> expression
 
 }
 
+Assignment::Assignment() {
+    Variable *lvalue;
+    Expression rvalue;
+    unsigned int index;
+}
+
+Expression Assignment::getExpression() {
+    return rvalue;
+}
+
 

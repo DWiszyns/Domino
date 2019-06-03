@@ -7,17 +7,17 @@
 
 #include<list>
 #include "Function.h"
-#include "Content.h"
 
 class MainFunction {
     //TODO parameters
-    std::list<Function> functions;
+    //std::list<Function> functions;
     Content content;
 
 public:
     MainFunction();
+    MainFunction(Content content);
     ~MainFunction();
-    void execute(std::list<Function> &functions);
+    void execute();
 
 };
 

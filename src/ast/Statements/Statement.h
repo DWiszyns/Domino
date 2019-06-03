@@ -6,7 +6,7 @@
 #define DOMINO_STATEMENT_H
 
 
-#include "../Scope.h"
+#include "../../Scope.h"
 
 class Statement {
     Scope scope;

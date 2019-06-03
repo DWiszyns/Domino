@@ -4,10 +4,9 @@
 
 #include "MainFunction.h"
 
-void MainFunction::execute(std::list<Function> &functions) {
-    this->functions=functions;
-    content.execute(functions);
-
+void MainFunction::execute(/*std::list<Function> otherFunctions*/) {//will probably need to fix it later;
+    //functions=std::move(otherFunctions);
+    content.execute();
 }
 
 MainFunction::MainFunction(){
@@ -15,5 +14,9 @@ MainFunction::MainFunction(){
 }
 
 MainFunction::~MainFunction() {
+
+}
+
+MainFunction::MainFunction(Content content):content(content) {
 
 }

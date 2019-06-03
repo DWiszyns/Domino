@@ -274,6 +274,21 @@ Node Node::operator/(const Node &rhs) {
     return Node(0);
 }
 
+Node &Node::operator=(const Node &other) {
+    if (this != &other) {
+        this->value=other.getValue();
+        this->typeKind=other.typeKind;
+    }
+    return *this;
+}
+
+Node &Node::operator=(Node &&other) noexcept {
+    if(this != &other) {
+        *this=other;
+    }
+    return *this;
+}
+
 
 
 

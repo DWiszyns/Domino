@@ -21,6 +21,7 @@ public:
     Variable(const Variable &otherVariable);
     Variable& operator=(const Variable&);
     Variable(std::string name, std::vector<std::unique_ptr<Node>> nodes, unsigned int size);
+    Variable(std::string name, unsigned int size, TypeKind type);
     ~Variable();
     auto getValue();
     auto getValueByIndex(unsigned int i);
@@ -29,6 +30,7 @@ public:
     void setNodeForIndex(int i,Node node);
     std::string getName();
     bool isSingleNode();
+    void setDefaultValues(TypeKind typeKind);
 
 };
 

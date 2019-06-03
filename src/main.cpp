@@ -15,31 +15,6 @@
 void execute(Program& program){
     std::cout<<program.execute()<<std::endl;
 }
-
-class t1{
-public:
-    t1() = default;
-
-    virtual void execute(){
-        std::cout<<1<<std::endl;
-    }
-};
-class t2: public  t1{
-public:
-    t2() = default;
-
-    void execute(){
-        std::cout<<2<<std::endl;
-    }
-};
-class t3: public t1{
-public:
-    t3() = default;
-
-    void execute(){
-        std::cout<<3<<std::endl;
-    }
-};
 int main(int argc, char *argv[]) {
     
     /*if(argc!=3){
@@ -48,9 +23,9 @@ int main(int argc, char *argv[]) {
     }*/
     Source source(argv[2]);
     //Source source("test1.tkom");
-   Scanner scan(source);
+    Scanner scan(source);
     Parser parser(scan);
-   execute(*parser.parse());
+    execute(*parser.parse());
     //Scope scope;
     //std::cout<<scope.types[0];
 }

@@ -19,14 +19,14 @@
      ANDSY, //9
      ORSY, //10
      RETURNSY, //11
-     VOIDSY, //12
-     STRINGSY, //13
-     FLOATSY, //14
-     RATIONALSY, //15
-     INTSY, //16
-     SHORTSY, //17
-     CHARSY, //18
-     BOOLEANSY, //19
+     INTSY, //12
+     BOOLEANSY, //13
+     STRINGSY, //14
+     FLOATSY, //15
+     CHARSY, //16
+     RATIONALSY, //17
+     VOIDSY, //18
+     SHORTSY, //19
      COLON, //20
      INPUTSTREAM, // >> 21
      OUTPUTSTREAM,  // << 22

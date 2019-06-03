@@ -7,21 +7,23 @@
 
 #include <list>
 
-#include "Function.h"
+//#include "Function.h"
 //#include "../Scope.h"
-#include "Statement.h"
+#include "Statements/Statement.h"
+#include "Statements/VariableDeclaration.h"
+
 
 class Content {
-   // Scope scope;
-    std::list <Statement> statements;
+   Scope *scope;
+    std::list<std::unique_ptr<Statement>> statements;
 public:
     Content();
- //   Content(/*Scope &scope*/);
+    Content(std::list<std::unique_ptr<Statement>> statements ,Scope *scope);
+    Content(Content &otherContent);
+    Content(const Content &otherContent);
+    //   Content(/*Scope &scope*/);
     ~Content();
-    void execute(std::list<Function> functions);
-    void addStatement(Statement statement);
-
-
+    void execute();
 
 };
 

@@ -146,19 +146,21 @@ Token Scanner::createNumber(){
                 nextChar();
             }
             if(c=='f') {
+                std::string floatConstant=std::to_string(l)+'.'+std::to_string(h)+'f';
                 nextChar();
-                return Token(FLOATCONST,spell);
+                return Token(FLOATCONST,floatConstant);//zle
             }
             else if (c=='r') {
+                std::string rationalConstant=std::to_string(l)+'.'+std::to_string(h)+'r';
                 nextChar();
-                return Token(RATIONALCONST,spell);
+                return Token(RATIONALCONST,rationalConstant);//zle
             }
 
         }
         else {
             std::string intconstant = std::to_string(l);
             if (big) scanError(ICONST2BIG, intconstant);
-            return Token(INTCONST,spell);
+            return Token(INTCONST,intconstant);
         }
 }
 

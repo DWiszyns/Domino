@@ -12,7 +12,7 @@ Variable::Variable() {
 
 Variable::Variable(const Variable &otherVariable) :
         name(otherVariable.name){
-   for(const auto &n:otherVariable.nodes)
+    for(const auto &n:otherVariable.nodes)
         nodes.push_back(std::make_unique<Node>(*n));
 }
 
@@ -68,7 +68,6 @@ Variable::Variable(std::string name, unsigned int size, TypeKind type):
     std::vector<std::unique_ptr<Node>> nodes;
     singleNode= size == 1;
     setDefaultValues(type);
-
 }
 
 void Variable::setDefaultValues(TypeKind typeKind) {
@@ -93,8 +92,9 @@ void Variable::setDefaultValues(TypeKind typeKind) {
                 nodes.push_back(std::make_unique<Node>('a'));
         }
         case STRING:{
+            std::string x ="default";
             for(int i=0;i<size;++i)
-                nodes.push_back(std::make_unique<Node>("default"));
+                nodes.push_back(std::make_unique<Node>(x));
             break;
         }
         case BOOLEAN:{
@@ -106,5 +106,3 @@ void Variable::setDefaultValues(TypeKind typeKind) {
     }
 
 }
-
-

@@ -21,6 +21,7 @@ Parser::Parser(Scanner &s): scanner(s){
     relativeOperator={EQUALS, LESSOREQUAL, LESS, MORE, MOREOREQUAL,DIFFERENT};
     logicalOperator={ANDSY, ORSY};
     nextSymbol();
+    scope =  new Scope();
 }
 
 std::unique_ptr<Program> Parser::parse(){
@@ -118,7 +119,7 @@ Content Parser::content(){
            accept(SEMICOLON);
        }
     }
-    return Content(std::move(statements),&scope);
+    return Content(std::move(statements),scope);
 }
 
 
@@ -138,7 +139,6 @@ VariableDeclaration& Parser::variableDeclaration(){
         return varDec;
     }
     else{
-        std::vector<Variable> variables;
         /*
         while(symbol==COMA){
             nextSymbol();
@@ -146,7 +146,8 @@ VariableDeclaration& Parser::variableDeclaration(){
         }
          */
         if(symbol==ASSIGN) {
-            VariableDeclaration varDec(scope, type, name, assignment(Variable(name, size, type), 0));
+            std::unique_ptr<Variable> tempVariable = std::make_unique<Variable>(name, size, type);
+            VariableDeclaration varDec(scope, std::move(tempVariable), assignment(tempVariable.get(), 0));
             return varDec;
         }
     }
@@ -160,6 +161,7 @@ int Parser::arrayDeclaration() {
     int size = std::stoi(token.getValue());
     accept(INTCONST);
     accept(CTABLEBRACKET);
+    return size;
 }
 
 
@@ -182,7 +184,7 @@ std::unique_ptr<Statement> Parser::statement(){
                 //funccall
             }
             else {
-                Variable myVariable(scope.getVariable(name));
+                Variable *myVariable(scope->getVariable(name));
                 int index=0;
                 if(symbol==OTABLEBRACKET)
                 {
@@ -191,7 +193,7 @@ std::unique_ptr<Statement> Parser::statement(){
                     //std::unique_ptr<Expression> express=expression();
                     accept(CTABLEBRACKET);
                 }
-                if (myVariable.getName() == "emptyvariable")
+                if (myVariable->getName() == "emptyvariable")
                     throw "Variable not declared";
                 statement=std::make_unique<Assignment>(
                         assignment(myVariable,static_cast<unsigned int>(index)));
@@ -254,10 +256,10 @@ void Parser::whileStatement(){
     content();
     accept(CLOSEBRACKET);
 }
-Assignment Parser::assignment(Variable variable,unsigned int i){
+Assignment Parser::assignment(Variable* variable,unsigned int i){
     std::cout<<"ASSGNMENT"<<std::endl;
     accept(ASSIGN);
-    return Assignment(&variable,expression(),i);
+    return Assignment(variable,expression(),i);
 }
 
 
@@ -280,24 +282,39 @@ void Parser::writeOutStatement(){
     }
 }
 
-std::unique_ptr<Factor> Parser::factor() {
+std::unique_ptr<Factor> Parser::factor() {//wytyfy wgl ja pierdole nie moge nawet zmiennej zadeklarowac
     std::cout<<"FACTOR"<<std::endl;
     if(statementValue.find(symbol)!=statementValue.end()){
       SymbolType currSymbol=symbol;
-      std::string name=token.getValue();
+      std::string name=token.getValue();//to wywolujesz na sredniku pozdro
       nextSymbol();
       if(currSymbol==IDENTIFIER){
-          Variable x(scope.getVariable(name));
-          if(x.getName()=="emptyvariable")
+          Variable *x(scope->getVariable(name));
+          if(x->getName()=="emptyvariable")
               throw  "Variable not declared";
-          return std::make_unique<ValueFactor>(x.getNode());
+          return std::make_unique<ValueFactor>(x->getNode());
       }
       /* funccall
       if(symbol==OROUNDBRACKET&&currSymbol==IDENTIFIER){
           parameters();
       }
        */
-      return std::make_unique<ValueFactor>(name);
+      switch(currSymbol){
+          case INTCONST:{
+              int x=std::stoi(name);
+              return std::make_unique<ValueFactor>(x);
+          }
+          case FLOATCONST: {
+              float x = std::stof(name);
+              return std::make_unique<ValueFactor>(x);
+          }
+          case RATIONALCONST:{
+              Rational x(name);
+              return std::make_unique<ValueFactor>(x);
+          }
+          default:
+              return std::make_unique<ValueFactor>(name);
+      }
       //TODO czy zmienna zadeklarowana? jaki typ zmiennej?
   }else if(symbol==OROUNDBRACKET){
       std::unique_ptr<Factor> factorPointer=std::make_unique<ExpressionFactor>(expression());
@@ -396,8 +413,8 @@ void Parser::conditionalExpression() {
 
 std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have node returning it
     std::string name=token.getValue();
-    Variable x(scope.getVariable(token.getValue()));
-    if(x.getName()=="emptyvariable")
+    Variable* x(scope->getVariable(token.getValue()));
+    if(x->getName()=="emptyvariable")
         throw  "Variable not declared";
     std::cout<<"VARIABLE"<<std::endl;
     accept(IDENTIFIER);
@@ -405,11 +422,11 @@ std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have
         nextSymbol();
         std::unique_ptr<Expression> someExpression(std::move(expression()));
         std::vector<std::unique_ptr<Node>> nodes;
-        nodes.push_back(std::make_unique<Node>(x.getNodeByIndex(someExpression->execute().getValue().integer)));
+        nodes.push_back(std::make_unique<Node>(x->getNodeByIndex(someExpression->execute().getValue().integer)));
         accept(CTABLEBRACKET);
         return std::make_unique<Variable>("copy",std::move(nodes),1);//chyba zle
     }
-    return std::make_unique<Variable>(x);
+    return std::make_unique<Variable>(*x);
 
 }
 
@@ -474,4 +491,8 @@ TypeKind Parser::getTypeFromSymbol(SymbolType symbol) {
         case RATIONALSY:return RATIONAL;
         default:return INT;
     }
+}
+
+Parser::~Parser() {
+    delete scope;
 }

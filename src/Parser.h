@@ -22,7 +22,7 @@
 class Parser {
     Scanner&    scanner;
     SymbolType  symbol;
-    Scope scope;
+    Scope *scope;
     Token token = Token(OTHERS,"");
     std::set<SymbolType> statementStart,   conditionalStatementStart;
     std::set<SymbolType> statementValue, endOfStream, multiplyOperator;
@@ -41,7 +41,7 @@ class Parser {
     std::unique_ptr<Statement> statement();
     void ifStatement();
     void whileStatement();
-    Assignment assignment(Variable variable,unsigned int i);
+    Assignment assignment(Variable* variable,unsigned int i);
     void writeInStatement();
     void writeOutStatement();
     std::unique_ptr<Expression> expression();
@@ -61,6 +61,7 @@ class Parser {
     static TypeKind getTypeFromSymbol(SymbolType symbol);
 public:
     Parser(Scanner&);
+    ~Parser();
     std::unique_ptr<Program> parse();
 };
 

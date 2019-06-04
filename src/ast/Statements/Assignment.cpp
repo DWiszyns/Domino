@@ -35,4 +35,12 @@ Expression Assignment::getExpression() {
     return rvalue;
 }
 
+bool Assignment::isEmptyVariable() {
+    return lvalue->getName()=="emptyvariable";
+}
+
+Assignment::Assignment(const Assignment &other):lvalue(other.lvalue), rvalue(other.rvalue),index(other.index) {
+
+}
+
 

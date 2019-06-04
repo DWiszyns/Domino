@@ -47,7 +47,7 @@ union Value{
     }
 
     explicit Value(const std::string& x){
-        str=std::make_unique<std::string>(x);
+        str=std::make_unique<std::string>(std::move(x));
     }
 
     Value(const Value &otherValue, TypeKind typeKind=INT){

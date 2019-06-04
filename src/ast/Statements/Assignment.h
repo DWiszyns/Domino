@@ -17,9 +17,11 @@ class Assignment:public Statement {
 public:
     //mozna sprawdzic czy zmienna nalezy do Scope'a, ale czy tego nie powininem sprawdzic w parserze??
     Assignment();
+    Assignment(const Assignment& other);
     Assignment(Variable* lvalue, std::unique_ptr <Expression> expressionRValue, unsigned int i);
     ~Assignment() override;
     Expression getExpression();
+    bool isEmptyVariable();
     void execute() override;
 
 };

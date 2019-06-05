@@ -25,8 +25,7 @@ Node::Node(const Rational& val):value(val), typeKind(RATIONAL) {
 
 }
 
-Node::Node(std::string val):value(val), typeKind(STRING){
-
+Node::Node(std::string val): typeKind(STRING),str(std::move(val)){
 }
 
 Node::Node(char val):value(val), typeKind(CHAR) {
@@ -61,7 +60,7 @@ std::ostream &operator<<(std::ostream &os, const Node &obj) {
             break;
         }
         case STRING:{
-            os<<*obj.getValue().str;
+            os<<obj.str;
             break;}
         case FLOAT:{
             os<< obj.getValue().floatVal;
@@ -287,6 +286,10 @@ Node &Node::operator=(Node &&other) noexcept {
         *this=other;
     }
     return *this;
+}
+
+const std::string Node::getStr() const {
+    return str;
 }
 
 

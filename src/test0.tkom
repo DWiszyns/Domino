@@ -5,5 +5,5 @@ int e=7;
 float z = 123.37f;
 rational r = 1234.456r;
 int f= e+c*d;
-writeout<<c<<" "<<r;
+writeout<<c<<"dupa"<<r;
 }

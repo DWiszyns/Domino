@@ -34,7 +34,7 @@ VariableDeclaration::VariableDeclaration(Scope *scope, TypeKind whichType, std::
 
 }
 
-VariableDeclaration::VariableDeclaration(VariableDeclaration &other) {
+VariableDeclaration::VariableDeclaration(VariableDeclaration &other):Statement(other.scope), declaredVariable(other.declaredVariable),assignment(other.assignment){
 
 }
 

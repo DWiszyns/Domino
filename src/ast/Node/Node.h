@@ -16,6 +16,7 @@
 class Node {
     TypeKind typeKind;
     Value value;
+    std::string str;
 public:
     Node();
     Node(int val);
@@ -28,6 +29,7 @@ public:
     Node(Value value, TypeKind typeKind);
     ~Node();
     const Value& getValue() const;
+    const std::string getStr() const;
     const TypeKind getTypeKind() const;
     friend std::ostream& operator<<(std::ostream& os, const Node& obj);
     Node operator+(const Node& rhs);

@@ -6,6 +6,7 @@
 
 #include "Content.h"
 #include "Function.h"
+#include "Statements/WriteOutStatement.h"
 #include <list>
 #include <algorithm>
 
@@ -39,7 +40,17 @@ Content::Content(Content &otherContent):statements(std::move(otherContent.statem
 
 Content::Content(const Content &otherContent):scope(std::move(otherContent.scope)){
     for(const auto &n:otherContent.statements)
-        statements.push_back(std::make_unique<Statement>(*n));
+        if(dynamic_cast<Assignment*>(n.get()) != nullptr)
+            statements.push_back(std::make_unique<Assignment>(*(dynamic_cast<Assignment*>(n.get()))));
+        else if(dynamic_cast<WriteOutStatement*>(n.get()) != nullptr)
+            statements.push_back(std::make_unique<WriteOutStatement>(*(dynamic_cast<WriteOutStatement*>(n.get()))));
+        else if(dynamic_cast<VariableDeclaration*>(n.get()) != nullptr)
+            statements.push_back(std::make_unique<VariableDeclaration>(*(dynamic_cast<VariableDeclaration*>(n.get()))));
+        else
+            statements.push_back(std::make_unique<Statement>(*n));
+
+
+
 
 }
 

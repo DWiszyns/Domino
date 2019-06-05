@@ -35,7 +35,6 @@ std::unique_ptr<Program> Parser::parse(){
     accept(MAINSY);
     MainFunction myMain(mainFunction());
     accept(endOfStream);
-    Program a(2,3);
     return std::make_unique<Program>(myMain);
 }
 
@@ -123,7 +122,7 @@ Content Parser::content(){
 }
 
 
-VariableDeclaration& Parser::variableDeclaration(){
+std::unique_ptr<VariableDeclaration> Parser::variableDeclaration(){
     //trzeba dodac zmienna do Scope'a
     std::cout<<"VARIABLE DECLARATION"<<std::endl;
     if(types.find(symbol)==types.end())
@@ -135,7 +134,7 @@ VariableDeclaration& Parser::variableDeclaration(){
     int size=1;
     if(symbol==OTABLEBRACKET) {
         size = arrayDeclaration();
-        VariableDeclaration varDec(scope, type, name, static_cast<unsigned int>(size));
+        std::unique_ptr<VariableDeclaration> varDec=std::make_unique<VariableDeclaration>(scope, type, name, static_cast<unsigned int>(size));
         return varDec;
     }
     else{
@@ -147,7 +146,7 @@ VariableDeclaration& Parser::variableDeclaration(){
          */
         if(symbol==ASSIGN) {
             std::unique_ptr<Variable> tempVariable = std::make_unique<Variable>(name, size, type);
-            VariableDeclaration varDec(scope, std::move(tempVariable), assignment(tempVariable.get(), 0));
+            std::unique_ptr<VariableDeclaration> varDec=std::make_unique<VariableDeclaration>(scope, std::move(tempVariable), assignment(tempVariable.get(), 0));
             return varDec;
         }
     }
@@ -173,7 +172,7 @@ std::unique_ptr<Statement> Parser::statement(){
         case WRITEIN:
             writeInStatement();     break;
         case WRITEOUT:
-            writeOutStatement();    break;
+            statement=std::move(writeOutStatement()); break;
         case IDENTIFIER : {
             std::string name=token.getValue();
             nextSymbol();
@@ -204,7 +203,7 @@ std::unique_ptr<Statement> Parser::statement(){
             returnStatement();break;
         }
         case INTSY:case STRINGSY: case RATIONALSY:case FLOATSY: case CHARSY:{
-            statement =std::make_unique<VariableDeclaration>(variableDeclaration());
+            statement =std::move(variableDeclaration());
             break;
         }
         default:
@@ -273,13 +272,16 @@ void Parser::writeInStatement(){
     }
 }
 
-void Parser::writeOutStatement(){
+std::unique_ptr<WriteOutStatement> Parser::writeOutStatement(){
     std::cout<<"WRITEOUT"<<std::endl;
     accept(WRITEOUT);
+    std::list<std::unique_ptr<Expression>> expressions;
     while (symbol==OUTPUTSTREAM){
         nextSymbol();
-        expression();
+        expressions.push_back(std::move(expression()));
     }
+    std::unique_ptr<WriteOutStatement> writeout=std::make_unique<WriteOutStatement>(scope,std::move(expressions));
+    return writeout;
 }
 
 std::unique_ptr<Factor> Parser::factor() {//wytyfy wgl ja pierdole nie moge nawet zmiennej zadeklarowac

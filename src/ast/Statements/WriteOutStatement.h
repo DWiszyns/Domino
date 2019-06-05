@@ -6,8 +6,17 @@
 #define DOMINO_WRITEOUTSTATEMENT_H
 
 
-class WriteOutStatement {
+#include "Statement.h"
+#include "../Expression/Expression.h"
 
+class WriteOutStatement : public Statement{
+    std::list <std::unique_ptr<Expression>> expressions;
+public:
+    WriteOutStatement()= default;
+    WriteOutStatement(Scope *scope,std::list <std::unique_ptr<Expression>> expressions);
+    WriteOutStatement(const WriteOutStatement &other);
+    ~WriteOutStatement() override;
+    void execute();
 };
 
 

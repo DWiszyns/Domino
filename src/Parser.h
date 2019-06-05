@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <iostream>
 #include "ast/Variable.h"
+#include "ast/Statements/WriteOutStatement.h"
 
 //std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
 
@@ -37,13 +38,13 @@ class Parser {
     void accept(SymbolType atom);
     void accept(const std::set <SymbolType>& availableAtoms);
     Content content();
-    VariableDeclaration& variableDeclaration();
+    std::unique_ptr<VariableDeclaration> variableDeclaration();
     std::unique_ptr<Statement> statement();
     void ifStatement();
     void whileStatement();
     Assignment assignment(Variable* variable,unsigned int i);
     void writeInStatement();
-    void writeOutStatement();
+    std::unique_ptr<WriteOutStatement> writeOutStatement();
     std::unique_ptr<Expression> expression();
     std::unique_ptr<SimpleExpression> simpleExpression();
     std::unique_ptr<Factor> factor();

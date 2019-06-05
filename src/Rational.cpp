@@ -66,26 +66,26 @@ std::istream &operator>>(std::istream &is, Rational &obj) {
     return is;
 }
 
-bool Rational::operator==(const Rational &rhs) {
+bool Rational::operator==(const Rational &rhs)const {
     int gcd=std::gcd(numerator,denominator);
     int otherGcd=std::gcd(rhs.numerator,rhs.denominator);
     return (this->numerator/gcd)==(rhs.numerator/otherGcd)
         &&(this->denominator/gcd)==(rhs.denominator/otherGcd);
 }
 
-bool Rational::operator!=(const Rational &rhs) {
+bool Rational::operator!=(const Rational &rhs)const {
     return !(*this==rhs);
 }
 
-bool Rational::operator>=(const Rational &rhs) {
+bool Rational::operator>=(const Rational &rhs)const {
     return !(*this < rhs);
 }
 
-bool Rational::operator<=(const Rational &rhs) {
+bool Rational::operator<=(const Rational &rhs)const {
     return !(*this > rhs);
 }
 
-bool Rational::operator>(const Rational &rhs) {
+bool Rational::operator>(const Rational &rhs)const {
     Rational ourNumber=shorten(*this);
     Rational otherNumber=shorten(rhs);
     ourNumber.numerator*=otherNumber.denominator;
@@ -93,7 +93,7 @@ bool Rational::operator>(const Rational &rhs) {
     return ourNumber.numerator>otherNumber.numerator;
 }
 
-bool Rational::operator<(const Rational &rhs) {
+bool Rational::operator<(const Rational &rhs)const {
     return !(*this>rhs||*this==rhs);
 }
 

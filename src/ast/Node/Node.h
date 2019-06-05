@@ -40,6 +40,12 @@ public:
 //    Node&operator-=(const Node& rhs);
 //    Node&operator*=(const Node& rhs);
 //    Node&operator/=(const Node& rhs);
+    bool operator< (const Node& rhs);
+    bool operator> (const Node& rhs);
+    bool operator<=(const Node& rhs);
+    bool operator>=(const Node& rhs);
+    bool operator==(const Node& rhs);
+    bool operator!=(const Node& rhs);
     Node& operator=(const Node& other); // copy assignment
     Node& operator=(Node&& other) noexcept; // move assignment
     bool isNumericType() const;

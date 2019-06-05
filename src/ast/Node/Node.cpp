@@ -6,6 +6,8 @@
 
 #include "Node.h"
 
+enum comparedNodes{LEFTGREATER,EQUAL,RIGHTGREATER};
+
 Node::Node() {
 
 }
@@ -290,6 +292,104 @@ Node &Node::operator=(Node &&other) noexcept {
 const std::string Node::getStr() const {
     return str;
 }
+
+
+bool Node::operator<(const Node &rhs) {
+    if(this->isNumericType()&&rhs.isNumericType()){
+        if(this->typeKind==INT&&rhs.typeKind==INT){
+            return this->getValue().integer < rhs.getValue().integer;
+        }
+        else if (this->typeKind==INT&&rhs.typeKind==FLOAT){
+            return this->getValue().integer < rhs.getValue().floatVal;
+        }
+        else if (this->typeKind==FLOAT&&rhs.typeKind==INT){
+            return this->getValue().floatVal < rhs.getValue().integer;
+        }
+        else if(this->typeKind==FLOAT&&rhs.typeKind==FLOAT){
+            return this->getValue().floatVal < rhs.getValue().floatVal;
+        }
+        else if(this->typeKind==FLOAT&&rhs.typeKind==RATIONAL){
+            float temp=(float) rhs.getValue().rational.getNumerator()/ rhs.getValue().rational.getDenominator();
+            return this->getValue().floatVal < temp;
+        }
+        else if (this->typeKind==INT&&rhs.typeKind==RATIONAL){
+            return Rational(this->getValue().integer,1)<(rhs.getValue().rational);
+        }
+        else if(this->typeKind==RATIONAL&&rhs.typeKind==FLOAT){
+            float temp=(float) this->getValue().rational.getNumerator()/ this->getValue().rational.getDenominator();
+            return temp < rhs.getValue().floatVal;
+        }
+        else if(this->typeKind==RATIONAL&&rhs.typeKind==INT){
+            return  (this->getValue().rational) < Rational(rhs.getValue().integer,1);
+        }
+        else if(this->typeKind==RATIONAL&&rhs.typeKind==RATIONAL){
+            return (this->getValue().rational) < (rhs.getValue().rational);
+        }
+    }
+    return false;
+}
+
+bool Node::operator==(const Node &rhs) {
+    if(this->isNumericType()&&rhs.isNumericType()){
+        if(this->typeKind==INT&&rhs.typeKind==INT){
+            return this->getValue().integer == rhs.getValue().integer;
+        }
+        else if (this->typeKind==INT&&rhs.typeKind==FLOAT){
+            return this->getValue().integer == rhs.getValue().floatVal;
+        }
+        else if (this->typeKind==FLOAT&&rhs.typeKind==INT){
+            return this->getValue().floatVal == rhs.getValue().integer;
+        }
+        else if(this->typeKind==FLOAT&&rhs.typeKind==FLOAT){
+            return this->getValue().floatVal == rhs.getValue().floatVal;
+        }
+        else if(this->typeKind==FLOAT&&rhs.typeKind==RATIONAL){
+            float temp=(float) rhs.getValue().rational.getNumerator()/ rhs.getValue().rational.getDenominator();
+            return this->getValue().floatVal == temp;
+        }
+        else if (this->typeKind==INT&&rhs.typeKind==RATIONAL){
+            return Rational(this->getValue().integer,1)==(rhs.getValue().rational);
+        }
+        else if(this->typeKind==RATIONAL&&rhs.typeKind==FLOAT){
+            float temp=(float) this->getValue().rational.getNumerator()/ this->getValue().rational.getDenominator();
+            return temp == rhs.getValue().floatVal;
+        }
+        else if(this->typeKind==RATIONAL&&rhs.typeKind==INT){
+            return (this->getValue().rational) == Rational(rhs.getValue().integer,1);
+
+        }
+        else if(this->typeKind==RATIONAL&&rhs.typeKind==RATIONAL){
+            return (this->getValue().rational) == (rhs.getValue().rational);
+        }
+    }
+    else{
+        if(this->typeKind!=rhs.typeKind) return false;
+        else switch (typeKind)
+            {
+                case STRING: return (this->str==rhs.str);
+                case CHAR: return this->getValue().character==rhs.getValue().character;
+                case BOOLEAN: return this->getValue().boolean == rhs.getValue().boolean;
+                default:return false;
+            }
+    }
+}
+
+bool Node::operator>(const Node &rhs){
+    return !(*this==rhs && *this<rhs);
+}
+
+bool Node::operator>=(const Node &rhs) {
+    return !(*this<rhs);
+}
+
+bool Node::operator!=(const Node &rhs) {
+    return  !(*this==rhs);
+}
+
+bool Node::operator<=(const Node &rhs) {
+    return !(*this>rhs);
+}
+
 
 
 

@@ -43,4 +43,6 @@ Makefile
 
 cmake_install.cmake
 
+Domino
+libDominoLib.a
 

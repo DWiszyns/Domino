@@ -116,3 +116,39 @@ std::shared_ptr <Node> Variable::getNodeReference() {
 std::shared_ptr<Node> Variable::getNodeReferenceByIndex(int i) {
     return nodes[i];
 }
+
+void Variable::setNodeToDefault() {
+    switch(nodes[0]->getTypeKind()){
+        case INT: {
+            for (int i = 0; i < size; ++i)
+                setNodeForIndex(i,0);
+            break;
+        }
+        case FLOAT: {
+            for (int i = 0; i < size; ++i)
+                setNodeForIndex(i,0.1f);
+            break;
+        }
+        case RATIONAL:{
+            for(int i=0;i<size;++i)
+               setNodeForIndex(i,"1.1r");
+            break;
+        }
+        case CHAR:{
+            for(int i=0;i<size;++i)
+                setNodeForIndex(i,'a');
+        }
+        case STRING:{
+            std::string x ="default";
+            for(int i=0;i<size;++i)
+                setNodeForIndex(i,x);
+            break;
+        }
+        case BOOLEAN:{
+            for(int i=0;i<size;++i)
+                setNodeForIndex(i,true);
+            break;
+        }
+        default:break;
+    }
+}

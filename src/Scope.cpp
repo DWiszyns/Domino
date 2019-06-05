@@ -67,4 +67,9 @@ void Scope::setExternalScope(Scope *scope) {
 
 }
 
+void Scope::setToDefault() {
+    for(auto &i: variables)
+        i->setNodeToDefault();
+}
+
 

@@ -30,8 +30,7 @@ public:
     Variable* getVariable(std::string name);
     Scope* getExternalScope();
     void setExternalScope(Scope *scope);
-
-
+    void setToDefault();
 };
 
 

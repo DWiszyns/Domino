@@ -22,6 +22,7 @@ WhileStatement::WhileStatement(WhileStatement &other):ConditionalStatement(std::
 void WhileStatement::execute() {
     while(conditionalExpression->evaluate())
         ConditionalStatement::execute();
+        scope.setToDefault();
 }
 
 WhileStatement::~WhileStatement() {

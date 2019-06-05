@@ -13,9 +13,8 @@ class Variable {
     std::string name;
     std::vector<std::shared_ptr<Node>> nodes;
     unsigned int size;
-    bool singleNode;//tells us if we can access it with []
-    //std::string value;
-//    TypeKind type; //do I really need you? //i probably to set type for all values;
+    bool singleNode;
+
 public:
     Variable();
     Variable(const Variable &otherVariable);
@@ -33,6 +32,7 @@ public:
     std::string getName();
     bool isSingleNode();
     void setDefaultValues(TypeKind typeKind);
+    void setNodeToDefault();
 
 };
 

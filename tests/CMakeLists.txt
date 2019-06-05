@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.13)
-project(lexer_test)
+cmake_minimum_required(VERSION 3.10)
+project(interpreter_test)
 
 set(CMAKE_CXX_STANDARD 17)
 

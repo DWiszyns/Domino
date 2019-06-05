@@ -300,7 +300,7 @@ void Scanner::scanError(SymbolType symbol, std::string word) {
 
 void Scanner::flushSpell() {
     for(int i=0;i<16;++i)
-        spell[i]='/0';
+        spell[i]='\0';
 
 }
 

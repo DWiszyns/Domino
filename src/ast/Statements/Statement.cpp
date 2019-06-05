@@ -14,7 +14,7 @@ Statement::~Statement() {
 }
 
 void Statement::execute() {
-    //TODO
+
 }
 
 Statement::Statement(Scope scope):scope(scope) {

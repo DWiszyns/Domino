@@ -25,7 +25,7 @@ bool ConditionalExpression::evaluate() {
     auto it = logicalOperators.begin();
     for(auto &condition: conditions){
         if(condition==*conditions.begin()){
-            tempFlag=condition->evaluate(); //either way we're only interested in value, so even for expressionfactor we calculate it now
+            tempFlag=condition->evaluate();
         }
         else {
             switch(*it){

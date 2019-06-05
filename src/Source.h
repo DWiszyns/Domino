@@ -20,9 +20,6 @@ class Source {
     char c;
     std::fstream input;
     std::stringstream fileInput;
-
-
-
 public:
     Source(std::string source,bool test=false);
     ~Source();
@@ -32,22 +29,13 @@ public:
     int getTextLine();
     int getTextPos();
     const std::string &getSource() const;
-
     void setTextLine(int textLine);
-
     void setTextPos(int textPos);
-
     int getErrorTotal() const;
-
     void setErrorTotal(int errorTotal);
-
     char getC() const;
-
     void setC(char c);
-
     bool isOpen();
-
-
 };
 
 

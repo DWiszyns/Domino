@@ -18,8 +18,7 @@ ValueFactor::~ValueFactor() {
 
 }
 
-ValueFactor::ValueFactor(const ValueFactor& otherFactor):Factor(otherFactor.node){//moze byc blad
-
+ValueFactor::ValueFactor(const ValueFactor& otherFactor):Factor(otherFactor.node){
 
 }
 

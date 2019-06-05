@@ -15,7 +15,6 @@ class IfStatement:public Statement{
 public:
     IfStatement();
     IfStatement(std::vector<std::unique_ptr<ConditionalExpression>> conditionalExpressions,std::list<Content> contents);
-//    IfStatement(Scope *oldScope,std::list<std::unique_ptr<ConditionalExpression>> conditionalExpression, std::list<Content> contents);
     IfStatement(IfStatement& ifStatement);
     ~IfStatement();
     void execute() override;

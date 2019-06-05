@@ -36,10 +36,6 @@ public:
     Node operator-(const Node& rhs);
     Node operator*(const Node& rhs);
     Node operator/(const Node& rhs);
-//    Node&operator+=(const Node& rhs);
-//    Node&operator-=(const Node& rhs);
-//    Node&operator*=(const Node& rhs);
-//    Node&operator/=(const Node& rhs);
     bool operator< (const Node& rhs);
     bool operator> (const Node& rhs);
     bool operator<=(const Node& rhs);

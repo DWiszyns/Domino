@@ -17,8 +17,6 @@ protected:
     Scope scope;
 public:
     ConditionalStatement();
-//    ConditionalStatement(Scope *oldScope,std::unique_ptr<ConditionalExpression> conditionalExpression, Content content);
-//    ConditionalStatement(Scope currScope,std::unique_ptr<ConditionalExpression> condition, Content content);
     ConditionalStatement(std::unique_ptr<ConditionalExpression> condition, Content content);
     ConditionalStatement(ConditionalStatement& conditionalStatement);
     ~ConditionalStatement()=default;

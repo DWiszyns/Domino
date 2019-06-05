@@ -4,7 +4,7 @@
 
 #include "MainFunction.h"
 
-void MainFunction::execute(/*std::list<Function> otherFunctions*/) {//will probably need to fix it later;
+void MainFunction::execute() {
     //functions=std::move(otherFunctions);
     content.execute();
 }

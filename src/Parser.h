@@ -19,9 +19,6 @@
 #include "ast/Statements/IfStatement.h"
 #include "ast/Statements/WhileStatement.h"
 
-//std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
-
-
 class Parser {
     Scanner&    scanner;
     SymbolType  symbol;

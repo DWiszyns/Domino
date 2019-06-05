@@ -8,12 +8,7 @@
 IfStatement::IfStatement():Statement(){
 
 }
-/*
-IfStatement::IfStatement(Scope *oldScope, std::unique_ptr<ConditionalExpression> conditionalExpression, Content content)
-        : ConditionalStatement(oldScope, std::move(conditionalExpression), content) {
 
-}
-*/
 IfStatement::IfStatement(IfStatement &other):conditionalExpressions(std::move(other.conditionalExpressions)),
     contents(std::move(other.contents)){
 

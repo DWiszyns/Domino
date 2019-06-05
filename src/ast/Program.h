@@ -11,12 +11,11 @@
 #include <list>
 
 class Program {
-    std::list<Function> functions;
+    //std::list<Function> functions;
     MainFunction mainFunction;
     int a,b;
 
 public:
-    Program(int a, int b);
     Program(MainFunction mainFunction);
     ~Program();
     void execute();

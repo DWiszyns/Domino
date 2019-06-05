@@ -7,15 +7,6 @@
 
 ConditionalStatement::ConditionalStatement() = default;
 
-//ConditionalStatement::ConditionalStatement(Scope currScope,std::unique_ptr<ConditionalExpression> condition, Content content):scope(currScope),
-//                                                                                                             conditionalExpression(std::move(condition)),content(content){
-//
-//}
-//ConditionalStatement::ConditionalStatement(Scope *oldScope,std::unique_ptr<ConditionalExpression> condition, Content content):scope(oldScope),
-//                        conditionalExpression(std::move(condition)),content(content){
-//
-//}
-
 ConditionalStatement::ConditionalStatement(ConditionalStatement &other):
     conditionalExpression(std::move(other.conditionalExpression)),content(other.content),scope(other.content.getScope()){
 

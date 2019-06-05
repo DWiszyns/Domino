@@ -38,19 +38,6 @@ Node Expression::execute() {
     return tempSimpleExpression->execute();
 }
 
-void Expression::addOperator(SymbolType additionOperator) {
-    additionOperators.push_back(additionOperator);
-
-}
-
-//void Expression::addSimpleExpression(std::unique_ptr<SimpleExpression> simpleExpression) {
-//    simpleExpressions.push_back(std::move(simpleExpression));
-//}
-/*
-Expression::Expression(std::unique_ptr<SimpleExpression> simpleExpression) {
-    simpleExpressions.push_back(std::move(simpleExpression));
-
-}*/
 
 Expression::Expression(std::list<std::unique_ptr<SimpleExpression>> simpleExpressions,
                        std::list<SymbolType> additionOperators) {

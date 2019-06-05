@@ -14,7 +14,6 @@ Function::Function(std::string name, TypeKind type, ParametersDefinition paramet
 }
 
 Node Function::callFunction() {
-    //TODO get parameters, check parameters, give parameters to content
    // return content.execute();
 }
 

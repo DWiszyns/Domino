@@ -99,7 +99,6 @@ MainFunction Parser::mainFunction() {
     Content myContent(content());
     accept(CLOSEBRACKET);
     return MainFunction(myContent);
-
 }
 
 Content Parser::content(){
@@ -138,7 +137,6 @@ std::unique_ptr<VariableDeclaration> Parser::variableDeclaration(){
             return varDec;
         }
     }
-
 }
 
 int Parser::arrayDeclaration() {
@@ -366,7 +364,7 @@ void Parser::parameters() {
     //return std::vector<Variable> parameters;
 }
 
-std::unique_ptr<Statement> Parser::conditionalStatement() { //tu moze byc blad, bo za duzo castowania bedzie
+std::unique_ptr<Statement> Parser::conditionalStatement() {
     switch(symbol) {
         case IFSY:
             return std::move(ifStatement());
@@ -393,7 +391,6 @@ void Parser::forStatement() {
     accept(OPENBRACKET);
     content();
     accept(CLOSEBRACKET);
-
 }
 
 void Parser::returnStatement() {
@@ -411,10 +408,9 @@ std::unique_ptr<ConditionalExpression> Parser::conditionalExpression() {
         conditions.push_back(std::move(condition()));
     }
     return std::make_unique<ConditionalExpression>(std::move(conditions),logicalOperators);
-
 }
 
-std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have node returning it
+std::unique_ptr<Variable> Parser::variable() {
     std::string name=token.getValue();
     Variable* x(scope->getVariable(token.getValue()));
     if(x->getName()=="emptyvariable")
@@ -426,7 +422,7 @@ std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have
         std::vector<std::shared_ptr<Node>> nodes;
         nodes.push_back(std::make_unique<Node>(x->getNodeByIndex(someExpression->execute().getValue().integer)));
         accept(CTABLEBRACKET);
-        return std::make_unique<Variable>("copy",std::move(nodes),1);//chyba zle
+        return std::make_unique<Variable>("copy",std::move(nodes),1);
     }
     return std::make_unique<Variable>(*x);
 
@@ -469,7 +465,7 @@ ParametersDefinition Parser::parametersDefinition() {
             }
             accept(IDENTIFIER);
             name=token.getValue();
-            parameters.emplace_back(name,1,type);// i don't think we need to initialize our vector
+            parameters.emplace_back(name,1,type);
         }
     }
     accept(CROUNDBRACKET);

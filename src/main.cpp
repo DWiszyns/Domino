@@ -17,15 +17,12 @@ void execute(Program& program){
 }
 int main(int argc, char *argv[]) {
     
-    /*if(argc!=3){
+    if(argc!=3){
         std::cout<<"Nie wystarczająca ilość argumentów"<<std::endl;
         return 1;
-    }*/
+    }
     Source source(argv[2]);
-    //Source source("test1.tkom");
     Scanner scan(source);
     Parser parser(scan);
     execute(*parser.parse());
-    //Scope scope;
-    //std::cout<<scope.types[0];
 }

@@ -7,8 +7,7 @@
 
 #include <list>
 
-//#include "Function.h"
-//#include "../Scope.h"
+
 #include "Statements/Statement.h"
 #include "Statements/VariableDeclaration.h"
 
@@ -21,7 +20,6 @@ public:
     Content(std::list<std::unique_ptr<Statement>> statements ,Scope *scope);
     Content(Content &otherContent);
     Content(const Content &otherContent);
-    //   Content(/*Scope &scope*/);
     ~Content();
     Scope getScope();
     void setScope(Scope scope);

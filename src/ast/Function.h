@@ -6,7 +6,6 @@
 #define DOMINO_FUNCTION_H
 
 
-//#include "Variable.h" //watch out might have too many includes
 #include<string>
 #include "Node/Value.h"
 #include "ParametersDefinition.h"
@@ -17,7 +16,7 @@ class Function {
     std::string name;
     TypeKind type;
     ParametersDefinition parameters;
-    Content content;//probably needs to be static
+    Content content;
 public:
     Function();
     Function(Function &otherFunction);

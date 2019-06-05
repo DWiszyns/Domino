@@ -44,24 +44,14 @@ union Value{
 
         rational=x;
     }
-//
-//    explicit Value(const std::string& x){
-//        str=std::make_unique<std::string>(std::move(x));
-//    }
 
     Value(const Value &otherValue, TypeKind typeKind=INT){
-//        if(typeKind==STRING) str=std::make_unique<std::string>(*otherValue.str);
         integer=otherValue.integer;
         floatVal=otherValue.floatVal;
         character=otherValue.character;
         rational=otherValue.rational;
         boolean=otherValue.boolean;
     }
-//    Value& operator=(const std::string& other)
-//    {
-//        str = std::make_unique<std::string>(other);
-//        return *this;
-//    }
 
     Value& operator=(const int& other)
     {
@@ -92,12 +82,6 @@ union Value{
         character = other;
         return *this;
     }
-
-//    Value& operator=(const std::string&& other)
-//    {
-//        str = std::make_unique<std::string>(other);
-//        return *this;
-//    }
 
     Value& operator=(const int&& other)
     {
@@ -131,7 +115,6 @@ union Value{
 
     Value& operator=(const Value& otherValue)
     {
-//        this->str=std::make_unique<std::string>(*otherValue.str);
         this->integer=otherValue.integer;
         this->floatVal=otherValue.floatVal;
         this->character=otherValue.character;

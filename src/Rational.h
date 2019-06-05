@@ -12,7 +12,6 @@
 class Rational {
     int numerator;
     unsigned int denominator;
-    //std::string stringRepresentation;
     Rational shorten(Rational rational) const;
 public:
     Rational();

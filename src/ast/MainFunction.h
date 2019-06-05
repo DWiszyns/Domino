@@ -9,7 +9,6 @@
 #include "Function.h"
 
 class MainFunction {
-    //TODO parameters
     //std::list<Function> functions;
     Content content;
 

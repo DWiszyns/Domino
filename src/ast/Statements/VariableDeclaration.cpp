@@ -41,7 +41,6 @@ VariableDeclaration::VariableDeclaration(VariableDeclaration &other):Statement(o
 VariableDeclaration::VariableDeclaration(Scope *scope, std::unique_ptr<Variable> variable, std::unique_ptr<Assignment> assignment):Statement(*scope),
         declaredVariable(variable.get()),assignment(std::move(assignment)) {
     scope->addVariable(std::move(variable));
-    //assignment.execute();
 }
 
 

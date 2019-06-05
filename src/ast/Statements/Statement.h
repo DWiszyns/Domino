@@ -17,7 +17,6 @@ public:
     Statement(Scope scope);
     virtual ~Statement();
     virtual void execute();
-
 };
 
 

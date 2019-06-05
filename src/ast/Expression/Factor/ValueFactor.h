@@ -12,7 +12,6 @@ class ValueFactor: public Factor {
 public:
     explicit ValueFactor(std::shared_ptr<Node> node);
     ValueFactor(const ValueFactor& otherFactor);
-
     explicit ValueFactor(const Factor& otherFactor);
     ~ ValueFactor();
     Node calculate() override;

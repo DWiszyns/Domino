@@ -10,7 +10,6 @@
 #include "Factor/Factor.h"
 #include "Factor/ValueFactor.h"
 #include "Factor/ExpressionFactor.h"
-//class ExpressionFactor;
 
 
 class SimpleExpression {
@@ -23,9 +22,6 @@ public:
     Node execute();
     SimpleExpression(const SimpleExpression& otherExpression);
     SimpleExpression& operator=(const SimpleExpression& otherExpression);
-    //   explicit SimpleExpression(std::unique_ptr<Factor> factor);
-    //void addFactor(std::unique_ptr<Factor> factor);
-    //void addOperator(SymbolType multiplicationOperator);
 
 };
 

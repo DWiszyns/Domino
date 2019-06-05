@@ -6,7 +6,6 @@
 
 #include "Node.h"
 
-enum comparedNodes{LEFTGREATER,EQUAL,RIGHTGREATER};
 
 Node::Node() {
 

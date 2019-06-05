@@ -6,14 +6,9 @@
 
 void Program::execute() {
     mainFunction.execute();
-//    return a+b;
-
 }
 
 Program::~Program() {
-}
-
-Program::Program(int a, int b):a(a),b(b) {
 
 }
 

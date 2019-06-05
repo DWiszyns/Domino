@@ -16,10 +16,8 @@ public:
     Expression(std::list <std::unique_ptr<SimpleExpression>> simpleExpressions,std::list <SymbolType> additionOperators);
     ~Expression()=default;
     Node execute();
-    void addOperator(SymbolType additionOperator);
     Expression(const Expression&);
     Expression& operator=(const Expression& otherExpression);
-    //void addSimpleExpression(std::unique_ptr<SimpleExpression> simpleExpression);
 
 };
 

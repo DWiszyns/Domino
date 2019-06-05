@@ -23,10 +23,6 @@ Content::Content() {
 
 }
 
-/*Content::Content(Scope &scope):scope(scope) {
-
-}*/
-
 Content::~Content() {
 
 }

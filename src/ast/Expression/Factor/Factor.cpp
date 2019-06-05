@@ -21,5 +21,5 @@ Factor::Factor() {
 }
 
 Node Factor::calculate() {
-    return 0;//getNode();
+    return 0;
 }

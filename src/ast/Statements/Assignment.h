@@ -12,7 +12,7 @@
 
 class Assignment:public Statement {
     Variable *lvalue;
-    Expression rvalue;
+    std::unique_ptr<Expression> rvalue;
     unsigned int index;
 public:
     //mozna sprawdzic czy zmienna nalezy do Scope'a, ale czy tego nie powininem sprawdzic w parserze??

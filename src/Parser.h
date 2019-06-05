@@ -42,7 +42,7 @@ class Parser {
     std::unique_ptr<Statement> statement();
     void ifStatement();
     void whileStatement();
-    Assignment assignment(Variable* variable,unsigned int i);
+    std::unique_ptr<Assignment>  assignment(Variable* variable,unsigned int i);
     void writeInStatement();
     std::unique_ptr<WriteOutStatement> writeOutStatement();
     std::unique_ptr<Expression> expression();

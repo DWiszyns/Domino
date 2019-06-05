@@ -8,11 +8,12 @@
 #include "../Node/Node.h"
 
 class Factor {
-    Node node;
+protected:
+    std::shared_ptr<Node> node;
 public:
     explicit Factor();
     Factor& operator=(const Factor&) = delete;
-    Factor(Node node);
+    Factor(std::shared_ptr<Node> node);
     Factor(const Factor &otherFactor);
     ~Factor()= default;
     virtual Node calculate();

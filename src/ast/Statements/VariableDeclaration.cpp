@@ -13,16 +13,15 @@ VariableDeclaration::~VariableDeclaration() {
 
 }
 
-VariableDeclaration::VariableDeclaration(Scope *scope, TypeKind whichType, std::string name, Assignment assignment):
-    Statement(*scope), assignment(assignment){
+VariableDeclaration::VariableDeclaration(Scope *scope, TypeKind whichType, std::string name, std::unique_ptr<Assignment> assignment):
+    Statement(*scope), assignment(std::move(assignment)){
     std::unique_ptr<Variable> tempVariable=std::make_unique<Variable>(std::move(name),1,whichType);
     declaredVariable=tempVariable.get();
     scope->addVariable(std::move(tempVariable));
 }
 
-void VariableDeclaration::execute(Scope scope) {
-       // scope.addVariable(declaredVariable);
-   // if(!assignment.isEmptyVariable()) assignment.execute();
+void VariableDeclaration::execute() {
+   if(!assignment->isEmptyVariable()) assignment->execute();
 
 }
 
@@ -34,14 +33,15 @@ VariableDeclaration::VariableDeclaration(Scope *scope, TypeKind whichType, std::
 
 }
 
-VariableDeclaration::VariableDeclaration(VariableDeclaration &other):Statement(other.scope), declaredVariable(other.declaredVariable),assignment(other.assignment){
+VariableDeclaration::VariableDeclaration(VariableDeclaration &other):Statement(other.scope), declaredVariable(other.declaredVariable){
+    assignment = std::move(other.assignment);
 
 }
 
-VariableDeclaration::VariableDeclaration(Scope *scope, std::unique_ptr<Variable> variable, Assignment assignment):Statement(*scope),
-        declaredVariable(variable.get()),assignment(assignment) {
+VariableDeclaration::VariableDeclaration(Scope *scope, std::unique_ptr<Variable> variable, std::unique_ptr<Assignment> assignment):Statement(*scope),
+        declaredVariable(variable.get()),assignment(std::move(assignment)) {
     scope->addVariable(std::move(variable));
-    assignment.execute();
+    //assignment.execute();
 }
 
 

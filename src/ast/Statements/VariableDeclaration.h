@@ -11,14 +11,14 @@
 
 class VariableDeclaration: public Statement {
     Variable *declaredVariable;
-    Assignment assignment;
+    std::unique_ptr<Assignment> assignment;
 public:
-    VariableDeclaration(Scope *scope, std::unique_ptr<Variable> variable,Assignment assignment);
-    VariableDeclaration(Scope *scope, TypeKind whichType, std::string name,Assignment assignment);
+    VariableDeclaration(Scope *scope, std::unique_ptr<Variable> variable,std::unique_ptr<Assignment> assignment);
+    VariableDeclaration(Scope *scope, TypeKind whichType, std::string name,std::unique_ptr<Assignment> assignment);
     VariableDeclaration(Scope *scope, TypeKind whichType, std::string name, unsigned int size);
     VariableDeclaration(VariableDeclaration &other);
     ~VariableDeclaration() override;
-    void execute(Scope scope);
+    void execute();
 
 };
 

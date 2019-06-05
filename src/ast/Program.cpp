@@ -4,9 +4,9 @@
 
 #include "Program.h"
 
-int Program::execute() {
+void Program::execute() {
     mainFunction.execute();
-    return a+b;
+//    return a+b;
 
 }
 

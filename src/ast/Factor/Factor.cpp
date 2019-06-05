@@ -3,17 +3,17 @@
 //
 
 #include "Factor.h"
-
+//
 Node Factor::getNode() const{
-    return node;
+    return *node;
 }
 
-Factor::Factor(Node node):node(node) {
+Factor::Factor(std::shared_ptr<Node> node):node(std::move(node)) {
 
 }
 
-Factor::Factor(const Factor &otherFactor):node(otherFactor.getNode()) {
-
+Factor::Factor(const Factor &otherFactor) {
+    node=std::make_shared<Node>(*otherFactor.node);
 }
 
 Factor::Factor() {

@@ -14,11 +14,11 @@ Node ExpressionFactor::calculate() {
     return expression->execute();
 }
 
-ExpressionFactor::ExpressionFactor(std::unique_ptr<Expression> expression):expression(std::move(expression)),Factor(Node (0)) {
+ExpressionFactor::ExpressionFactor(std::unique_ptr<Expression> expression):expression(std::move(expression)),Factor(std::make_unique<Node>(Node (0))) {
 
 }
 
-ExpressionFactor::ExpressionFactor(const ExpressionFactor &otherExpression):Factor(Node (0)) {
+ExpressionFactor::ExpressionFactor(const ExpressionFactor &otherExpression):Factor(std::make_unique<Node>(Node (0))) {
     expression=std::make_unique<Expression>(std::move(*otherExpression.expression));
 }
 

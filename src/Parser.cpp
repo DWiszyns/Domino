@@ -194,7 +194,7 @@ std::unique_ptr<Statement> Parser::statement(){
                 }
                 if (myVariable->getName() == "emptyvariable")
                     throw "Variable not declared";
-                statement=std::make_unique<Assignment>(
+                statement=std::move(
                         assignment(myVariable,static_cast<unsigned int>(index)));
                 break;
             }
@@ -203,7 +203,7 @@ std::unique_ptr<Statement> Parser::statement(){
             returnStatement();break;
         }
         case INTSY:case STRINGSY: case RATIONALSY:case FLOATSY: case CHARSY:{
-            statement =std::move(variableDeclaration());
+            statement =std::move(variableDeclaration()); //tu wlasnie jest blad
             break;
         }
         default:
@@ -255,10 +255,10 @@ void Parser::whileStatement(){
     content();
     accept(CLOSEBRACKET);
 }
-Assignment Parser::assignment(Variable* variable,unsigned int i){
+std::unique_ptr<Assignment> Parser::assignment(Variable* variable,unsigned int i){
     std::cout<<"ASSGNMENT"<<std::endl;
     accept(ASSIGN);
-    return Assignment(variable,expression(),i);
+    return std::make_unique<Assignment>(variable,expression(),i);
 }
 
 
@@ -284,17 +284,17 @@ std::unique_ptr<WriteOutStatement> Parser::writeOutStatement(){
     return writeout;
 }
 
-std::unique_ptr<Factor> Parser::factor() {//wytyfy wgl ja pierdole nie moge nawet zmiennej zadeklarowac
+std::unique_ptr<Factor> Parser::factor() {
     std::cout<<"FACTOR"<<std::endl;
     if(statementValue.find(symbol)!=statementValue.end()){
       SymbolType currSymbol=symbol;
-      std::string name=token.getValue();//to wywolujesz na sredniku pozdro
+      std::string name=token.getValue();
       nextSymbol();
       if(currSymbol==IDENTIFIER){
           Variable *x(scope->getVariable(name));
           if(x->getName()=="emptyvariable")
               throw  "Variable not declared";
-          return std::make_unique<ValueFactor>(x->getNode());
+          return std::make_unique<ValueFactor>(std::move(x->getNodeReference()));
       }
       /* funccall
       if(symbol==OROUNDBRACKET&&currSymbol==IDENTIFIER){
@@ -304,21 +304,20 @@ std::unique_ptr<Factor> Parser::factor() {//wytyfy wgl ja pierdole nie moge nawe
       switch(currSymbol){
           case INTCONST:{
               int x=std::stoi(name);
-              return std::make_unique<ValueFactor>(x);
+              return std::make_unique<ValueFactor>(std::make_shared<Node>(x));
           }
           case FLOATCONST: {
               float x = std::stof(name);
-              return std::make_unique<ValueFactor>(x);
+              return std::make_unique<ValueFactor>(std::make_shared<Node>(x));
           }
           case RATIONALCONST:{
               Rational x(name);
-              return std::make_unique<ValueFactor>(x);
+              return std::make_unique<ValueFactor>(std::make_shared<Node>(x));
           }
           default:
-              return std::make_unique<ValueFactor>(name);
+              return std::make_unique<ValueFactor>(std::make_shared<Node>(name));
       }
-      //TODO czy zmienna zadeklarowana? jaki typ zmiennej?
-  }else if(symbol==OROUNDBRACKET){
+    }else if(symbol==OROUNDBRACKET){
       std::unique_ptr<Factor> factorPointer=std::make_unique<ExpressionFactor>(expression());
       accept(CROUNDBRACKET);
       return factorPointer;
@@ -423,7 +422,7 @@ std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have
     if(symbol==OTABLEBRACKET){
         nextSymbol();
         std::unique_ptr<Expression> someExpression(std::move(expression()));
-        std::vector<std::unique_ptr<Node>> nodes;
+        std::vector<std::shared_ptr<Node>> nodes;
         nodes.push_back(std::make_unique<Node>(x->getNodeByIndex(someExpression->execute().getValue().integer)));
         accept(CTABLEBRACKET);
         return std::make_unique<Variable>("copy",std::move(nodes),1);//chyba zle

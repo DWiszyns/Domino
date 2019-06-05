@@ -11,7 +11,7 @@
 
 class Variable {
     std::string name;
-    std::vector<std::unique_ptr<Node>> nodes;
+    std::vector<std::shared_ptr<Node>> nodes;
     unsigned int size;
     bool singleNode;//tells us if we can access it with []
     //std::string value;
@@ -20,12 +20,14 @@ public:
     Variable();
     Variable(const Variable &otherVariable);
     Variable& operator=(const Variable&);
-    Variable(std::string name, std::vector<std::unique_ptr<Node>> nodes, unsigned int size);
+    Variable(std::string name, std::vector<std::shared_ptr<Node>> nodes, unsigned int size);
     Variable(std::string name, unsigned int size, TypeKind type);
     ~Variable();
     auto getValue();
     auto getValueByIndex(unsigned int i);
     Node getNode();
+    std::shared_ptr<Node> getNodeReference();
+    std::shared_ptr<Node> getNodeReferenceByIndex(int i);
     Node getNodeByIndex(int i);
     void setNodeForIndex(int i,Node node);
     std::string getName();

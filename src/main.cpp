@@ -13,7 +13,7 @@
 #include "ast/Program.h"
 
 void execute(Program& program){
-    std::cout<<program.execute()<<std::endl;
+    program.execute();
 }
 int main(int argc, char *argv[]) {
     

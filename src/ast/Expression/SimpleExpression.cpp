@@ -17,10 +17,10 @@ Node SimpleExpression::execute() {
         else {
             switch(*it){
                 case MULTIPLYSY:
-                    tempFactor=std::make_unique<ValueFactor>((tempFactor->calculate())*(factor->calculate()));
+                    tempFactor=std::make_unique<ValueFactor>(std::make_shared<Node>((tempFactor->calculate())*(factor->calculate())));
                     break;
                 case DIVIDESY:
-                    tempFactor=std::make_unique<ValueFactor>((tempFactor->calculate())/(factor->calculate()));
+                    tempFactor=std::make_unique<ValueFactor>(std::make_shared<Node>((tempFactor->calculate())/(factor->calculate())));
                     break;
                 default:break;
             }

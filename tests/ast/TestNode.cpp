@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(NodeTest)
     BOOST_AUTO_TEST_CASE(node_from_string){
         std::string x="asdsa";
         Node n(x);
-        BOOST_CHECK_EQUAL(x,*(n.getValue().str));
+        BOOST_CHECK_EQUAL(x,n.getStr());
         BOOST_CHECK_EQUAL(n.getTypeKind(),STRING);
     }
 

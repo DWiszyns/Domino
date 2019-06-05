@@ -19,7 +19,7 @@ public:
     Program(int a, int b);
     Program(MainFunction mainFunction);
     ~Program();
-    int execute();
+    void execute();
 
 };
 

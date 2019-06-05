@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by dominik on 5/20/19.
 //
@@ -16,7 +18,7 @@ Variable::Variable(const Variable &otherVariable) :
         nodes.push_back(std::make_unique<Node>(*n));
 }
 
-Variable::Variable(std::string name, std::vector<std::unique_ptr<Node>> nodes,unsigned int size):
+Variable::Variable(std::string name, std::vector<std::shared_ptr<Node>> nodes,unsigned int size):
     name(std::move(name)),nodes(std::move(nodes)),size(size){
     singleNode= size == 1;
 }
@@ -59,7 +61,7 @@ Variable &Variable::operator=(const Variable &otherVariable){
 }
 
 void Variable::setNodeForIndex(int i,Node node) {
-    nodes[i]=std::make_unique<Node>(node);
+    *nodes[i]= std::move(node);
 
 }
 
@@ -105,4 +107,12 @@ void Variable::setDefaultValues(TypeKind typeKind) {
         default:break;
     }
 
+}
+
+std::shared_ptr <Node> Variable::getNodeReference() {
+    return nodes[0];
+}
+
+std::shared_ptr<Node> Variable::getNodeReferenceByIndex(int i) {
+    return nodes[i];
 }

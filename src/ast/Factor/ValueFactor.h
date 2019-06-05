@@ -10,7 +10,7 @@
 
 class ValueFactor: public Factor {
 public:
-    explicit ValueFactor(Node node);
+    explicit ValueFactor(std::shared_ptr<Node> node);
     ValueFactor(const ValueFactor& otherFactor);
 
     explicit ValueFactor(const Factor& otherFactor);

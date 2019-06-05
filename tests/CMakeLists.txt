@@ -3,8 +3,6 @@ project(lexer_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(../lib/googletest-master/googletest/include)
-include_directories(../lib/googletest-master/googlemock/include)
 include_directories(../src)
 
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)

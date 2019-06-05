@@ -1,8 +1,7 @@
 //
 // Created by dominik on 5/8/19.
 //
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+
 #include "Source.h"
 #include "Scanner.h"
 #include "Parser.h"

@@ -3,7 +3,6 @@ project(Domino)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(lib/googletest-master)
 add_subdirectory(tests)
 add_subdirectory(src)
 

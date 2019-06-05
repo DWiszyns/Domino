@@ -10,9 +10,12 @@
 #include "../Content.h"
 
 class IfStatement:public ConditionalStatement{
+    std::vector<std::unique_ptr<ConditionalExpression>> conditionalExpressions;
+    std::list<Content> contents;
 public:
     IfStatement();
-    IfStatement(Scope *oldScope,std::unique_ptr<ConditionalExpression> conditionalExpression, Content content);
+    IfStatement(std::vector<std::unique_ptr<ConditionalExpression>> conditionalExpressions,std::list<Content> contents);
+    IfStatement(Scope *oldScope,std::list<std::unique_ptr<ConditionalExpression>> conditionalExpression, std::list<Content> contents);
     IfStatement(IfStatement& ifStatement);
     ~IfStatement()=default;
     void execute() override;

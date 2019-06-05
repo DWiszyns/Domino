@@ -1,7 +1,7 @@
 function somefunction(rational r, int e):rational{
 while(r>0){
 r=r-e;
-if(r=1) {
+if(r==1) {
 return r;
 }
 }

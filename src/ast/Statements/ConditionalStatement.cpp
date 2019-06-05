@@ -5,9 +5,7 @@
 #include "ConditionalStatement.h"
 #include "../Function.h"
 
-ConditionalStatement::ConditionalStatement() {
-
-}
+ConditionalStatement::ConditionalStatement() = default;
 
 ConditionalStatement::ConditionalStatement(Scope currScope,std::unique_ptr<ConditionalExpression> condition, Content content):scope(currScope),
                                                                                                              conditionalExpression(std::move(condition)),content(content){
@@ -24,6 +22,7 @@ ConditionalStatement::ConditionalStatement(ConditionalStatement &other):scope(ot
 }
 
 void ConditionalStatement::execute() {
+    Scope scope1=scope;
     if(conditionalExpression->evaluate()){
         content.execute();
     }

@@ -218,12 +218,12 @@ std::unique_ptr<IfStatement> Parser::ifStatement(){
     std::cout<<"IF"<<std::endl;
     accept(IFSY);
     accept(OROUNDBRACKET);
-    std::list<std::unique_ptr<ConditionalExpression>> conditions;
+    std::vector<std::unique_ptr<ConditionalExpression>> conditions;
     std::list<Content> contents;
     conditions.push_back(std::move(conditionalExpression()));
     accept(CROUNDBRACKET);
     accept(OPENBRACKET);
-    std::unique_ptr<Scope> newScope(scope);
+    std::unique_ptr<Scope> newScope=std::make_unique<Scope>(scope);
     scope=newScope.get();
     contents.push_back(content());
     accept(CLOSEBRACKET);
@@ -236,7 +236,7 @@ std::unique_ptr<IfStatement> Parser::ifStatement(){
             conditions.push_back(std::move(conditionalExpression()));
             accept(CROUNDBRACKET);
             accept(OPENBRACKET);
-            std::unique_ptr<Scope> newScope(scope);
+            std::unique_ptr<Scope> newScope(scope);//do I need to createScopes?
             scope=newScope.get();
             contents.push_back(content());
             scope=scope->getExternalScope();
@@ -254,6 +254,7 @@ std::unique_ptr<IfStatement> Parser::ifStatement(){
             accept(CLOSEBRACKET);
         }
     }
+    return std::make_unique<IfStatement>(std::move(conditions),contents);
 
 }
 

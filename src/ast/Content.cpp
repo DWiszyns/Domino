@@ -48,6 +48,8 @@ Content::Content(const Content &otherContent):scope(std::move(otherContent.scope
             statements.push_back(std::make_unique<WriteOutStatement>(*(dynamic_cast<WriteOutStatement*>(n.get()))));
         else if(dynamic_cast<VariableDeclaration*>(n.get()) != nullptr)
             statements.push_back(std::make_unique<VariableDeclaration>(*(dynamic_cast<VariableDeclaration*>(n.get()))));
+        else if(dynamic_cast<IfStatement*>(n.get()) != nullptr)
+            statements.push_back(std::make_unique<IfStatement>(*(dynamic_cast<IfStatement*>(n.get()))));
         else
             statements.push_back(std::make_unique<Statement>(*n));
 

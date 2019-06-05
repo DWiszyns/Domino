@@ -40,6 +40,10 @@ Scope::Scope(Scope *ext):externalScope(ext){//maybe they need to be pointers to 
 Variable *Scope::getVariable(std::string name) {
     for(auto& x:variables)
         if(x->getName()==name) return x.get();
+    if(externalScope!=nullptr){
+        for(auto& x:externalScope->variables)
+            if(x->getName()==name) return x.get();
+    }
     Variable x;
     return &x;
 }

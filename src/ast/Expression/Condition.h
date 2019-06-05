@@ -6,7 +6,7 @@
 #define DOMINO_CONDITION_H
 
 
-#include "Expression/Expression.h"
+#include "Expression.h"
 
 class Condition {
     std::unique_ptr<Expression> expressionLeft;

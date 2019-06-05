@@ -17,6 +17,7 @@
 #include "ast/Variable.h"
 #include "ast/Statements/WriteOutStatement.h"
 #include "ast/Statements/IfStatement.h"
+#include "ast/Statements/WhileStatement.h"
 
 //std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
 
@@ -30,6 +31,7 @@ class Parser {
     std::set<SymbolType> statementValue, endOfStream, multiplyOperator;
     std::set<SymbolType> addOperator,    signs,    relativeOperator;
     std::set<SymbolType> types,logicalOperator;
+    std::list<Scope*> toDelete;
     void nextSymbol();
     virtual void syntaxErrorExpected(SymbolType atom);
     void syntaxErrorUnexpected(SymbolType atom);
@@ -42,7 +44,7 @@ class Parser {
     std::unique_ptr<VariableDeclaration> variableDeclaration();
     std::unique_ptr<Statement> statement();
     std::unique_ptr<IfStatement> ifStatement();
-    void whileStatement();
+    std::unique_ptr<WhileStatement> whileStatement();
     std::unique_ptr<Assignment>  assignment(Variable* variable,unsigned int i);
     void writeInStatement();
     std::unique_ptr<WriteOutStatement> writeOutStatement();
@@ -50,7 +52,7 @@ class Parser {
     std::unique_ptr<SimpleExpression> simpleExpression();
     std::unique_ptr<Factor> factor();
     std::unique_ptr<Variable> variable();
-    void function();
+    Function function();
     MainFunction mainFunction       ();
     void parameters         ();
     std::unique_ptr<Statement> conditionalStatement ();

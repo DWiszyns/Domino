@@ -10,6 +10,7 @@
 #include <list>
 #include <algorithm>
 #include "Statements/IfStatement.h"
+#include "Statements/WhileStatement.h"
 
 
 void Content::execute() {
@@ -50,15 +51,17 @@ Content::Content(const Content &otherContent):scope(std::move(otherContent.scope
             statements.push_back(std::make_unique<VariableDeclaration>(*(dynamic_cast<VariableDeclaration*>(n.get()))));
         else if(dynamic_cast<IfStatement*>(n.get()) != nullptr)
             statements.push_back(std::make_unique<IfStatement>(*(dynamic_cast<IfStatement*>(n.get()))));
+        else if(dynamic_cast<WhileStatement*>(n.get()) != nullptr)
+            statements.push_back(std::make_unique<WhileStatement>(*(dynamic_cast<WhileStatement*>(n.get()))));
         else
             statements.push_back(std::make_unique<Statement>(*n));
-
-
-
-
 }
 
-Scope *Content::getScope() {
-    return scope;
+Scope Content::getScope() {
+    return *scope;
+}
+
+void Content::setScope(Scope scope) {
+    this->scope=&scope;
 }
 

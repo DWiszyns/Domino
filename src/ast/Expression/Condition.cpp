@@ -5,19 +5,20 @@
 #include "Condition.h"
 
 bool Condition::evaluate() {
+    bool y=false;
     switch(relativeOperator){
         case EQUALS:
-            return negative ^ expressionLeft->execute()==expressionRight->execute();
+            return negative ^ (expressionLeft->execute()==expressionRight->execute());
         case MORE:
-            return negative ^ expressionLeft->execute()>expressionRight->execute();
+            return negative ^ (y = (expressionLeft->execute()>expressionRight->execute()));
         case MOREOREQUAL:
-            return negative ^ expressionLeft->execute()>=expressionRight->execute();
+            return negative ^ (expressionLeft->execute()>=expressionRight->execute());
         case LESS:
-            return negative ^ expressionLeft->execute()<expressionRight->execute();
+            return negative ^ (expressionLeft->execute()<expressionRight->execute());
         case LESSOREQUAL:
-            return negative ^ expressionLeft->execute()<=expressionRight->execute();
+            return negative ^ (expressionLeft->execute()<=expressionRight->execute());
         case DIFFERENT:
-            return negative ^ expressionLeft->execute()!=expressionRight->execute();
+            return negative ^ (expressionLeft->execute()!=expressionRight->execute());
         default: return false;
     }
 }

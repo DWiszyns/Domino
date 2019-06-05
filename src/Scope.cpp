@@ -62,4 +62,9 @@ Scope *Scope::getExternalScope() {
     return externalScope;
 }
 
+void Scope::setExternalScope(Scope *scope) {
+    externalScope=scope;
+
+}
+
 

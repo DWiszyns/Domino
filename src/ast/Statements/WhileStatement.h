@@ -6,7 +6,15 @@
 #define DOMINO_WHILESTATEMENT_H
 
 
-class WhileStatement {
+#include "ConditionalStatement.h"
+
+class WhileStatement:public ConditionalStatement {
+public:
+    WhileStatement();
+    WhileStatement(std::unique_ptr<ConditionalExpression> conditionalExpression,Content content);
+    WhileStatement(WhileStatement& other);
+    ~WhileStatement() override;
+    void execute() override;
 
 };
 

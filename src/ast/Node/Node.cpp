@@ -375,7 +375,7 @@ bool Node::operator==(const Node &rhs) {
 }
 
 bool Node::operator>(const Node &rhs){
-    return !(*this==rhs && *this<rhs);
+    return !(*this==rhs || *this<rhs);
 }
 
 bool Node::operator>=(const Node &rhs) {

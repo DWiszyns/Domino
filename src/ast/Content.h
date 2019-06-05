@@ -23,7 +23,8 @@ public:
     Content(const Content &otherContent);
     //   Content(/*Scope &scope*/);
     ~Content();
-    Scope *getScope();
+    Scope getScope();
+    void setScope(Scope scope);
     void execute();
 
 };

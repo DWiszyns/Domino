@@ -16,7 +16,6 @@ class Scope {
     std::list<std::unique_ptr<Variable>> variables;//moze wskazniki na zmienne, zeby mialy dobra wartosc
     std::list<Function> functions;
     Scope *externalScope;
-    int allocatedVariables=0;
 public:
     Scope();
     Scope(Scope *ext,  std::list<std::unique_ptr<Variable>> variables, std::list <Function> functions) = delete;
@@ -30,6 +29,7 @@ public:
     std::list <Function> getFunctions();
     Variable* getVariable(std::string name);
     Scope* getExternalScope();
+    void setExternalScope(Scope *scope);
 
 
 };

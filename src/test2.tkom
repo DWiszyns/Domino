@@ -1,20 +1,15 @@
-function somefunction(rational r, int e):rational{
-while(r>0){
-r=r-e;
-if(r==1) {
-return r;
-}
-}
-return r;
-}
 function main():void{
-string a,b;
-int c,d;
+int c=-4;
+int d=5;
+int e=7;
 float z = 123.37f;
 rational r = 1234.456r;
-writein>>a>>b>>c>>d>>r;
-string d=a+b;
-int e= c*d;
-rational x = somefunction(r,e);
-writeout<<c<<" "<<r;
+int f= e+c*d;
+if(c==3) {
+writeout<<r<<","<<c<<","<<f;
+}
+else{
+float dominik = 77.77f;
+writeout<<c<<" "<<dominik<<" "<<r;
+}
 }

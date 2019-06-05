@@ -51,10 +51,6 @@ char Source::nextChar() {
     if(fileInput.eof()) {
         c=EOF;
     }
-    if(c=='\0'){
-        std::cout<<"mam";
-    }
-    std::cout<<c;
     return c;
 }
 

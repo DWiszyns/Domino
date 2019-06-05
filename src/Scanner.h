@@ -25,7 +25,6 @@ class Scanner{
 public:
     Scanner(Source &source);
     ~Scanner();
-    bool divide;
     virtual Token nextToken();
     void scanError(int ec, std::string word);
     void scanError(SymbolType atom, std::string word);

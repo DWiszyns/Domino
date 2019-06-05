@@ -5,7 +5,7 @@
 //
 
 #include "SimpleExpression.h"
-#include "../Factor/ValueFactor.h"
+#include "Factor/ValueFactor.h"
 
 Node SimpleExpression::execute() {
     std::unique_ptr<Factor> tempFactor;

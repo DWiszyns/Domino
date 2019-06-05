@@ -7,9 +7,9 @@
 
 #include <list>
 #include "../../ScanDef.h"
-#include "../Factor/Factor.h"
-#include "../Factor/ValueFactor.h"
-#include "../Factor/ExpressionFactor.h"
+#include "Factor/Factor.h"
+#include "Factor/ValueFactor.h"
+#include "Factor/ExpressionFactor.h"
 //class ExpressionFactor;
 
 

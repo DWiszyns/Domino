@@ -5,7 +5,7 @@
 #ifndef DOMINO_FACTOR_H
 #define DOMINO_FACTOR_H
 
-#include "../Node/Node.h"
+#include "../../Node/Node.h"
 
 class Factor {
 protected:

@@ -3,7 +3,7 @@
 //
 
 #include "ExpressionFactor.h"
-#include "../Expression/Expression.h"
+#include "../Expression.h"
 
 
 ExpressionFactor::~ExpressionFactor() {

@@ -5,7 +5,7 @@
 #include "IfStatement.h"
 #include "../Function.h"
 
-IfStatement::IfStatement():ConditionalStatement(){
+IfStatement::IfStatement():Statement(){
 
 }
 /*
@@ -15,7 +15,7 @@ IfStatement::IfStatement(Scope *oldScope, std::unique_ptr<ConditionalExpression>
 }
 */
 IfStatement::IfStatement(IfStatement &other):conditionalExpressions(std::move(other.conditionalExpressions)),
-    contents(std::move(other.contents)), ConditionalStatement(other.scope,std::move(other.conditionalExpression),other.content) {
+    contents(std::move(other.contents)){
 
 }
 
@@ -33,14 +33,12 @@ void IfStatement::execute() {
     }
 }
 
-IfStatement::IfStatement(Scope *oldScope, std::list<std::unique_ptr<ConditionalExpression>> conditionalExpression,
-                         std::list<Content> contents) {
-
-}
-
 IfStatement::IfStatement(std::vector<std::unique_ptr<ConditionalExpression>> conditionalExpressions,
                          std::list<Content> contents):conditionalExpressions(std::move(conditionalExpressions)),
                          contents(std::move(contents)){
 
+}
+
+IfStatement::~IfStatement() {
 }
 

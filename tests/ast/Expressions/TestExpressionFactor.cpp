@@ -5,16 +5,14 @@
 #include <boost/test/unit_test.hpp>
 #include <iostream>
 #include <ast/Expression/Expression.h>
-#include "ast/Factor/ExpressionFactor.h"
+#include "ast/Expression/Factor/ExpressionFactor.h"
 
 BOOST_AUTO_TEST_SUITE(ExpressionFactorsTest)
 
 BOOST_AUTO_TEST_CASE(expression_with_one_int){
-        int x=7;
-        Node n(x);
-        ValueFactor myFactor(n);
+        ValueFactor myFactor(std::make_shared<Node>(7));
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(std::move(myFactor)));
+        factorsList.push_back(std::make_unique<ValueFactor>((std::move(myFactor))));
         std::list<SymbolType> symbols;
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
         std::list<SymbolType> addSymbols;
@@ -28,9 +26,9 @@ BOOST_AUTO_TEST_CASE(expression_with_one_int){
 
 BOOST_AUTO_TEST_CASE(expression_with_multiple_ints){
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(7));
-        factorsList.push_back(std::make_unique<ValueFactor>(8));
-        factorsList.push_back(std::make_unique<ValueFactor>(4));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(4)));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
@@ -46,9 +44,9 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_ints){
 
 BOOST_AUTO_TEST_CASE(expression_with_multiple_floats){
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(7.0f));
-        factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList.push_back(std::make_unique<ValueFactor>(4.0f));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7.0f)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(4.0f)));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
@@ -67,9 +65,9 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_rationals){
         Rational x("7.1r");
         Rational y("8.1r");
         Rational z("4.1r");
-        factorsList.push_back(std::make_unique<ValueFactor>(Node(x)));
-        factorsList.push_back(std::make_unique<ValueFactor>(Node(y)));
-        factorsList.push_back(std::make_unique<ValueFactor>(Node(z)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(x))));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(y))));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(z))));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
@@ -86,9 +84,9 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_rationals){
 
 BOOST_AUTO_TEST_CASE(expression_with_multiple_types){
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(7));
-        factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList.push_back(std::make_unique<ValueFactor>(Rational("4.1r")));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
@@ -104,18 +102,18 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_types){
 
 BOOST_AUTO_TEST_CASE(expression_with_adding_two_simpleexpressions){
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(7));
-        factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList.push_back(std::make_unique<ValueFactor>(Rational("4.1r")));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
 
         std::list<std::unique_ptr<Factor>> factorsList2;
-        factorsList2.push_back(std::make_unique<ValueFactor>(7));
-        factorsList2.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList2.push_back(std::make_unique<ValueFactor>(Rational("2.1r")));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("2.1r"))));
         std::list<SymbolType> symbols2;
         symbols2.push_back(MULTIPLYSY);
         symbols2.push_back(DIVIDESY);
@@ -135,18 +133,18 @@ BOOST_AUTO_TEST_CASE(expression_with_adding_two_simpleexpressions){
 
 BOOST_AUTO_TEST_CASE(expression_with_subtracting_two_simpleexpressions){
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(7));
-        factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList.push_back(std::make_unique<ValueFactor>(Rational("4.1r")));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
 
         std::list<std::unique_ptr<Factor>> factorsList2;
-        factorsList2.push_back(std::make_unique<ValueFactor>(7));
-        factorsList2.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList2.push_back(std::make_unique<ValueFactor>(Rational("2.1r")));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("2.1r"))));
         std::list<SymbolType> symbols2;
         symbols2.push_back(MULTIPLYSY);
         symbols2.push_back(DIVIDESY);
@@ -166,27 +164,27 @@ BOOST_AUTO_TEST_CASE(expression_with_subtracting_two_simpleexpressions){
 
 BOOST_AUTO_TEST_CASE(expression_with_equation_on_simpleexpressions){
         std::list<std::unique_ptr<Factor>> factorsList;
-        factorsList.push_back(std::make_unique<ValueFactor>(7));
-        factorsList.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList.push_back(std::make_unique<ValueFactor>(Rational("4.1r")));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
         symbols.push_back(MULTIPLYSY);
         symbols.push_back(DIVIDESY);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
 
         std::list<std::unique_ptr<Factor>> factorsList2;
-        factorsList2.push_back(std::make_unique<ValueFactor>(7));
-        factorsList2.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList2.push_back(std::make_unique<ValueFactor>(Rational("2.1r")));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("2.1r"))));
         std::list<SymbolType> symbols2;
         symbols2.push_back(MULTIPLYSY);
         symbols2.push_back(DIVIDESY);
         SimpleExpression simpleExpression2(std::move(factorsList2),symbols2);
 
         std::list<std::unique_ptr<Factor>> factorsList3;
-        factorsList3.push_back(std::make_unique<ValueFactor>(7));
-        factorsList3.push_back(std::make_unique<ValueFactor>(8.0f));
-        factorsList3.push_back(std::make_unique<ValueFactor>(Rational("1.1r")));
+        factorsList3.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(7)));
+        factorsList3.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
+        factorsList3.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("1.1r"))));
         std::list<SymbolType> symbols3;
         symbols3.push_back(MULTIPLYSY);
         symbols3.push_back(DIVIDESY);

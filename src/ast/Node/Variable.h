@@ -6,7 +6,7 @@
 #define DOMINO_VARIABLE_H
 
 
-#include "Node/Node.h"
+#include "Node.h"
 
 
 class Variable {

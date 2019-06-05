@@ -6,7 +6,7 @@
 #define DOMINO_ASSIGNMENT_H
 
 
-#include "../Variable.h"
+#include "../Node/Variable.h"
 #include "Statement.h"
 #include "../Expression/Expression.h"
 

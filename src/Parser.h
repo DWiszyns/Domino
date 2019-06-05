@@ -14,7 +14,7 @@
 #include <memory>
 #include <algorithm>
 #include <iostream>
-#include "ast/Variable.h"
+#include "ast/Node/Variable.h"
 #include "ast/Statements/WriteOutStatement.h"
 #include "ast/Statements/IfStatement.h"
 #include "ast/Statements/WhileStatement.h"

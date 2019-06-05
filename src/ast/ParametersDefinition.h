@@ -6,7 +6,7 @@
 #define DOMINO_PARAMETERSDEFINITION_H
 
 
-#include "Variable.h"
+#include "Node/Variable.h"
 #include <utility>
 
 class ParametersDefinition {

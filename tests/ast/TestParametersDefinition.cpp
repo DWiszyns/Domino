@@ -30,6 +30,4 @@ BOOST_AUTO_TEST_CASE(multipleparameters){
         BOOST_CHECK_EQUAL(paramsDef.getParameter(1).getNode().getValue().integer,myVariable2.getNode().getValue().integer);
 }
 
-//TODO zabezpieczyc przed roznymi typami w tablicy
-
 BOOST_AUTO_TEST_SUITE_END()

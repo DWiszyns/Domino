@@ -6,7 +6,7 @@
 #define DOMINO_SCOPE_H
 
 #include <list>
-#include "ast/Variable.h"
+#include "ast/Node/Variable.h"
 #include "ScanDef.h"
 //#include "ast/Function.h"
 

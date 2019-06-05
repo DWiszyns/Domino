@@ -7,7 +7,7 @@
 #include <set>
 #include <algorithm>
 #include <iostream>
-#include "ast/Variable.h"
+#include "ast/Node/Variable.h"
 
 Parser::Parser(Scanner &s): scanner(s){
     statementStart={WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};

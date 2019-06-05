@@ -111,7 +111,7 @@ Content Parser::content(){
     while(symbol!=CLOSEBRACKET && (endOfStream.find(symbol)==endOfStream.end()))
     {
        if(conditionalStatementStart.find(symbol)!=conditionalStatementStart.end())
-           conditionalStatement();
+           statements.push_back(std::move(conditionalStatement()));
        else
        {
            statements.push_back(std::move(statement()));
@@ -214,24 +214,32 @@ std::unique_ptr<Statement> Parser::statement(){
 
 }
 
-void Parser::ifStatement(){
+std::unique_ptr<IfStatement> Parser::ifStatement(){
     std::cout<<"IF"<<std::endl;
     accept(IFSY);
     accept(OROUNDBRACKET);
-    conditionalExpression();
+    std::list<std::unique_ptr<ConditionalExpression>> conditions;
+    std::list<Content> contents;
+    conditions.push_back(std::move(conditionalExpression()));
     accept(CROUNDBRACKET);
     accept(OPENBRACKET);
-    content();
+    std::unique_ptr<Scope> newScope(scope);
+    scope=newScope.get();
+    contents.push_back(content());
     accept(CLOSEBRACKET);
     bool canUseIf=true;
+    scope=scope->getExternalScope();
     while (symbol == ELSESY){
         nextSymbol();
         if(symbol==IFSY&&canUseIf){
             accept(OROUNDBRACKET);
-            conditionalExpression();
+            conditions.push_back(std::move(conditionalExpression()));
             accept(CROUNDBRACKET);
             accept(OPENBRACKET);
-            content();
+            std::unique_ptr<Scope> newScope(scope);
+            scope=newScope.get();
+            contents.push_back(content());
+            scope=scope->getExternalScope();
             accept(CLOSEBRACKET);
         }
         else if(!canUseIf&&symbol==IFSY)
@@ -239,10 +247,14 @@ void Parser::ifStatement(){
         else if(canUseIf&&symbol!=IFSY){
             canUseIf=false;
             accept(OPENBRACKET);
-            content();
+            std::unique_ptr<Scope> newScope(scope);
+            scope=newScope.get();
+            contents.push_back(content());
+            scope=scope->getExternalScope();
             accept(CLOSEBRACKET);
         }
     }
+
 }
 
 void Parser::whileStatement(){
@@ -363,11 +375,10 @@ void Parser::parameters() {
     //return std::vector<Variable> parameters;
 }
 
-void Parser::conditionalStatement() {
+std::unique_ptr<Statement> Parser::conditionalStatement() { //tu moze byc blad, bo za duzo castowania bedzie
     switch(symbol) {
         case IFSY:
-            ifStatement();
-            break;
+            return std::move(ifStatement());
         case WHILESY:
             whileStatement();
             break;
@@ -402,13 +413,17 @@ void Parser::returnStatement() {
     expression();
 }
 
-void Parser::conditionalExpression() {
+std::unique_ptr<ConditionalExpression> Parser::conditionalExpression() {
     std::cout<<"CONDITIONAL EXPRESSION"<<std::endl;
-    condition();
+    std::list<std::unique_ptr<Condition>> conditions;
+    std::list<SymbolType> logicalOperators;
+    conditions.push_back(std::move(condition()));
     while(logicalOperator.find(symbol)!=logicalOperator.end()){
+        logicalOperators.push_back(token.getType());
         nextSymbol();
-        condition();
+        conditions.push_back(std::move(condition()));
     }
+    return std::make_unique<ConditionalExpression>(std::move(conditions),logicalOperators);
 
 }
 
@@ -431,13 +446,19 @@ std::unique_ptr<Variable> Parser::variable() {//do I need you?//maybe let's have
 
 }
 
-void Parser::condition() {
+std::unique_ptr<Condition> Parser::condition() {
     std::cout<<"CONDITION"<<std::endl;
-    expression();
+    bool negative=false;
+    if(symbol==EXCLAMATION) negative=true;
+    std::list<std::unique_ptr<Condition>> conditions;
+    std::unique_ptr<Expression> expressionLeft=std::move(expression());
     if(relativeOperator.find(symbol)!=relativeOperator.end()){
+        SymbolType relativesymbol = token.getType();
         nextSymbol();
-        expression();
+        std::unique_ptr<Expression> expressionRight=std::move(expression());
+        return std::make_unique<Condition>(std::move(expressionLeft),std::move(expressionRight),relativesymbol,negative);
     }
+    return std::make_unique<Condition>(std::move(expressionLeft),false,ORSY,negative);
 }
 
 ParametersDefinition Parser::parametersDefinition() {

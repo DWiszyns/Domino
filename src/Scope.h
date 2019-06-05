@@ -29,6 +29,7 @@ public:
     void addFunction(Function function);
     std::list <Function> getFunctions();
     Variable* getVariable(std::string name);
+    Scope* getExternalScope();
 
 
 };

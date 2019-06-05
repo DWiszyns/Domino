@@ -20,3 +20,7 @@ MainFunction::~MainFunction() {
 MainFunction::MainFunction(Content content):content(content) {
 
 }
+
+Content MainFunction::getContent() {
+    return content;
+}

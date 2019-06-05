@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_SUITE(ExpressionsTest)
     BOOST_AUTO_TEST_CASE(expression_with_one_int){
         int x=7;
         Node n(x);
-        ValueFactor myFactor(n);
+        ValueFactor myFactor(std::make_shared<Node>(n));
         std::list<std::unique_ptr<Factor>> factorsList;
         factorsList.push_back(std::make_unique<ValueFactor>(std::move(myFactor)));
         std::list<SymbolType> symbols;

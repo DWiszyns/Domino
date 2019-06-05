@@ -9,6 +9,8 @@
 #include "Statements/WriteOutStatement.h"
 #include <list>
 #include <algorithm>
+#include "Statements/IfStatement.h"
+
 
 void Content::execute() {
     for(auto &i: statements){
@@ -52,5 +54,9 @@ Content::Content(const Content &otherContent):scope(std::move(otherContent.scope
 
 
 
+}
+
+Scope *Content::getScope() {
+    return scope;
 }
 

@@ -54,4 +54,8 @@ Scope::Scope(const Scope &scope):functions(scope.functions),externalScope(scope.
         variables.push_back(std::make_unique<Variable>(*i));
 }
 
+Scope *Scope::getExternalScope() {
+    return externalScope;
+}
+
 

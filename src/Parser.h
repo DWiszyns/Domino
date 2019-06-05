@@ -16,6 +16,7 @@
 #include <iostream>
 #include "ast/Variable.h"
 #include "ast/Statements/WriteOutStatement.h"
+#include "ast/Statements/IfStatement.h"
 
 //std::set<SymbolType> to zbior symboli pozwalajacych na konkretna operacje
 
@@ -40,7 +41,7 @@ class Parser {
     Content content();
     std::unique_ptr<VariableDeclaration> variableDeclaration();
     std::unique_ptr<Statement> statement();
-    void ifStatement();
+    std::unique_ptr<IfStatement> ifStatement();
     void whileStatement();
     std::unique_ptr<Assignment>  assignment(Variable* variable,unsigned int i);
     void writeInStatement();
@@ -52,11 +53,11 @@ class Parser {
     void function();
     MainFunction mainFunction       ();
     void parameters         ();
-    void conditionalStatement ();
+    std::unique_ptr<Statement> conditionalStatement ();
     void forStatement       ();
     void returnStatement    ();
-    void conditionalExpression ();
-    void condition              ();
+    std::unique_ptr<ConditionalExpression> conditionalExpression ();
+    std::unique_ptr<Condition> condition              ();
     ParametersDefinition parametersDefinition();
     int arrayDeclaration();
     static TypeKind getTypeFromSymbol(SymbolType symbol);

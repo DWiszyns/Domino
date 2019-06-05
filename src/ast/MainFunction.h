@@ -17,6 +17,7 @@ public:
     MainFunction();
     MainFunction(Content content);
     ~MainFunction();
+    Content getContent();
     void execute();
 
 };

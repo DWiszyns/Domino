@@ -37,7 +37,7 @@ Node::Node(bool val):value(val),typeKind(BOOLEAN) {
 
 }
 
-Node::Node(const Node &node):value(node.value,node.typeKind),typeKind(node.typeKind) {
+Node::Node(const Node &node):value(node.value,node.typeKind),typeKind(node.typeKind),str(node.str) {
 
 }
 
@@ -54,8 +54,7 @@ const Value& Node::getValue() const {
 std::ostream &operator<<(std::ostream &os, const Node &obj) {
     Value value(obj.getValue(),obj.typeKind);
     switch(obj.getTypeKind()){
-        case INT:
-        {
+        case INT:{
             os<<value.integer;
             break;
         }

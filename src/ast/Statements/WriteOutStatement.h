@@ -14,7 +14,7 @@ class WriteOutStatement : public Statement{
 public:
     WriteOutStatement()= default;
     WriteOutStatement(Scope *scope,std::list <std::unique_ptr<Expression>> expressions);
-    WriteOutStatement(const WriteOutStatement &other);
+    WriteOutStatement(WriteOutStatement &other);
     ~WriteOutStatement() override;
     void execute();
 };

@@ -304,6 +304,10 @@ void Scanner::flushSpell() {
 
 }
 
+int Scanner::getErrorTotal() {
+    return src.getErrorTotal();
+}
+
 
 
 

@@ -11,7 +11,7 @@
 BOOST_AUTO_TEST_SUITE(ParserTest)
 
 BOOST_AUTO_TEST_CASE(basic_test){
-        Source src("function x():void{} function main():void{}",true);
+        Source src("function x():void{} function main():void{}\0",true);
         Scanner scan(src);
         Parser parser(scan);
         std::unique_ptr<Program> program=parser.parse();
@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(basic_test){
 }
 
 BOOST_AUTO_TEST_CASE(dividing_by_zero){
-    Source src("function x():void{} function main():void{int x = 1/0;}",true);
+    Source src("function x():void{} function main():void{int x = 1/0;}\0",true);
     Scanner scan(src);
     Parser parser(scan);
     std::unique_ptr<Program> program=parser.parse();
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(dividing_by_zero){
 }
 
 BOOST_AUTO_TEST_CASE(basic_assignment){
-    Source src("function x():void{} function main():void{int x=2+3;}",true);
+    Source src("function x():void{} function main():void{int x=2+3;}\0",true);
     Scanner scan(src);
     Parser parser(scan);
     std::unique_ptr<Program> program=parser.parse();
@@ -35,7 +35,14 @@ BOOST_AUTO_TEST_CASE(basic_assignment){
 }
 
 BOOST_AUTO_TEST_CASE(variable_not_declared){
-    Source src("function x():void{} function main():void{int x=2+a;}",true);
+    Source src("function x():void{} function main():void{int x=2+a;}\0",true);
+    Scanner scan(src);
+    Parser parser(scan);
+    BOOST_CHECK_THROW(parser.parse(),std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE(no_semicolon){
+    Source src("function x():void{} function main():void{int x=2+a}\0",true);
     Scanner scan(src);
     Parser parser(scan);
     BOOST_CHECK_THROW(parser.parse(),std::runtime_error);

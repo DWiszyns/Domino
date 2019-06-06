@@ -97,6 +97,7 @@ MainFunction Parser::mainFunction() {
     accept(VOIDSYMBOL);
     accept(OPENBRACKET);
     Content myContent(content());
+    if(scanner.getErrorTotal()>0) throw std::runtime_error("Parsed with errors");
     accept(CLOSEBRACKET);
     return MainFunction(myContent);
 }

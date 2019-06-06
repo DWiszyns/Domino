@@ -35,6 +35,7 @@ public:
     Token createTwoSignOperator();
     Token createOneSignOperator();
     void flushSpell();
+    int getErrorTotal();
 };
 
 

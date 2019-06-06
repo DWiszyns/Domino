@@ -46,3 +46,4 @@ cmake_install.cmake
 Domino
 libDominoLib.a
 
+.cbp

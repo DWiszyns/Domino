@@ -7,34 +7,34 @@
 
  enum SymbolType
  {
-     FUNCSY, //FUNCTION 0
+     FUNC, //FUNCTION 0
      WRITEIN, //1
      WRITEOUT, //2
-     WHILESY, //3
-     FORSY, //4
-     IFSY, //5
-     ELSESY, //6
-     MAINSY, //7
-     EOFSY, //8
-     ANDSY, //9
-     ORSY, //10
-     RETURNSY, //11
-     INTSY, //12
-     BOOLEANSY, //13
-     STRINGSY, //14
-     FLOATSY, //15
-     CHARSY, //16
-     RATIONALSY, //17
-     VOIDSY, //18
-     SHORTSY, //19
+     WHILE, //3
+     FOR, //4
+     IF, //5
+     ELSE, //6
+     MAIN, //7
+     EOFSYMBOL, //8
+     AND, //9
+     OR, //10
+     RETURN, //11
+     INTSYMBOL, //12
+     BOOLEANSYMBOL, //13
+     STRINGSYMBOL, //14
+     FLOATSYMBOL, //15
+     CHARSYMBOL, //16
+     RATIONALSYMBOL, //17
+     VOIDSYMBOL, //18
+     SHORTSYMBOL, //19
      COLON, //20
      INPUTSTREAM, // >> 21
      OUTPUTSTREAM,  // << 22
-     ADDSY, //23
-     SUBTRACTSY, //24
-     DIVIDESY, //25
-     MULTIPLYSY, //26
-     RESTSY, //27
+     ADD, //23
+     SUBTRACT, //24
+     DIVIDE, //25
+     MULTIPLY, //26
+     REST, //27
      MOREOREQUAL, //28
      LESSOREQUAL, //29
      DIFFERENT, //30

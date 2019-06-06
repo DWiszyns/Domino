@@ -9,34 +9,34 @@
 #include "Token.h"
 
 std::string atomsTable[55]= {
-        "function",//FUNCSY, //FUNCTION 0
+        "function",//FUNC, //FUNCTION 0
         "writein",//        WRITEIN, //1
         "writeout",//        WRITEOUT, //2
-        "while",//        WHILESY, //3
-        "for",//        FORSY, //4
-        "if",//        IFSY, //5
-        "else",//        ELSESY, //6
-        "main",//        MAINSY, //7
-        "EOF",//        EOFSY, //8
-        "&&",//        ANDSY, //9
-        "||",//        ORSY, //10
-        "return",//        RETURNSY, //11
-        "void",//        VOIDSY, //12
-        "string",//        STRINGSY, //13
-        "float",//        FLOATSY, //14
-        "rational",//        RATIONALSY, //15
-        "int",//        INTSY, //16
-        "short",//        SHORTSY, //17
-        "char",//        CHARSY, //18
-        "boolean",//        BOOLEANSY, //19
+        "while",//        WHILE, //3
+        "for",//        FOR, //4
+        "if",//        IF, //5
+        "else",//        ELSE, //6
+        "main",//        MAIN, //7
+        "EOF",//        EOFSYMBOL, //8
+        "&&",//        AND, //9
+        "||",//        OR, //10
+        "return",//        RETURN, //11
+        "void",//        VOIDSYMBOL, //12
+        "string",//        STRINGSYMBOL, //13
+        "float",//        FLOATSYMBOL, //14
+        "rational",//        RATIONALSYMBOL, //15
+        "int",//        INTSYMBOL, //16
+        "short",//        SHORTSYMBOL, //17
+        "char",//        CHARSYMBOL, //18
+        "boolean",//        BOOLEANSYMBOL, //19
         ":",//        COLON, //20
         ">>",//        INPUTSTREAM, // >> 21
         "<<",//        OUTPUTSTREAM,  // << 22
-        "+",//        ADDSY, //23
-        "-",//        SUBTRACTSY, //24
-        "/",//        DIVIDESY, //25
-        "*",//        MULTIPLYSY, //26
-        "%",//        RESTSY, //27
+        "+",//        ADD, //23
+        "-",//        SUBTRACT, //24
+        "/",//        DIVIDE, //25
+        "*",//        MULTIPLY, //26
+        "%",//        REST, //27
         ">=",//        MOREOREQUAL, //28
         "<=",//        LESSOREQUAL, //29
         "!=",//        DIFFERENT, //30
@@ -68,23 +68,23 @@ std::string atomsTable[55]= {
 };
 
 std::unordered_map <std::string, SymbolType > Scanner::keyWordHashMap= {
-        { "rational",   RATIONALSY},
+        { "rational",   RATIONALSYMBOL},
         { "writein",    WRITEIN},  
         { "writeout",   WRITEOUT},
-        { "function",   FUNCSY }, 
-        { "int",        INTSY  }, 
-        { "string",     STRINGSY  }, 
-        { "float",      FLOATSY  },  
-        { "short",      SHORTSY  }, 
-        { "char",       CHARSY }, 
-        { "if",         IFSY   },  
-        { "while",      WHILESY},  
-        { "for",        FORSY },  
-        { "return",     RETURNSY }, 
-        { "else",       ELSESY } , 
-        { "main",       MAINSY} , 
-        { "void",       VOIDSY},
-        { "boolean",     BOOLEANSY} 
+        { "function",   FUNC },
+        { "int",        INTSYMBOL  },
+        { "string",     STRINGSYMBOL  },
+        { "float",      FLOATSYMBOL  },
+        { "short",      SHORTSYMBOL  },
+        { "char",       CHARSYMBOL },
+        { "if",         IF   },
+        { "while",      WHILE},
+        { "for",        FOR },
+        { "return",     RETURN },
+        { "else",       ELSE } ,
+        { "main",       MAIN} ,
+        { "void",       VOIDSYMBOL},
+        { "boolean",     BOOLEANSYMBOL}
 };
 
 Scanner::Scanner(Source &source): src(source) {
@@ -111,14 +111,14 @@ Token Scanner::createString(){
 Token Scanner::getFirstUsefulChar(){
     while(isspace(c) || c=='/'){   
         while(isspace(c)) nextChar();
-        if(c==EOF) return Token(EOFSY,"EOF");
+        if(c==EOF) return Token(EOFSYMBOL,"EOF");
         if(c=='/')
         {
             nextChar();
             if(c=='/'){
                 while(c!='\n')
                     nextChar();
-            } else return Token(DIVIDESY,"/");
+            } else return Token(DIVIDE,"/");
         }
         if(c=='\0') return Token(ENDOFTEXT,"\0");
     }
@@ -195,7 +195,7 @@ Token Scanner::createTwoSignOperator(){
             else return Token(ASSIGN,atomsTable[ASSIGN]);
         case '&':
             nextChar();
-            if(c=='&') { nextChar(); return Token(ANDSY,atomsTable[ANDSY]);}
+            if(c=='&') { nextChar(); return Token(AND,atomsTable[AND]);}
             else return Token(OTHERS,atomsTable[OTHERS]);
         case '<':
             nextChar();
@@ -210,7 +210,7 @@ Token Scanner::createTwoSignOperator(){
             else return Token(MORE,atomsTable[MORE]);
         case '|':
             nextChar();
-            if(c=='|') { nextChar(); return Token(ORSY,atomsTable[ORSY]);}
+            if(c=='|') { nextChar(); return Token(OR,atomsTable[OR]);}
             else return Token(OTHERS,atomsTable[OTHERS]);
         case '!':
             nextChar();
@@ -221,13 +221,13 @@ Token Scanner::createTwoSignOperator(){
 Token Scanner::createOneSignOperator(){
     switch(c){
         case '+':
-            nextChar(); return Token(ADDSY,atomsTable[ADDSY]);
+            nextChar(); return Token(ADD,atomsTable[ADD]);
         case '-':
-            nextChar(); return Token(SUBTRACTSY, atomsTable[SUBTRACTSY]);
+            nextChar(); return Token(SUBTRACT, atomsTable[SUBTRACT]);
         case '*':
-            nextChar(); return Token(MULTIPLYSY,atomsTable[MULTIPLYSY]);
+            nextChar(); return Token(MULTIPLY,atomsTable[MULTIPLY]);
         case '%':
-            nextChar(); return Token(RESTSY,atomsTable[RESTSY]);
+            nextChar(); return Token(REST,atomsTable[REST]);
         case '(':
             nextChar(); return Token(OROUNDBRACKET,atomsTable[OROUNDBRACKET]);
         case ')':

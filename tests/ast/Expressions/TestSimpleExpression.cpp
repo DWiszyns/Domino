@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_SUITE(SimpleExpressionsTest)
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(4)));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getValue().integer,14);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getTypeKind(),INT);
@@ -38,8 +38,8 @@ BOOST_AUTO_TEST_SUITE(SimpleExpressionsTest)
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(4.0f)));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getValue().floatVal,14.0f);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getTypeKind(),FLOAT);
@@ -54,8 +54,8 @@ BOOST_AUTO_TEST_SUITE(SimpleExpressionsTest)
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(y))));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(z))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getTypeKind(),RATIONAL);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getValue().rational.getRational(),"14.1r");
@@ -68,8 +68,8 @@ BOOST_AUTO_TEST_SUITE(SimpleExpressionsTest)
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getValue().floatVal,14.0f);
         BOOST_CHECK_EQUAL(simpleExpression.execute().getTypeKind(),FLOAT);

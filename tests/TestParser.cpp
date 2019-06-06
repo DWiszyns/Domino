@@ -5,35 +5,40 @@
 #include "Source.h"
 #include "Scanner.h"
 #include "Parser.h"
-
-/*
-class MockSource : public Source{
-public:
-    MockSource(std::string source): Source(source,true){};
-    MOCK_METHOD4(error,void(std::string message, std::string atom,int atomLine, int atomPos));
-    MOCK_METHOD4(error,void(std::string word, int atomLine, int atomPos, std::string errorLabel));
-    MOCK_METHOD0(nextChar,char());
-
-};
-
-class MockScanner : public Scanner{
-public:
-    MockScanner(MockSource &source): Scanner(source){};
-    MOCK_METHOD2(scanError,void(int ec, std::string atom));
-    MOCK_METHOD2(scanError,void(SymbolType atom, std::string word));
-    MOCK_METHOD0(nextSymbol,SymbolType());
-
-};
+#include <boost/test/unit_test.hpp>
 
 
-TEST(ParserTest,Example_Parse_Test){
-    MockSource src("function xyz():void{} function main():void{}");
-    MockScanner scan(src);
-    EXPECT_CALL(scan,nextToken())
-    .Times(testing::AtLeast(1))
-    .WillOnce(testing::Return(FUNCSY));
-    Parser parser(scan);
+BOOST_AUTO_TEST_SUITE(ParserTest)
+
+BOOST_AUTO_TEST_CASE(basic_test){
+        Source src("function x():void{} function main():void{}",true);
+        Scanner scan(src);
+        Parser parser(scan);
+        std::unique_ptr<Program> program=parser.parse();
+        BOOST_CHECK_NO_THROW(program->execute());
 }
- */
 
+BOOST_AUTO_TEST_CASE(dividing_by_zero){
+    Source src("function x():void{} function main():void{int x = 1/0;}",true);
+    Scanner scan(src);
+    Parser parser(scan);
+    std::unique_ptr<Program> program=parser.parse();
+    BOOST_CHECK_THROW(program->execute(),std::runtime_error);
+}
 
+BOOST_AUTO_TEST_CASE(basic_assignment){
+    Source src("function x():void{} function main():void{int x=2+3;}",true);
+    Scanner scan(src);
+    Parser parser(scan);
+    std::unique_ptr<Program> program=parser.parse();
+    BOOST_CHECK_NO_THROW(program->execute());
+}
+
+BOOST_AUTO_TEST_CASE(variable_not_declared){
+    Source src("function x():void{} function main():void{int x=2+a;}",true);
+    Scanner scan(src);
+    Parser parser(scan);
+    BOOST_CHECK_THROW(parser.parse(),std::runtime_error);
+}
+
+BOOST_AUTO_TEST_SUITE_END()

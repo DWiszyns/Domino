@@ -32,7 +32,7 @@ auto Variable::getValue() {
 }
 
 auto Variable::getValueByIndex(unsigned int i) {
-    return std::make_unique<Node>(*nodes[i]);//nodes[i]->getValue();
+    return std::make_unique<Node>(*nodes[i]);
 }
 
 std::string Variable::getName() {

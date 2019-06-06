@@ -35,8 +35,7 @@ Variable *Scope::getVariable(std::string name) {
         for(auto& x:externalScope->variables)
             if(x->getName()==name) return x.get();
     }
-    Variable x;
-    return &x;
+    return nullptr;
 }
 
 void Scope::addVariable(std::unique_ptr<Variable> variable) {

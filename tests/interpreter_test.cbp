@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="interpreter_test"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\tests\;CMake Files\src\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dominik/CLionProjects/Domino/tests"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="basictests">
+				<Option output="/home/dominik/CLionProjects/Domino/tests/basictests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBOOST_TEST_DYN_LINK"/>
+					<Add directory="/home/dominik/CLionProjects/Domino/tests/../src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 basictests"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="basictests/fast">
+				<Option output="/home/dominik/CLionProjects/Domino/tests/basictests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBOOST_TEST_DYN_LINK"/>
+					<Add directory="/home/dominik/CLionProjects/Domino/tests/../src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 basictests/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestParser.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestRational.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestScan.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestSource.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestExpressionFactor.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestExpressions.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestSimpleExpression.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestValueFactor.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Statements/TestAssignment.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/TestNode.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/TestParametersDefinition.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/TestVariable.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/testsMain.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -16,11 +16,12 @@ Node SimpleExpression::execute() {
         }
         else {
             switch(*it){
-                case MULTIPLYSY:
+                case MULTIPLY:
                     tempFactor=std::make_unique<ValueFactor>(std::make_shared<Node>(
                             (tempFactor->calculate())*(factor->calculate())));
                     break;
-                case DIVIDESY:
+                case DIVIDE:
+                    if(factor->calculate()==0) throw std::runtime_error("error dividing by zero");
                     tempFactor=std::make_unique<ValueFactor>(std::make_shared<Node>(
                             (tempFactor->calculate())/(factor->calculate())));
                     break;

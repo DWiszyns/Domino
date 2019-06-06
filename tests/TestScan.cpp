@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(function_symbol_test){
         Source src("function x():void{} function main():void{}",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL( FUNCSY, c.getType());
+        BOOST_CHECK_EQUAL( FUNC, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(identifier_symbol_test){
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(void_symbol_test){
         Source src("void{} function main():void{}",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(VOIDSY, c.getType());
+        BOOST_CHECK_EQUAL(VOIDSYMBOL, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(openbracket_symbol_test){
@@ -70,42 +70,42 @@ BOOST_AUTO_TEST_CASE(main_symbol_test){
         Source src("main():void{}",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(MAINSY, c.getType());
+        BOOST_CHECK_EQUAL(MAIN, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(rational_symbol_test){
         Source src("rational",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(RATIONALSY, c.getType());
+        BOOST_CHECK_EQUAL(RATIONALSYMBOL, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(float_symbol_test){
         Source src("float",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(FLOATSY, c.getType());
+        BOOST_CHECK_EQUAL(FLOATSYMBOL, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(int_symbol_test){
         Source src("int",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(INTSY, c.getType());
+        BOOST_CHECK_EQUAL(INTSYMBOL, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(string_symbol_test){
         Source src("string",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(STRINGSY, c.getType());
+        BOOST_CHECK_EQUAL(STRINGSYMBOL, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(char_symbol_test){
         Source src("char",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(CHARSY, c.getType());
+        BOOST_CHECK_EQUAL(CHARSYMBOL, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(otablebracket_symbol_test){
@@ -168,28 +168,28 @@ BOOST_AUTO_TEST_CASE(plus_symbol_test){
         Source src("+",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(ADDSY, c.getType());
+        BOOST_CHECK_EQUAL(ADD, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(minus_symbol_test){
         Source src("-",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(SUBTRACTSY, c.getType());
+        BOOST_CHECK_EQUAL(SUBTRACT, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(multiply_symbol_test){
         Source src("*",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(MULTIPLYSY, c.getType());
+        BOOST_CHECK_EQUAL(MULTIPLY, c.getType());
 }
 
 BOOST_AUTO_TEST_CASE(divide_symbol_test){
         Source src("/",true);
         Scanner scan(src);
         Token c = scan.nextToken();
-        BOOST_CHECK_EQUAL(DIVIDESY, c.getType());
+        BOOST_CHECK_EQUAL(DIVIDE, c.getType());
 }
 
 

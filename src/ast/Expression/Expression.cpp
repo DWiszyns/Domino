@@ -16,13 +16,13 @@ Node Expression::execute() {
         }
         else {
             switch(*it){
-                case ADDSY:{
+                case ADD:{
                    tempFactors.push_back(std::make_unique<ValueFactor>
                             (std::make_shared<Node>(tempSimpleExpression->execute()+simpleExpression->execute())));
                     tempSimpleExpression=std::make_unique<SimpleExpression>(std::move(tempFactors),tempMultiplyOperators);
                     break;
                 }
-                case SUBTRACTSY: {
+                case SUBTRACT: {
                     tempFactors.push_back(std::make_unique<ValueFactor>
                             (std::make_shared<Node>(tempSimpleExpression->execute() - simpleExpression->execute())));
                     tempSimpleExpression = std::make_unique<SimpleExpression>(std::move(tempFactors),tempMultiplyOperators);

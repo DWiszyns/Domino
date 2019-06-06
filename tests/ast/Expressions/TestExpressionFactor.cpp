@@ -30,8 +30,8 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_ints){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(4)));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
         std::list<SymbolType> addSymbols;
@@ -48,8 +48,8 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_floats){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(4.0f)));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
         std::list<SymbolType> addSymbols;
@@ -69,8 +69,8 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_rationals){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(y))));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Node(z))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
         std::list<SymbolType> addSymbols;
@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE(expression_with_multiple_types){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
         std::list<SymbolType> addSymbols;
@@ -106,8 +106,8 @@ BOOST_AUTO_TEST_CASE(expression_with_adding_two_simpleexpressions){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
 
         std::list<std::unique_ptr<Factor>> factorsList2;
@@ -115,8 +115,8 @@ BOOST_AUTO_TEST_CASE(expression_with_adding_two_simpleexpressions){
         factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("2.1r"))));
         std::list<SymbolType> symbols2;
-        symbols2.push_back(MULTIPLYSY);
-        symbols2.push_back(DIVIDESY);
+        symbols2.push_back(MULTIPLY);
+        symbols2.push_back(DIVIDE);
         SimpleExpression simpleExpression2(std::move(factorsList2),symbols2);
 
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(expression_with_adding_two_simpleexpressions){
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression2)));
 
-        addSymbols.push_back(ADDSY);
+        addSymbols.push_back(ADD);
         Expression expression(std::move(simpleExpressions),addSymbols);
         ExpressionFactor expressionFactor(std::make_unique<Expression>(expression));
         BOOST_CHECK_EQUAL(expressionFactor.calculate().getValue().floatVal,42.0f);
@@ -137,8 +137,8 @@ BOOST_AUTO_TEST_CASE(expression_with_subtracting_two_simpleexpressions){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
 
         std::list<std::unique_ptr<Factor>> factorsList2;
@@ -146,8 +146,8 @@ BOOST_AUTO_TEST_CASE(expression_with_subtracting_two_simpleexpressions){
         factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("2.1r"))));
         std::list<SymbolType> symbols2;
-        symbols2.push_back(MULTIPLYSY);
-        symbols2.push_back(DIVIDESY);
+        symbols2.push_back(MULTIPLY);
+        symbols2.push_back(DIVIDE);
         SimpleExpression simpleExpression2(std::move(factorsList2),symbols2);
 
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(expression_with_subtracting_two_simpleexpressions){
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression)));
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression2)));
 
-        addSymbols.push_back(SUBTRACTSY);
+        addSymbols.push_back(SUBTRACT);
         Expression expression(std::move(simpleExpressions),addSymbols);
         ExpressionFactor expressionFactor(std::make_unique<Expression>(expression));
         BOOST_CHECK_EQUAL(expressionFactor.calculate().getValue().floatVal,-14.0f);
@@ -168,8 +168,8 @@ BOOST_AUTO_TEST_CASE(expression_with_equation_on_simpleexpressions){
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("4.1r"))));
         std::list<SymbolType> symbols;
-        symbols.push_back(MULTIPLYSY);
-        symbols.push_back(DIVIDESY);
+        symbols.push_back(MULTIPLY);
+        symbols.push_back(DIVIDE);
         SimpleExpression simpleExpression(std::move(factorsList),symbols);
 
         std::list<std::unique_ptr<Factor>> factorsList2;
@@ -177,8 +177,8 @@ BOOST_AUTO_TEST_CASE(expression_with_equation_on_simpleexpressions){
         factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList2.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("2.1r"))));
         std::list<SymbolType> symbols2;
-        symbols2.push_back(MULTIPLYSY);
-        symbols2.push_back(DIVIDESY);
+        symbols2.push_back(MULTIPLY);
+        symbols2.push_back(DIVIDE);
         SimpleExpression simpleExpression2(std::move(factorsList2),symbols2);
 
         std::list<std::unique_ptr<Factor>> factorsList3;
@@ -186,8 +186,8 @@ BOOST_AUTO_TEST_CASE(expression_with_equation_on_simpleexpressions){
         factorsList3.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(8.0f)));
         factorsList3.push_back(std::make_unique<ValueFactor>(std::make_shared<Node>(Rational("1.1r"))));
         std::list<SymbolType> symbols3;
-        symbols3.push_back(MULTIPLYSY);
-        symbols3.push_back(DIVIDESY);
+        symbols3.push_back(MULTIPLY);
+        symbols3.push_back(DIVIDE);
         SimpleExpression simpleExpression3(std::move(factorsList3),symbols3);
 
         std::list<std::unique_ptr<SimpleExpression>> simpleExpressions;
@@ -196,8 +196,8 @@ BOOST_AUTO_TEST_CASE(expression_with_equation_on_simpleexpressions){
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression2)));
         simpleExpressions.push_back(std::make_unique<SimpleExpression>(std::move(simpleExpression3)));
 
-        addSymbols.push_back(ADDSY);
-        addSymbols.push_back(SUBTRACTSY);
+        addSymbols.push_back(ADD);
+        addSymbols.push_back(SUBTRACT);
         Expression expression(std::move(simpleExpressions),addSymbols);
         ExpressionFactor expressionFactor(std::make_unique<Expression>(expression));
         BOOST_CHECK_EQUAL(expressionFactor.calculate().getValue().floatVal,-14.0f);

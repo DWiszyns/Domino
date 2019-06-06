@@ -1,7 +1,7 @@
 #Domino
 
 <h2>Polecenie</h2>
-Interpreter prostego jezyka deklaratywnego.
+Interpreter prostego jezyka imperatywnego.
 
 <h2>Uruchomienie</h2>
 Aby odpalic program nalezy miec zainstalowane:

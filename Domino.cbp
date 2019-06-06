@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Domino"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\tests\;CMake Files\src\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dominik/CLionProjects/Domino"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/dominik/CLionProjects/Domino"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/dominik/CLionProjects/Domino"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="basictests">
+				<Option output="/home/dominik/CLionProjects/Domino/tests/basictests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBOOST_TEST_DYN_LINK"/>
+					<Add directory="/home/dominik/CLionProjects/Domino/tests/../src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 basictests"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="basictests/fast">
+				<Option output="/home/dominik/CLionProjects/Domino/tests/basictests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DBOOST_TEST_DYN_LINK"/>
+					<Add directory="/home/dominik/CLionProjects/Domino/tests/../src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 basictests/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Domino">
+				<Option output="/home/dominik/CLionProjects/Domino/src/Domino" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 Domino"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Domino/fast">
+				<Option output="/home/dominik/CLionProjects/Domino/src/Domino" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 Domino/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="DominoLib">
+				<Option output="/home/dominik/CLionProjects/Domino/src/libDominoLib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 DominoLib"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="DominoLib/fast">
+				<Option output="/home/dominik/CLionProjects/Domino/src/libDominoLib.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dominik/CLionProjects/Domino/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 DominoLib/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/dominik/CLionProjects/Domino/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Parser.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Parser.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Rational.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Rational.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ScanDef.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Scanner.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Scanner.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Scope.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Scope.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Source.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Source.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Token.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/Token.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Content.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Content.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Condition.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Condition.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/ConditionalExpression.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/ConditionalExpression.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Expression.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Expression.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/ExpressionFactor.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/ExpressionFactor.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/Factor.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/Factor.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/ValueFactor.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/ValueFactor.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/Factor/factors.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/SimpleExpression.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Expression/SimpleExpression.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Function.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Function.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/MainFunction.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/MainFunction.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Node/Node.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Node/Node.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Node/Value.h">
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Node/Variable.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Node/Variable.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/ParametersDefinition.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/ParametersDefinition.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Program.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Program.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/Assignment.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/Assignment.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/ConditionalStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/ConditionalStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/ForStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/ForStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/IfStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/IfStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/ReturnStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/ReturnStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/Statement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/Statement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/VariableDeclaration.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/VariableDeclaration.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/WhileStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/WhileStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/WriteInStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/WriteInStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/WriteOutStatement.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/ast/Statements/WriteOutStatement.h">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/main.cpp">
+			<Option target="Domino"/>
+			<Option target="DominoLib"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestParser.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestRational.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestScan.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/TestSource.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestExpressionFactor.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestExpressions.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestSimpleExpression.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Expressions/TestValueFactor.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/Statements/TestAssignment.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/TestNode.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/TestParametersDefinition.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/ast/TestVariable.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/testsMain.cpp">
+			<Option target="basictests"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\"/>
+		</Unit>
+		<Unit filename="/home/dominik/CLionProjects/Domino/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

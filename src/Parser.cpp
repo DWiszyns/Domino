@@ -10,29 +10,29 @@
 #include "ast/Node/Variable.h"
 
 Parser::Parser(Scanner &s): scanner(s){
-    statementStart={WRITEIN,WRITEOUT,IDENTIFIER,RETURNSY};
-    types={INTSY,CHARSY,STRINGSY,FLOATSY,RATIONALSY,VOIDSY};
-    conditionalStatementStart={IFSY,WHILESY,FORSY};
+    statementStart={WRITEIN,WRITEOUT,IDENTIFIER,RETURN};
+    types={INTSYMBOL,CHARSYMBOL,STRINGSYMBOL,FLOATSYMBOL,RATIONALSYMBOL,VOIDSYMBOL};
+    conditionalStatementStart={IF,WHILE,FOR};
     statementValue={IDENTIFIER,INTCONST,CHARCONST,STRINGCONST,
-                    FLOATCONST,RATIONALCONST,BOOLEANSY};
-    multiplyOperator={MULTIPLYSY,DIVIDESY};
-    endOfStream={EOFSY,ENDOFTEXT};
-    signs={SUBTRACTSY, ADDSY};
+                    FLOATCONST,RATIONALCONST,BOOLEANSYMBOL};
+    multiplyOperator={MULTIPLY,DIVIDE};
+    endOfStream={EOFSYMBOL,ENDOFTEXT};
+    signs={SUBTRACT, ADD};
     relativeOperator={EQUALS, LESSOREQUAL, LESS, MORE, MOREOREQUAL,DIFFERENT};
-    logicalOperator={ANDSY, ORSY};
+    logicalOperator={AND, OR};
     nextSymbol();
     scope =  new Scope();
 }
 
 std::unique_ptr<Program> Parser::parse(){
-    accept(FUNCSY);
-    while(symbol!=MAINSY)
+    accept(FUNC);
+    while(symbol!=MAIN)
     {
         function();
         //scope->addFunction(function());
-        accept(FUNCSY);
+        accept(FUNC);
     }
-    accept(MAINSY);
+    accept(MAIN);
     MainFunction myMain(mainFunction());
     accept(endOfStream);
     return std::make_unique<Program>(myMain);
@@ -71,7 +71,7 @@ void Parser::accept(const std::set <SymbolType>& availableAtoms){
         std::set <SymbolType> availableAtomsSet (availableAtoms.begin(),availableAtoms.end());
         if(availableAtoms.find(symbol)!=availableAtoms.end())
             nextSymbol();
-        else syntaxErrorExpected(symbol);
+        else syntaxErrorUnexpected(symbol);
 }
 
 Function Parser::function() {
@@ -94,7 +94,7 @@ Function Parser::function() {
 MainFunction Parser::mainFunction() {
     parametersDefinition();
     accept(COLON);
-    accept(VOIDSY);
+    accept(VOIDSYMBOL);
     accept(OPENBRACKET);
     Content myContent(content());
     accept(CLOSEBRACKET);
@@ -176,16 +176,16 @@ std::unique_ptr<Statement> Parser::statement(){
                     accept(CTABLEBRACKET);
                 }
                 if (myVariable->getName() == "emptyvariable")
-                    throw "Variable not declared";
+                    throw std::runtime_error("Variable not declared");
                 statement=std::move(
                         assignment(myVariable,static_cast<unsigned int>(index)));
                 break;
             }
         }
-        case RETURNSY:{
+        case RETURN:{
             returnStatement();break;
         }
-        case INTSY:case STRINGSY: case RATIONALSY:case FLOATSY: case CHARSY:{
+        case INTSYMBOL:case STRINGSYMBOL: case RATIONALSYMBOL:case FLOATSYMBOL: case CHARSYMBOL:{
             statement =std::move(variableDeclaration());
             break;
         }
@@ -198,7 +198,7 @@ std::unique_ptr<Statement> Parser::statement(){
 }
 
 std::unique_ptr<IfStatement> Parser::ifStatement(){
-    accept(IFSY);
+    accept(IF);
     accept(OROUNDBRACKET);
     std::vector<std::unique_ptr<ConditionalExpression>> conditions;
     std::list<Content> contents;
@@ -212,9 +212,9 @@ std::unique_ptr<IfStatement> Parser::ifStatement(){
     bool canUseIf=true;
     scope=scope->getExternalScope();
     toDelete.push_back(newScope);
-    while (symbol == ELSESY){
+    while (symbol == ELSE){
         nextSymbol();
-        if(symbol==IFSY&&canUseIf){
+        if(symbol==IF&&canUseIf){
             accept(OROUNDBRACKET);
             conditions.push_back(std::move(conditionalExpression()));
             accept(CROUNDBRACKET);
@@ -226,9 +226,9 @@ std::unique_ptr<IfStatement> Parser::ifStatement(){
             toDelete.push_back(newScope2);
             accept(CLOSEBRACKET);
         }
-        else if(!canUseIf&&symbol==IFSY)
+        else if(!canUseIf&&symbol==IF)
             syntaxErrorUnexpected(symbol);
-        else if(canUseIf&&symbol!=IFSY){
+        else if(canUseIf&&symbol!=IF){
             canUseIf=false;
             accept(OPENBRACKET);
             auto * newScope3=new Scope(scope);
@@ -243,7 +243,7 @@ std::unique_ptr<IfStatement> Parser::ifStatement(){
 }
 
 std::unique_ptr<WhileStatement> Parser::whileStatement(){
-    accept(WHILESY);
+    accept(WHILE);
     accept(OROUNDBRACKET);
     std::unique_ptr<ConditionalExpression> conditional=std::move(conditionalExpression());
     accept(CROUNDBRACKET);
@@ -285,7 +285,7 @@ std::unique_ptr<WriteOutStatement> Parser::writeOutStatement(){
 
 std::unique_ptr<Factor> Parser::factor() {
     bool minus=false;
-    if(symbol==SUBTRACTSY){
+    if(symbol==SUBTRACT){
         minus=true;
         nextSymbol();
     }
@@ -295,8 +295,8 @@ std::unique_ptr<Factor> Parser::factor() {
       nextSymbol();
       if(currSymbol==IDENTIFIER){
           Variable *x(scope->getVariable(name));
-          if(x->getName()=="emptyvariable")
-              throw  "Variable not declared";
+          if(x==nullptr)
+              throw  std::runtime_error("Variable not declared");
           return std::make_unique<ValueFactor>(std::move(x->getNodeReference()));
       }
       /* funccall
@@ -366,11 +366,11 @@ void Parser::parameters() {
 
 std::unique_ptr<Statement> Parser::conditionalStatement() {
     switch(symbol) {
-        case IFSY:
+        case IF:
             return std::move(ifStatement());
-        case WHILESY:
+        case WHILE:
             return std::move(whileStatement());
-        case FORSY:
+        case FOR:
             forStatement();
             break;
         default:
@@ -380,7 +380,7 @@ std::unique_ptr<Statement> Parser::conditionalStatement() {
 }
 
 void Parser::forStatement() {
-    accept(FORSY);
+    accept(FOR);
     accept(OROUNDBRACKET);
     statement();
     accept(SEMICOLON);
@@ -394,7 +394,7 @@ void Parser::forStatement() {
 }
 
 void Parser::returnStatement() {
-    accept(RETURNSY);
+    accept(RETURN);
     expression();
 }
 
@@ -439,7 +439,7 @@ std::unique_ptr<Condition> Parser::condition() {
         std::unique_ptr<Expression> expressionRight=std::move(expression());
         return std::make_unique<Condition>(std::move(expressionLeft),std::move(expressionRight),relativesymbol,negative);
     }
-    return std::make_unique<Condition>(std::move(expressionLeft),false,ORSY,negative);
+    return std::make_unique<Condition>(std::move(expressionLeft),false,OR,negative);
 }
 
 ParametersDefinition Parser::parametersDefinition() {
@@ -473,25 +473,25 @@ ParametersDefinition Parser::parametersDefinition() {
 }
 
 void Parser::skipTo(SymbolType atom){
-    while(symbol!=atom&&symbol!=EOFSY) 
+    while(symbol!=atom&&symbol!=EOFSYMBOL)
         nextSymbol();
     nextSymbol();    
 }
 
 void Parser::skipTo(std::set<SymbolType> atoms){
-    while(atoms.find(symbol)==atoms.end()&&symbol!=EOFSY) 
+    while(atoms.find(symbol)==atoms.end()&&symbol!=EOFSYMBOL)
         nextSymbol();
     nextSymbol();
 }
 
 TypeKind Parser::getTypeFromSymbol(SymbolType symbol) {
     switch(symbol){
-        case INTSY:return INT;
-        case FLOATSY:return FLOAT;
-        case STRINGSY:return STRING;
-        case CHARSY:return CHAR;
-        case BOOLEANSY:return BOOLEAN;
-        case RATIONALSY:return RATIONAL;
+        case INTSYMBOL:return INT;
+        case FLOATSYMBOL:return FLOAT;
+        case STRINGSYMBOL:return STRING;
+        case CHARSYMBOL:return CHAR;
+        case BOOLEANSYMBOL:return BOOLEAN;
+        case RATIONALSYMBOL:return RATIONAL;
         default:return INT;
     }
 }

@@ -29,10 +29,10 @@ bool ConditionalExpression::evaluate() {
         }
         else {
             switch(*it){
-                case ANDSY:
+                case AND:
                     tempFlag=tempFlag&&condition->evaluate();
                     break;
-                case ORSY:
+                case OR:
                     tempFlag=tempFlag||condition->evaluate();
                     break;
                 default:break;
